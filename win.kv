@@ -1,0 +1,151 @@
+WindowManager:
+    Home:
+    Information:
+    GPS:
+    TradeMap:
+    
+<Home>:
+    name: "Home"
+    
+    
+    FloatLayout:
+        cols:1
+    
+
+        Button:
+            pos_hint:{"x":0.3, "y":0.75}
+            size_hint: 0.4, 0.2
+            text: "Information"
+            on_release: 
+                app.root.current = "Information"
+                root.manager.transition.direction = "left"
+                
+        Button:
+            pos_hint:{"x":0.3, "y":0.5}
+            size_hint: 0.4, 0.2
+            text: "GPS"
+            on_release: 
+                app.root.current = "GPS"
+                root.manager.transition.direction = "left"
+                
+        Button:
+            pos_hint:{"x":0.3, "y":0.25}
+            size_hint: 0.4, 0.2
+            text: "TradeMap"
+            on_release: 
+                app.root.current = "TradeMap"
+                root.manager.transition.direction = "left"
+                
+        Button:
+            pos_hint:{"x":0.3, "y":0.0}
+            size_hint: 0.4, 0.2        
+            text: "Notification Settings"
+            on_release: root.btn()                
+    
+<Information>:
+    name: "Information"
+    
+            
+    FloatLayout:
+        Label:
+            id: n
+            pos_hint:{"x": 0, "top":0.9}
+            size_hint:0.8, 0.2
+            text: "This tool is designed to estimate the environmental benefits of recycling your electronic waste with Certified Recyclers. \n \nThe environmental benefits are measured in three critical areas: \n    1) Greenhouse gas avoidance \n    2) Toxic metals diverted from export, dumping or disposal, \n    3) Valuable metals diverted from landfill or disposal \n \n While the best available data has been used in these calculations to produce the estimations, they are estimations. As new or better data becomes available the tool will be updated. As with all estimation tools, certain assumptions have been made to approximate average or normal conditions. \n To view the factors, assumptions and data sources for the calculator please visit: \n \n http://www.ban.org/app-backend/"
+            text_size: self.width-200, None
+            color: 0 ,0 ,0, 1
+            size_hint: 1, None
+            height: self.texture_size[1]
+        
+       
+        Button:
+            pos_hint:{"x":0.3, "y":0.1}
+            size_hint: 0.4, 0.05
+            text: "Go Back"
+            on_release: 
+                app.root.current = "Home"
+                root.manager.transition.direction = "right"
+                
+<GPS>:
+    name: "GPS"
+    
+
+    FloatLayout:
+    
+        Label:
+            id: l
+            pos_hint:{"x": 0.05, "top":0.9}
+            size_hint:0.8, 0.2
+            text: "Using GPS, this page will direct you to the nearest location accepting e-waste"
+            text_size: self.width-200, None
+            color: 0 ,0 ,0, 1
+            size_hint: 1, None
+            height: self.texture_size[1]
+            
+        Label:
+            Image: 
+                id: image
+                source: "ewastecoll.jpg"
+                pos_hint: {"left":1, "bottom":1}
+                size_hint: None, None
+                size: 400, 400
+                allow_stretch: False
+                keep_ratio: False
+                
+            
+        Button:
+            pos_hint:{"x":0.3, "y":0.1}
+            size_hint: 0.4, 0.05
+            text: "Go Back"
+            on_release: 
+                app.root.current = "Home"
+                root.manager.transition.direction = "right"
+                
+                
+<TradeMap>:
+    name: "TradeMap"
+    
+
+    FloatLayout:
+    
+        Label:
+            id: m
+            pos_hint:{"x": 0.05, "top":0.9}
+            size_hint:0.8, 0.2
+            text: "Enter location and show nearby phone trade-in shops within XXX m radius"
+            text_size: self.width-200, None
+            color: 0 ,0 ,0, 1
+            size_hint: 1, None
+            height: self.texture_size[1]
+            
+        TextInput:
+            id: location
+            pos_hint:{"x": 0.2, "top":0.8}
+            size_hint:0.6, 0.08
+            multiline:False
+    
+        Label:
+            Image: 
+                id: image
+                source: "tradein.jpg"
+                pos_hint: {"left":1, "bottom":1}
+                size_hint: None, None
+                size: 400, 400
+                allow_stretch: False
+                keep_ratio: False
+            
+        Button:
+            pos_hint:{"x":0.3, "y":0.1}
+            size_hint: 0.4, 0.05
+            text: "Go Back"
+            on_release: 
+                app.root.current = "Home"
+                root.manager.transition.direction = "right"
+                
+
+<P>:
+    Label:
+        text: "Remember to recycle \n at least once every two weeks!"
+        size_hint: 0.6, 0.2
+        pos_hint: {"x":0.2, "top":1}
+        
