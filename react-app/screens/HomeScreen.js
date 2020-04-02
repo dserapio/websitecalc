@@ -8,7 +8,7 @@ import { MonoText } from '../components/StyledText';
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.welcomeContainer}>
           <Image
             source={
@@ -21,7 +21,6 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.getStartedContainer}>
-
           {/*<Text style={styles.getStartedText}>Open up the code for this screen:</Text>
 
           <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
@@ -32,31 +31,31 @@ export default function HomeScreen() {
             This tool is designed to estimate the environmental benefits of recycling 
             your electronic waste with Certified Recyclers.
           </Text>
-          <FlatList
-            data={[
-              {num: 1, info: 'Greenhouse gas avoidance'},
-              {num: 2, info: 'Toxic metals diverted from export, dumping or disposal'},
-              {num: 3, info: 'Valuable metals diverted from landfill or disposal'}
-            ]}
-            renderItem={({item}) => <Text style={styles.item}>{item.num}) {item.info}</Text>}
-          />
+
+          <Text style={{...styles.getStartedText, ...{paddingTop: 10}}}>
+            The environmental benefits are measured in three critical areas:
+          </Text>
+          <View style={styles.list}>
+            <Text style={styles.item}>1) Greenhouse gas avoidance</Text>
+            <Text style={styles.item}>2) Toxic metals diverted from export, dumping or disposal</Text>
+            <Text style={styles.item}>3) Valuable metals diverted from landfill or disposal</Text>
+          </View>
+        </View>
+        
+        <View style={styles.helpContainer}>
           <Text style={styles.helpLink}>
             While the best available data has been used in these calculations to produce 
             the estimations, they are estimations. As new or better data becomes available 
             the tool will be updated. As with all estimation tools, certain assumptions have 
             been made to approximate average or normal conditions.
           </Text>
-
-        </View>
-
-        <View style={styles.helpContainer}>
           <TouchableOpacity onPress={handleLearnMorePress} style={styles.helpLink}>
             <Text style={styles.helpLinkText}>
               The factors, assumptions and data sources for 
               the calculator
             </Text>
           </TouchableOpacity>
-        </View>
+      </View> 
       </ScrollView>
 
       {/*
@@ -110,9 +109,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   item: {
-    padding: 2,
-    fontSize: 16,
-    height: 25,
+    fontSize: 14,
+  },
+  list: {
+    alignItems: 'flex-start',
+    padding: 10,
+    paddingTop: -5
   },
   developmentModeText: {
     marginBottom: 20,
@@ -122,7 +124,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 20,
+    paddingBottom: 30
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -155,7 +158,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   tabBarInfoContainer: {
     position: 'absolute',
@@ -175,10 +178,10 @@ const styles = StyleSheet.create({
     }),
     alignItems: 'center',
     backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   tabBarInfoText: {
-    fontSize: 17,
+    fontSize: 12,
     color: 'rgba(96,100,109, 1)',
     textAlign: 'center',
   },
@@ -188,9 +191,10 @@ const styles = StyleSheet.create({
   helpContainer: {
     marginTop: 15,
     alignItems: 'center',
+    marginHorizontal: 50,
   },
   helpLink: {
-    paddingVertical: 15,
+    paddingVertical: 1,
   },
   helpLinkText: {
     fontSize: 14,

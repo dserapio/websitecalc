@@ -11,7 +11,7 @@ export default function MapScreen() {
               accepting e-waste
             </Text>
             <Image
-                source={require('../../ewastecoll.JPG')}
+                source={require('../assets/images/map-view.png')}
                 style={styles.mapImage}
             />
             <TextInput
@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     },
     mapImage: {
       width: 500,
-      height: 400,
-      resizeMode: 'stretch',
+      height: 320,
+      resizeMode: 'contain',
       marginTop: 3,
       marginLeft: -10,
     },
