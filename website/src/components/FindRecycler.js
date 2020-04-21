@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
  
-export default function Contact() {
+export default function FindRecycler() {
     return (
        <div>
           <h1>Contact US</h1>

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
  
-export default function About() {
+export default function Calculator() {
     return (
        <div>
           <h1>About US</h1>
