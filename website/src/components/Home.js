@@ -1,13 +1,13 @@
 import React from 'react';
 import '../App.css';
  
-function Home () {
+export default function Home () {
     return (
        <div>
           <h1>Home</h1>
-           <p>Home page body content</p>
+          <p>
+            You should recycle
+          </p>
        </div>
     );
 }
- 
-export default Home;

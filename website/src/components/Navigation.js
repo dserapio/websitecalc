@@ -3,14 +3,12 @@ import '../App.css';
  
 import { NavLink } from 'react-router-dom';
  
-function Navigation() {
+export default function Navigation() {
     return (
-       <div className="App-link">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
+       <div className="nav-list">
+          <NavLink className="nav-link" to="/">Information</NavLink>
+          <NavLink className="nav-link" to="/about">Calculator</NavLink>
+          <NavLink className="nav-link" to="/contact">Find Recycler</NavLink>
        </div>
     );
 }
- 
-export default Navigation;
