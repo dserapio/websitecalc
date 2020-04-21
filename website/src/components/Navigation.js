@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../App.css';
-import logo from '../img/download.jpg'
+import logo from '../img/e-stewards.png'
  
 export default function Navigation() {
     return (

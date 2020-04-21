@@ -52,7 +52,9 @@
 }
 
 .logo {
-  width: 100px;
+  padding: 2px;
+  padding-left: 20px;
+  width: 150px;
   margin-top: 4px;
 }
 
