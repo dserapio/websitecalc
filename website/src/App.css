@@ -72,9 +72,9 @@
 }
 
 .nav-link {
-  background: #424242;
+  background: #242525;
   display: block;
-  color: #ffff;
+  color: #dadce1;
   padding: 10px;
   text-decoration: none;
   transition: all 0.5s ease;
@@ -82,12 +82,11 @@
 }
 
 .nav-link:hover {
-  background: #353535;
-  color: orange;
+  background: #484a4d;
 }
 
 .nav {
-  background: #424242;
+  background: #242525;
   display: flex;
   justify-content: space-between;
   align-items: center;
