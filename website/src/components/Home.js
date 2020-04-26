@@ -10,36 +10,47 @@ export default function Home () {
       'https://media.npr.org/assets/artslife/arts/2010/12/electronic-computer-waste/jim-puckett-096290b7435a25075e8cfdf71ff79eb5240e1f01-s800-c85.jpg',
    ]
 
-    return (
-       <div>
-          <p className="statement">
-          e-Stewards is the 
-          globally responsible way to 
-          recycle your electronics.
-          </p>
+   return (
+      <div>
+         <div className="title">
+            <h1>
+               e-Stewards is the 
+               globally responsible way to 
+               recycle your electronics.
+            </h1>
+         </div>
+          
+         <div className="slider">
+            <Slider slides={images} autoPlay={10}/>
+          </div>
 
-          <Slider slides={images} autoPlay={10}/>
-
-         <div className="biggerbox">
-            <div className="bigbox">
-               <p className="littlebox">
-               FOR ENTERPRISES
-               Use the highest industry 
-               standard for your asset 
-               disposition
+         <div className="moreinfo">
+            <div className="littlebox">
+               <h2>FOR ENTERPRISES</h2>
+               <p>
+                  Use the highest industry 
+                  standard for your asset 
+                  disposition.
                </p>
+               <a href="http://e-stewards.org/learn-more/for-enterprises/"> Learn More</a>
+            </div>
 
-               <p className="littlebox">
-               FOR RECYCLERS
-               Differentiate your business 
-               with the e-Stewards Standard.
+            <div className="littlebox">
+               <h2>FOR RECYCLERS</h2>
+               <p>
+                  Differentiate your business 
+                  with the e-Stewards Standard.
                </p>
+               <a href="http://e-stewards.org/learn-more/for-recyclers/"> Learn More</a>
+            </div>
 
-               <p className="littlebox">
-               FOR CONSUMERS
-               Join us today in creating a 
-               cleaner, more just world.
+            <div className="littlebox">
+               <h2>FOR CONSUMERS</h2>
+               <p>
+                  Join us today in creating a 
+                  cleaner, more just world. 
                </p>
+               <a href="http://e-stewards.org/learn-more/for-consumers/"> Learn More</a>
             </div>
          </div>
           

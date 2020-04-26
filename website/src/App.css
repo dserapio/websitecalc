@@ -58,7 +58,7 @@
 
 .logoBtn {
   background: #FEF5F5;
-  padding: 10px;
+  padding: 6px;
   padding-left: 50px;
   display: flex;
   justify-content: space-between;
@@ -106,38 +106,60 @@
 }
 
 .map {
-  margin-top: 122px;
+  margin-top: 115px;
 }
 
 .content {
   margin-top: 130px;
-  margin-left: 20%;
-  width: 100%;
+  margin-left: 10%;
+  width: 80%;
 }
 
-.statement {
-  margin-top: 100px;
+.title { 
+  background-color: rgba(254, 245, 245, 0.65);
+  z-index: 1;
+  position: absolute;
+  margin-top: 123px;
+  width: 90%;
+  margin-left: 4%;
   padding: 10px;
-  font-size: 30px;
+  z-index: 1;
+}
+
+.title h1 {
+  font-size: calc(5px + 3vmin);
+  font-weight: 650;
   text-align: center;
 }
 
-.biggerbox {
-  display: flex;
+.moreinfo {
   justify-content: center;
-}
-
-.bigbox {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 800px;
+  position: absolute;
+  margin-top: calc(-150px - 7.5vh);
+  margin-left: 7%;
+  width: 85%;
+  column-count: 3;
+  column-gap: 40px;
 }
 
 .littlebox {
-  display: flex;
+  background-color: rgba(254, 245, 245, 0.65);
   padding: 10px;
-  justify-content: center;
-  width: 150px;
-  font-size: 18px;
+  justify-content: left;
+  font-size: calc(1px + 2vmin);
+  font-weight: 550;
+  border-radius: 5%;
 }
+
+.littlebox a, .littlebox p {
+  color: black;
+}
+
+.littlebox h2 {
+  font-size: calc(1px + 2.5vmin);
+}
+
+.littlebox a:hover {
+  background-color: #909090;;
+}
+
