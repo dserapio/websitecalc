@@ -52,14 +52,14 @@
 }
 
 .logo {
-  width: 175px;
+  width: 155px;
   margin: 2px;
 }
 
 .logoBtn {
   background: #FEF5F5;
   padding: 6px;
-  padding-left: 50px;
+  padding-left: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -106,7 +106,7 @@
 }
 
 .map {
-  margin-top: 115px;
+  margin-top: 105px;
 }
 
 .content {
@@ -119,7 +119,7 @@
   background-color: rgba(254, 245, 245, 0.65);
   z-index: 1;
   position: absolute;
-  margin-top: 123px;
+  margin-top: 120px;
   width: 90%;
   margin-left: 4%;
   padding: 10px;
