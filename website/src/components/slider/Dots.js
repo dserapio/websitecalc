@@ -9,7 +9,7 @@ const Dot = ({ active }) => (
       margin-right: 5px;
       cursor: pointer;
       border-radius: 50%;
-      background: ${active ? 'green' : 'white'};
+      background: ${active ? '#B2FF03' : 'white'};
     `}
   />
 )
