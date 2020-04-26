@@ -12,7 +12,37 @@ export default function Home () {
 
     return (
        <div>
+          <p className="statement">
+          e-Stewards is the 
+          globally responsible way to 
+          recycle your electronics.
+          </p>
+
           <Slider slides={images} autoPlay={10}/>
+
+         <div className="biggerbox">
+            <div className="bigbox">
+               <p className="littlebox">
+               FOR ENTERPRISES
+               Use the highest industry 
+               standard for your asset 
+               disposition
+               </p>
+
+               <p className="littlebox">
+               FOR RECYCLERS
+               Differentiate your business 
+               with the e-Stewards Standard.
+               </p>
+
+               <p className="littlebox">
+               FOR CONSUMERS
+               Join us today in creating a 
+               cleaner, more just world.
+               </p>
+            </div>
+         </div>
+          
        </div>
     );
 }
