@@ -12,11 +12,7 @@ export default function Home () {
 
     return (
        <div>
-          <h1>Home</h1>
           <Slider slides={images}/>
-          <p>
-            You should recycle
-          </p>
        </div>
     );
 }

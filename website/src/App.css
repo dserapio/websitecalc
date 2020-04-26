@@ -52,9 +52,9 @@
 }
 
 .logo {
-  padding: 2px;
-  padding-left: 20px;
-  padding-bottom: 3px;
+  padding: 1px;
+  padding-left: 15px;
+  padding-bottom: 4px;
   width: 150px;
   margin-top: 4px;
 }
@@ -91,6 +91,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  top: 0px;
+  right: 0px;
   padding:0 20px;
 }
 
