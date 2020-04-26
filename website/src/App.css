@@ -52,9 +52,9 @@
 }
 
 .logo {
-  padding: 1px;
-  padding-left: 15px;
-  padding-bottom: 4px;
+  padding: 2px;
+  padding-left: 25px;
+  padding-bottom: 5px;
   width: 150px;
   margin-top: 4px;
 }
@@ -97,6 +97,7 @@
   top: 0px;
   right: 0px;
   padding:0 20px;
+  opacity: 0.85;
 }
 
 .nav ul a {
