@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #23232e;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -60,7 +60,7 @@
 }
 
 .logoBtn {
-  background: #424242;
+  background: #FEF5F5;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -73,21 +73,21 @@
 }
 
 .nav-link {
-  background: #242525;
+  background: #FEF5F5;
   display: block;
-  color: #dadce1;
+  color: black;
   padding: 10px;
   text-decoration: none;
   transition: all 0.5s ease;
-  font-size: 18px;
+  font-size: 23px;
 }
 
 .nav-link:hover {
-  background: #484a4d;
+  background: #909090;
 }
 
 .nav {
-  background: #242525;
+  background: #FEF5F5;
   display: flex;
   justify-content: space-between;
   align-items: center;
