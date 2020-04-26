@@ -103,3 +103,30 @@
 .nav ul a {
   background: transparent;
 }
+
+.statement {
+  margin-top: 100px;
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.biggerbox {
+  display: flex;
+  justify-content: center;
+}
+
+.bigbox {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 800px;
+}
+
+.littlebox {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  width: 150px;
+  font-size: 18px;
+}
