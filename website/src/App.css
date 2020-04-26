@@ -52,15 +52,14 @@
 }
 
 .logo {
-  padding: 2px;
-  padding-left: 25px;
-  padding-bottom: 5px;
-  width: 150px;
-  margin-top: 4px;
+  width: 175px;
+  margin: 2px;
 }
 
 .logoBtn {
   background: #FEF5F5;
+  padding: 10px;
+  padding-left: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -76,7 +75,9 @@
   background: #FEF5F5;
   display: block;
   color: black;
-  padding: 10px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
   text-decoration: none;
   transition: all 0.5s ease;
   font-size: 23px;
@@ -96,10 +97,20 @@
   width: 100%;
   top: 0px;
   right: 0px;
-  padding:0 20px;
+  padding: 0 20px;
   opacity: 0.85;
 }
 
 .nav ul a {
   background: transparent;
+}
+
+.map {
+  margin-top: 122px;
+}
+
+.content {
+  margin-top: 130px;
+  margin-left: 20%;
+  width: 100%;
 }

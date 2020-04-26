@@ -140,5 +140,4 @@ const SliderCSS = css`
   overflow: hidden;
   white-space: nowrap;
 `
-
 export default Slider
