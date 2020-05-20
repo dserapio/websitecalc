@@ -4,8 +4,16 @@ import '../App.css';
 export default function Calculator() {
     return (
        <div className="content">
-          <h1>Find Out Material Yields</h1>
-          <p>Enter in any electronic, and we'll breakdown what it's made of</p>
+         <form>
+            <input className="TextField" defaultValue="Total Laptops" />
+            <input className="TextField" defaultValue="Total Desktop and Servers" />
+            <input className="TextField" defaultValue="Total Flat Panel Displats (LCDs)" />
+            <input className="TextField" defaultValue="Total Mobile Phones" />
+            <input className="TextField" defaultValue="Total Imaging Devices" />
+            <input className="TextField" defaultValue="Total Others(Mice, Keyboards, etc.)" />
+         </form>
+
+         <button>Calculate</button>
        </div>
     );
 }

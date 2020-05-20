@@ -163,3 +163,27 @@
   background-color: #909090;;
 }
 
+.TextField {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  width: 100%;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid black;
+  outline: none;
+  text-align: center;
+  margin: 10px;
+}
+
+button {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 16px;
+  border: none;
+  background-color: white;
+  margin: 10px;
+  outline: none;
+  color: blue;
+}
+
+button:hover {
+  cursor: pointer;
+}
