@@ -172,18 +172,28 @@
   outline: none;
   text-align: center;
   margin: 10px;
+  margin-bottom: 25px;
 }
 
 button {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 16px;
-  border: none;
-  background-color: white;
+  position: relative;
+  display: block;
+  font-size: 20px;
+  padding: 10px 20px;
+  background: none;
   margin: 10px;
   outline: none;
-  color: blue;
+  overflow: hidden;
+  border: 2px solid #0B0332;
 }
 
 button:hover {
   cursor: pointer;
+}
+
+label {
+  font-size: 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 10px;
 }
