@@ -115,6 +115,36 @@
   width: 80%;
 }
 
+.content section {
+  width: 73%;
+}
+
+.content section p {
+  padding-left: 6px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.content section h2 {
+  font-weight: 600;
+  font-size: 18px;
+  padding-bottom: 2px;
+}
+
+.content section ol {
+  padding-left: 30px;
+  padding-bottom: 3px;
+}
+
+.page-link {
+  float: right;
+  margin-right: -10px;
+}
+
+.page-link:hover {
+  background-color: #909090;
+}
+
 .title { 
   background-color: rgba(254, 245, 245, 0.75);
   z-index: 1;
@@ -159,10 +189,10 @@
 }
 
 .littlebox a:hover {
-  background-color: #909090;;
+  background-color: #909090;
 }
 
-.TextField {
+.textfield {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   width: 100%;
   font-size: 16px;
