@@ -7,7 +7,6 @@ export default function Information() {
          <h1>Information</h1>
 
          <h2>General Information</h2>
-
          <p>
             80% of our collective e-waste is wasted by being left in landfills. Electronics are filled
             with recoverable resources such as copper, gold, platinum, and steel among other metals.
@@ -20,7 +19,6 @@ export default function Information() {
          </p>
 
          <h2>Developing Countries</h2>
-
          <p>
             Most electronics are thrown away because they are broken and people aren’t sure how to fix them.
             These electronics are being thrown away at such a high rate there aren't enough recyclers to handle
@@ -31,13 +29,12 @@ export default function Information() {
          </p>
 
          <h2>Refurbishment</h2>
-
          <p>
             Much of our generated e-waste is because we perceive these electronics as broken. A good amount of
             e-waste that is thrown away can be fixed. There are many places online that can show you how to fix
-         your electronics. <a href="https://www.ifixit.com/Right-to-Repair/E-waste#">ifixit</a> is one example
-         of showing you how to fix your broken electronics. By doing this you can help the environment and others
-         by not adding to the vast ocean of e-waste that has accumulated over the years
+            your electronics. <a href="https://www.ifixit.com/Right-to-Repair/E-waste#">ifixit</a> is one example
+            of showing you how to fix your broken electronics. By doing this you can help the environment and others
+            by not adding to the vast ocean of e-waste that has accumulated over the years
          </p>
       </div>
    );

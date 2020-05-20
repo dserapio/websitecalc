@@ -52,13 +52,13 @@
 }
 
 .logo {
-  width: 155px;
-  margin: 2px;
+  width: 150px;
+  margin: 1px;
 }
 
 .logoBtn {
   background: #FEF5F5;
-  padding: 6px;
+  padding: 5px;
   padding-left: 60px;
   display: flex;
   justify-content: space-between;
@@ -116,14 +116,13 @@
 }
 
 .title { 
-  background-color: rgba(254, 245, 245, 0.65);
+  background-color: rgba(254, 245, 245, 0.75);
   z-index: 1;
   position: absolute;
   margin-top: 120px;
   width: 90%;
   margin-left: 4%;
   padding: 10px;
-  z-index: 1;
 }
 
 .title h1 {
@@ -143,7 +142,7 @@
 }
 
 .littlebox {
-  background-color: rgba(254, 245, 245, 0.65);
+  background-color: rgba(254, 245, 245, 0.75);
   padding: 10px;
   justify-content: left;
   font-size: calc(1px + 2vmin);
@@ -170,7 +169,6 @@
   border: none;
   border-bottom: 2px solid black;
   outline: none;
-  text-align: center;
   margin: 10px;
   margin-bottom: 25px;
 }

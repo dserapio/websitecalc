@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { css, jsx } from '@emotion/core'
 import SliderContent from './SliderContent'
 import Slide from './Slide'
@@ -69,11 +69,11 @@ const Slider = props => {
         clearInterval(interval)
       }
     }
-  }, [])
+  }, [props.autoPlay])
 
   useEffect(() => {
     if (transition === 0) setState({ ...state, transition: 0.45 })
-  }, [transition])
+  }, [transition, state])
 
   const handleResize = () => {
     setState({ ...state, translate: getWidth(), transition: 0 })
