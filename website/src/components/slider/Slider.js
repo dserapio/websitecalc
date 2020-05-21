@@ -22,10 +22,11 @@ const Slider = props => {
     activeSlide: 0,
     translate: getWidth(),
     transition: 0.45,
-    _slides: [lastSlide, firstSlide, secondSlide]
+    _slides: [lastSlide, firstSlide, secondSlide],
+    updating: false
   })
 
-  const { activeSlide, translate, _slides, transition } = state
+  const { activeSlide, translate, _slides, transition, updating } = state
 
   const autoPlayRef = useRef()
   const transitionRef = useRef()
@@ -42,26 +43,22 @@ const Slider = props => {
       autoPlayRef.current()
     }
 
-    let interval = null
-
-    if (props.autoPlay) {
-      interval = setInterval(play, props.autoPlay * 1000)
-    }
+    let interval = props.autoPlay
+      ? setInterval(play, props.autoPlay * 1000)
+      : null;
 
     const smooth = e => {
       if (e.target.className.includes('SliderContent')) {
-        transitionRef.current();
+        transitionRef.current()
 
-        if (interval != null) { //reset timer
+        if (interval !== null) { //reset timer
           clearInterval(interval);
-          interval = setInterval(play, props.autoPlay * 1000);
+          interval = setInterval(play, props.autoPlay * 1000)
         }
       }
     }
 
-    const resize = () => {
-      resizeRef.current()
-    }
+    const resize = () => resizeRef.current();
 
     const transitionEnd = window.addEventListener('transitionend', smooth)
     const onResize = window.addEventListener('resize', resize)
@@ -71,51 +68,62 @@ const Slider = props => {
       window.removeEventListener('resize', onResize)
 
       if (props.autoPlay) {
-        clearInterval(interval);
+        clearInterval(interval)
       }
     }
   }, [props.autoPlay])
 
   useEffect(() => {
-    if (transition === 0) setState({ ...state, transition: 0.45 })
-  }, [transition, state])
+    setState(state => (
+      state.transition === 0
+        ? { ...state, transition: 0.45, updating: false }
+        : state
+    ))
+  }, [transition])
 
   const handleResize = () => {
     setState({ ...state, translate: getWidth(), transition: 0 })
   }
 
   const smoothTransition = () => {
-    let _slides = []
+    let newSlides = []
 
-    // We're at the last slide.
-    if (activeSlide === slides.length - 1)
-      _slides = [slides[slides.length - 2], lastSlide, firstSlide]
-    // We're back at the first slide. Just reset to how it was on initial render
-    else if (activeSlide === 0) _slides = [lastSlide, firstSlide, secondSlide]
-    // Create an array of the previous last slide, and the next two slides that follow it.
-    else _slides = slides.slice(activeSlide - 1, activeSlide + 2)
+    if (activeSlide === slides.length - 1) // We're at the last slide.
+      newSlides = [slides[slides.length - 2], lastSlide, firstSlide]
+    else if (activeSlide === 0) // We're back at the first slide. Just reset to how it was on initial render
+      newSlides = [lastSlide, firstSlide, secondSlide]
+    else // Create an array of the previous last slide, and the next two slides that follow it.
+      newSlides = slides.slice(activeSlide - 1, activeSlide + 2)
 
     setState({
       ...state,
-      _slides,
+      _slides: newSlides,
       transition: 0,
       translate: getWidth()
-    })
+    });
   }
 
-  const nextSlide = () =>
-    setState({
-      ...state,
-      translate: translate + getWidth(),
-      activeSlide: activeSlide === slides.length - 1 ? 0 : activeSlide + 1
-    })
+  const nextSlide = () => {
+    if (!updating) {
+      setState({
+        ...state,
+        translate: translate + getWidth(),
+        activeSlide: activeSlide === slides.length - 1 ? 0 : activeSlide + 1,
+        updating: true
+      })
+    }
+  }
 
-  const prevSlide = () =>
-    setState({
-      ...state,
-      translate: 0,
-      activeSlide: activeSlide === 0 ? slides.length - 1 : activeSlide - 1
-    })
+  const prevSlide = () => {
+    if (!updating) {
+      setState({
+        ...state,
+        translate: 0,
+        activeSlide: activeSlide === 0 ? slides.length - 1 : activeSlide - 1,
+        updating: true
+      })
+    }
+  }
 
   return (
     <div css={SliderCSS}>
@@ -145,5 +153,4 @@ const SliderCSS = css`
   overflow: hidden;
   white-space: nowrap;
 `
-
 export default Slider

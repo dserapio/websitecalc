@@ -11,56 +11,72 @@ const fieldLabels = [
    "Total Others(Mice, Keyboards, etc.)"
 ];
 
+const fieldStarts = () => (
+   fieldNames.reduce((obj, name) => ({...obj, [name]: ''}), {})
+);
 
 export default function Calculator() {
    const [about, setAbout] = useState(false);
    const [enter, setEnter] = useState(false);
-   const [inputs, setInputs] = useState(
-      fieldNames.reduce((obj, name) => ({...obj, [name]: ''}), {})
-   );
+   const [inputs, setInputs] = useState(fieldStarts);
    const [results, setResults] = useState({});
 
-   const calculate = (inputs) => {
-      //calculate based on inputs
-      let value = inputs; //temp
-      setResults(value);
-      setEnter(true);
+   const bufferInput = (newInputs, leave=true) => {
+      setInputs(newInputs);
+      if (leave) {
+         //calculate based on inputs
+         let value = newInputs; //temp
+         setResults(value);
+         setEnter(true);
+      }
    };
-   const back = () => setEnter(false);
+   const back = () => {
+      setInputs(fieldStarts);
+      setEnter(false);
+   }
    const onAbout = () => setAbout(about => !about);
-
-   const aboutBut = <button className="page-link" type="button" onClick={onAbout}>About</button>;
 
    return (
       <div className="content">
-         {about && <About funct={onAbout}/>}
-         {!about && !enter && <Input about={aboutBut} jump={calculate} state={[inputs, setInputs]}/>}
-         {!about && enter && <Results about={aboutBut} jump={back} values={results}/>}
+         {about && <About calc={onAbout}/>}
+         {!about && !enter && <Input about={onAbout} buffer={bufferInput} start={inputs}/>}
+         {!about && enter && <Results about={onAbout} back={back} values={results}/>}
       </div>
     );
 }
 
 
-const Input = ({state, jump, about}) => {
-   const [inputs, setInputs] = state;
+const Input = ({start, buffer, about}) => {
+   const [inputs, setInputs] = useState({...start});
    const [valid, setValid] = useState(true);
+
+   const toAbout = () => {
+      buffer(inputs, false); //save state, and come back
+      about();
+   }
 
    const handleChange = ({target}) => {
       setValid(true); //reset check
       setInputs({...inputs, [target.name]: target.value})
    };
+
    const submitInput = () => {
       const res = fieldNames.every(field => {
          const value = inputs[field];
          return value && value>=0;
       });
       setValid(res);
-      if (res) jump(inputs);
+      if (res) buffer(inputs);
+   }
+
+   const resetInput = () => {
+      setValid(true);
+      setInputs(fieldStarts);
    }
 
    return <>
       <div className="sidebar">
-         {about}
+         <button className="page-link" type="button" onClick={toAbout}>About</button>
       </div>
 
       <section>
@@ -75,6 +91,7 @@ const Input = ({state, jump, about}) => {
          <div className="submit">
             {!valid && <span className="error">Missing required fields</span>}
             <button type="button" onClick={submitInput}>Calculate</button>
+            <button type="button" onClick={resetInput}>Reset</button>
          </div>
       </section>
    </>
@@ -98,7 +115,7 @@ const Results = (props) => (
    //use props.values
    <>
       <div className="sidebar">
-         {props.about}
+         <button className="page-link" type="button" onClick={props.about}>About</button>
       </div>
 
       <section>
@@ -123,7 +140,7 @@ const Results = (props) => (
 
          <p>138,027,019.96 lbs.</p>
          <p>Total (Metals)</p>
-         <button type="button" onClick={props.jump}>Back</button>
+         <button type="button" onClick={props.back}>Back</button>
       </section>
    </>
 );
@@ -131,7 +148,7 @@ const Results = (props) => (
 const About = (props) => (
    <>
       <div className="sidebar">
-         <button className="page-link" onClick={props.funct}>Calculator</button>
+         <button className="page-link" type="button" onClick={props.calc}>Calculator</button>
       </div>
       
       <section>
