@@ -42,9 +42,20 @@ const Slider = props => {
       autoPlayRef.current()
     }
 
+    let interval = null
+
+    if (props.autoPlay) {
+      interval = setInterval(play, props.autoPlay * 1000)
+    }
+
     const smooth = e => {
       if (e.target.className.includes('SliderContent')) {
-        transitionRef.current()
+        transitionRef.current();
+
+        if (interval != null) { //reset timer
+          clearInterval(interval);
+          interval = setInterval(play, props.autoPlay * 1000);
+        }
       }
     }
 
@@ -55,18 +66,12 @@ const Slider = props => {
     const transitionEnd = window.addEventListener('transitionend', smooth)
     const onResize = window.addEventListener('resize', resize)
 
-    let interval = null
-
-    if (props.autoPlay) {
-      interval = setInterval(play, props.autoPlay * 1000)
-    }
-
     return () => {
       window.removeEventListener('transitionend', transitionEnd)
       window.removeEventListener('resize', onResize)
 
       if (props.autoPlay) {
-        clearInterval(interval)
+        clearInterval(interval);
       }
     }
   }, [props.autoPlay])
@@ -140,4 +145,5 @@ const SliderCSS = css`
   overflow: hidden;
   white-space: nowrap;
 `
+
 export default Slider

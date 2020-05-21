@@ -166,7 +166,7 @@
 .moreinfo {
   justify-content: center;
   position: absolute;
-  margin-top: calc(-130px - 7.5vh);
+  margin-top: calc(-60px - 15vh);
   margin-left: 8%;
   width: 85%;
   column-count: 3;
