@@ -16,7 +16,7 @@ export default function Calculator() {
       <div className="content">
          {about && <About funct={onAbout}/>}
          {!about && !enter && <Input about={aboutBut} enter={entered}/>}
-         {!about && enter && <Result about={aboutBut} enter={entered}/>}
+         {!about && enter && <Results about={aboutBut} enter={entered}/>}
       </div>
     );
 }
@@ -55,13 +55,6 @@ const Input = (props) => (
    </div>
 )
 
-const Result = (props) => (
-   <div>
-      {props.about}
-      <button type="button" onClick={props.enter}>Back</button>
-   </div>
-);
-
 const About = (props) => (
    <div>
       <div className="sidebar">
@@ -81,6 +74,39 @@ const About = (props) => (
             <li>Valuable metals diverted from landfill or disposal</li>
          </ol>
          <p>These figures can be used to demonstrate and measure individual or corporate responsibility</p>
+      </section>
+   </div>
+);
+
+const Results = (props) => (
+   <div>
+      <div className="sidebar">
+         {props.about}
+      </div>
+
+      <section>
+         <h1>Calculated Totals</h1>
+         <p>1,305,750,960.06 lbs.</p>
+         <p>GHG Emissions Reduced</p>
+
+         <p>510,566.48 lbs.</p>
+         <p>Total Metals Diverted</p>
+
+         <p>509,222.72 lbs.</p>
+         <p>of Lead</p>
+
+         <p>333.92 lbs.</p>
+         <p>of Mercury</p>
+
+         <p>946.4 lbs.</p>
+         <p>of Arsenic</p>
+
+         <p>63.44 lbs.</p>
+         <p>of Cadmium</p>
+
+         <p>138,027,019.96 lbs.</p>
+         <p>Total (Metals)</p>
+         <button type="button" onClick={props.enter}>Back</button>
       </section>
    </div>
 );
