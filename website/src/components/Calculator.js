@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css';
+import RecycleData from '../Data/Recycle.json';
 
 const fieldNames = ["Laptop", "Desktops", "LCD", "Phones", "Image", "Others"];
 const fieldLabels = [
@@ -119,27 +120,22 @@ const Results = (props) => (
       </div>
 
       <section>
-         <h1>Calculated Totals</h1>
-         <p>1,305,750,960.06 lbs.</p>
-         <p>GHG Emissions Reduced</p>
-
-         <p>510,566.48 lbs.</p>
-         <p>Total Metals Diverted</p>
-
-         <p>509,222.72 lbs.</p>
-         <p>of Lead</p>
-
-         <p>333.92 lbs.</p>
-         <p>of Mercury</p>
-
-         <p>946.4 lbs.</p>
-         <p>of Arsenic</p>
-
-         <p>63.44 lbs.</p>
-         <p>of Cadmium</p>
-
-         <p>138,027,019.96 lbs.</p>
-         <p>Total (Metals)</p>
+      {RecycleData.map((postDetail, index) => {
+            return <div>
+               <h1>{ postDetail.title }</h1>
+               <p>{ postDetail.emissions}</p>
+               <p>{ postDetail.lead }</p>
+               <p>{ postDetail.mercury }</p>
+               <p>{ postDetail.cadmium }</p>
+               <p>{ postDetail.arsenic }</p>
+               <p>{ postDetail.copper }</p>
+               <p>{ postDetail.gold }</p>
+               <p>{ postDetail.platinum }</p>
+               <p>{ postDetail.palladium }</p>
+               <p>{ postDetail.aluminum }</p>
+               <p>{ postDetail.steel }</p>
+            </div>
+         })}
          <button type="button" onClick={props.back}>Back</button>
       </section>
    </>

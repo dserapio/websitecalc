@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "title": "Laptop",
+        "emissions": 0.0000299364,
+        "lead": 0.0061,
+        "mercury": 0.000004,
+        "cadmium": 0.00000076,
+        "arsenic": 0.000011337,
+        "copper": 0.27,
+        "gold": 0.00036,
+        "platinum": 0.000011389991,
+        "palladium": 0.00006,
+        "aluminum": 0.512,
+        "steel": 0.871
+    },
+    {
+        "id": 2,
+        "title": "Catode Ray Tube (CRT) Display",
+        "emissions": 0.0000299364,
+        "lead": 1.082,
+        "mercury": 0,
+        "cadmium": 0.000248,
+        "arsenic": 0.000151032,
+        "copper": 1.1225,
+        "gold": 0.000001079,
+        "platinum": 0.0000474572,
+        "palladium": 0.00004315,
+        "aluminum": 0.15857,
+        "steel": 6.0512
+    }
+]
