@@ -15,7 +15,7 @@ const WrappedMap = withScriptjs(withGoogleMap(Map))
 
 export default function FindRecycler() {
   return (
-    <div className="map" style={{ width: "100vw", height: "89vh"}}>
+    <div className="map">
       <WrappedMap
         googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&
         libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`} 

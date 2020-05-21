@@ -10,68 +10,64 @@ export default function Calculator() {
       return setEnter(enter => !enter);
    };
    const onAbout = () => setAbout(about => !about);
-   const aboutButt = <button className="page-link" type="button" onClick={onAbout}>About</button>;
+   const aboutBut = <button className="page-link" type="button" onClick={onAbout}>About</button>;
 
    return (
       <div className="content">
          {about && <About funct={onAbout}/>}
-
-         {!about && !enter && (<div>
-            {aboutButt}
-            <Input funct={entered}/>
-         </div>)}
-
-         {!about && enter && (<div>
-            {aboutButt}
-            <button type="button" onClick={entered}>Back</button>
-         </div>)}
+         {!about && !enter && <Input about={aboutBut} enter={entered}/>}
+         {!about && enter && <Result about={aboutBut} enter={entered}/>}
       </div>
     );
 }
 
 const Input = (props) => (
-   <section>
-      <h1>Find Out Material Yields</h1>
-      <p>Enter in any electronic, and we'll breakdown what it's made of</p>
-      <form>
-         <label for="laptops"> 
-            Total Laptops 
-            <input className="textfield" type="text" name="Laptop"/>
-         </label>
+   <div>
+      <div className="sidebar">
+         {props.about}
+      </div>
 
-         <label for="desktops"> 
-            Total Desktops and Servers 
-            <input className="textfield" type="text" name="Desktops" />   
-         </label>
+      <section>
+         <h1>Find Out Material Yields</h1>
+         <p>Enter in any electronic, and we'll breakdown what it's made of</p>
+         <form>
+               <label for="laptops">Total laptops</label>
+               <input className="textfield" type="text" name="Laptop"/>
 
-         <label for="lcd"> 
-            Total Flat Panel Displays (LCDs) 
-            <input className="textfield" type="text" name="LCD"/>
-         </label>
+               <label for="desktops">Total Desktops and Servers</label>
+               <input className="textfield" type="text" name="Desktops" />
 
-         <label for="phones"> 
-            Total Mobile Phones 
-            <input className="textfield" type="text" name="Phones" />
-         </label>
+               <label for="lcd">Total Flat Panel Displays (LCDs)</label>
+               <input className="textfield" type="text" name="LCD"/>
 
-         <label for="image"> 
-            Total Imaging Devices 
-            <input className="textfield" type="text" name="Image"/>
-         </label>
+               <label for="phones">Total Mobile Phones</label>
+               <input className="textfield" type="text" name="Phones" />
 
-         <label for="others"> 
-            Total Others(Mice, Keyboards, etc.) 
-            <input className="textfield" type="text" name="Others"/>
-         </label>
-      </form>
+               <label for="image">Total Imaging Devices</label>
+               <input className="textfield" type="text" name="Image"/>
 
-      <button type="button" onClick={props.funct}>Calculate</button>
-   </section>
+               <label for="others">Total Others(Mice, Keyboards, etc.)</label>
+               <input className="textfield" type="text" name="Others"/>
+         </form>
+
+         <button type="button" onClick={props.enter}>Calculate</button>
+      </section>
+   </div>
 )
+
+const Result = (props) => (
+   <div>
+      {props.about}
+      <button type="button" onClick={props.enter}>Back</button>
+   </div>
+);
 
 const About = (props) => (
    <div>
-      <button className="page-link" onClick={props.funct}>Calculator</button>
+      <div className="sidebar">
+         <button className="page-link" onClick={props.funct}>Calculator</button>
+      </div>
+      
       <section>
          <h1>About the Calculator</h1>
          <p>
