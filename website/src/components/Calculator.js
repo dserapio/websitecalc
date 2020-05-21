@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import '../App.css';
- 
+
+const fieldNames = ["Laptop", "Desktops", "LCD", "Phones", "Image", "Others"];
+const fieldLabels = [
+   "Total laptops",
+   "Total Desktops and Servers",
+   "Total Flat Panel Displays (LCDs)",
+   "Total Mobile Phones",
+   "Total Imaging Devices",
+   "Total Others(Mice, Keyboards, etc.)"
+];
+
+
 export default function Calculator() {
-   const [enter, setEnter] = useState(false);
    const [about, setAbout] = useState(false);
+   const [enter, setEnter] = useState(false);
+   const [inputs, setInputs] = useState(
+      fieldNames.reduce((obj, name) => ({...obj, [name]: ''}), {})
+   );
    const [results, setResults] = useState({});
 
    const calculate = (inputs) => {
@@ -20,66 +34,64 @@ export default function Calculator() {
    return (
       <div className="content">
          {about && <About funct={onAbout}/>}
-         {!about && !enter && <Input about={aboutBut} jump={calculate}/>}
+         {!about && !enter && <Input about={aboutBut} jump={calculate} state={[inputs, setInputs]}/>}
          {!about && enter && <Results about={aboutBut} jump={back} values={results}/>}
       </div>
     );
 }
 
 
-const Input = (props) => {
-   const [inputs, setInputs] = useState({});
+const Input = ({state, jump, about}) => {
+   const [inputs, setInputs] = state;
+   const [valid, setValid] = useState(true);
 
-   const handleChange = (event) => {
-      const target = event.target;
-      setInputs({[target.name]: target.value});
+   const handleChange = ({target}) => {
+      setValid(true); //reset check
+      setInputs({...inputs, [target.name]: target.value})
    };
-   const submitInput = () => props.jump(inputs);
+   const submitInput = () => {
+      const res = fieldNames.every(field => {
+         const value = inputs[field];
+         return value && value>=0;
+      });
+      setValid(res);
+      if (res) jump(inputs);
+   }
 
    return <>
       <div className="sidebar">
-         {props.about}
+         {about}
       </div>
 
       <section>
          <h1>Find Out Material Yields</h1>
          <p>Enter in any electronic, and we'll breakdown what it's made of</p>
          <form>
-            <label>
-               Total laptops
-               <input className="textfield" type="number" name="Laptop" onChange={handleChange}/>
-            </label>
-            
-
-            <label>
-               Total Desktops and Servers
-               <input className="textfield" type="number" name="Desktops" onChange={handleChange}/>
-            </label>
-
-            <label>
-               Total Flat Panel Displays (LCDs)
-               <input className="textfield" type="number" name="LCD" onChange={handleChange}/>
-            </label>
-
-            <label>
-               Total Mobile Phones
-               <input className="textfield" type="number" name="Phones" onChange={handleChange}/>
-            </label>
-
-            <label>
-               Total Imaging Devices
-               <input className="textfield" type="number" name="Image" onChange={handleChange}/>
-            </label>
-
-            <label>
-               Total Others(Mice, Keyboards, etc.)
-               <input className="textfield" type="number" name="Others" onChange={handleChange}/>
-            </label>
+            {fieldNames.map((field, i) => (
+               <NumField key={field + i} valid={valid} inputs={inputs} change={handleChange} name={field} label={fieldLabels[i]}/>
+            ))}
          </form>
 
-         <button type="button" onClick={submitInput}>Calculate</button>
+         <div className="submit">
+            {!valid && <span className="error">Missing required fields</span>}
+            <button type="button" onClick={submitInput}>Calculate</button>
+         </div>
       </section>
    </>
+}
+
+const NumField = ({name, label, valid, inputs, change}) => {
+   const value = inputs[name];
+   return <label>
+      {label}
+      {!valid && !value && <span className="error">Missing required field</span>}
+      {!valid && value<0 && <span className="error">Invalid value</span>}
+      <input
+         className="textfield"
+         type="number" value={value} min={0} name={name} 
+         onChange={change}
+      />
+   </label>
 }
 
 const Results = (props) => (
