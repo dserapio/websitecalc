@@ -16,6 +16,26 @@ const fieldStarts = () => (
    fieldNames.reduce((obj, name) => ({...obj, [name]: ''}), {})
 );
 
+const findTotals = (inputs) => {
+   const materialNames = Object.keys(RecycleData[0]).filter((material) => (
+      material!=="id" && material!=="title"
+   ));
+   let totals = materialNames.reduce((obj, material) => (
+      {...obj, [material] : 0}
+   ), {});
+
+   RecycleData.forEach(obj => {
+      const title = obj.title;
+      const amount = inputs[title];
+      materialNames.forEach((material) => {
+         console.log(`got material ${material} with amount ${obj[material]}`)
+         totals[material] += obj[material] * amount;
+      })
+   });
+   console.log(totals)
+   return totals;
+};
+
 export default function Calculator() {
    const [about, setAbout] = useState(false);
    const [enter, setEnter] = useState(false);
@@ -26,7 +46,7 @@ export default function Calculator() {
       setInputs(newInputs);
       if (leave) {
          //calculate based on inputs
-         let value = newInputs; //temp
+         let value = findTotals(newInputs); //temp
          setResults(value);
          setEnter(true);
       }
@@ -113,29 +133,16 @@ const NumField = ({name, label, valid, inputs, change}) => {
 }
 
 const Results = (props) => (
-   //use props.values
    <>
       <div className="sidebar">
          <button className="page-link" type="button" onClick={props.about}>About</button>
       </div>
 
       <section>
-      {RecycleData.map((postDetail, index) => {
-            return <div>
-               <h1>{ postDetail.title }</h1>
-               <p>{ postDetail.emissions}</p>
-               <p>{ postDetail.lead }</p>
-               <p>{ postDetail.mercury }</p>
-               <p>{ postDetail.cadmium }</p>
-               <p>{ postDetail.arsenic }</p>
-               <p>{ postDetail.copper }</p>
-               <p>{ postDetail.gold }</p>
-               <p>{ postDetail.platinum }</p>
-               <p>{ postDetail.palladium }</p>
-               <p>{ postDetail.aluminum }</p>
-               <p>{ postDetail.steel }</p>
-            </div>
-         })}
+         <h1>Total Material Yields</h1>
+         {Object.entries(props.value).map(([name, value]) => (
+            <p>{name}: {value}</p>
+         ))}
          <button type="button" onClick={props.back}>Back</button>
       </section>
    </>
