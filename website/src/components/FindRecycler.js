@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import GoogleMapReact from "google-map-react"
 import '../App.css';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
 class FindRecycler extends Component {
   static defaultProps = {
     center: {
