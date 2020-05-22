@@ -254,3 +254,15 @@ label .error {
   margin-left: 10px;
   padding: 0px;
 }
+
+.output {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: -10px;
+  font-weight: bolder;
+}
+
+.output-value {
+  font-weight: lighter;
+  margin-top: -13px;
+}

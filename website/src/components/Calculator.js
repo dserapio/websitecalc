@@ -117,8 +117,8 @@ const Input = ({start, buffer, about}) => {
 
          <div className="submit">
             {!valid && <span className="error">Missing required fields</span>}
-            <button type="button" onClick={submitInput}>Calculate</button>
-            <button type="button" onClick={resetInput}>Reset</button>
+            <button className="page-link" type="button" onClick={submitInput}>Calculate</button>
+            <button className="page-link" type="button" onClick={resetInput}>Reset</button>
          </div>
       </section>
    </>
@@ -147,9 +147,9 @@ const Results = (props) => (
       <section>
          <h1>Total Material Yields</h1>
          {Object.entries(props.values).map(([name, value], i) => (
-            <p key={name+i}>{name}: {value}</p>
+            <h2 className="output" key={name+i}>{name}: <p className="output-value">{value} kg</p> </h2>
          ))}
-         <button type="button" onClick={props.back}>Back</button>
+         <button className="page-link" type="button" onClick={props.back}>Back</button>
       </section>
    </>
 );
