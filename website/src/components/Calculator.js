@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 import RecycleData from '../Data/Recycle.json';
 
@@ -20,6 +20,7 @@ const findTotals = (inputs) => {
    const materialNames = Object.keys(RecycleData[0]).filter((material) => (
       material!=="id" && material!=="title"
    ));
+
    let totals = materialNames.reduce((obj, material) => (
       {...obj, [material] : 0}
    ), {});
@@ -28,11 +29,9 @@ const findTotals = (inputs) => {
       const title = obj.title;
       const amount = inputs[title];
       materialNames.forEach((material) => {
-         console.log(`got material ${material} with amount ${obj[material]}`)
          totals[material] += obj[material] * amount;
       })
    });
-   console.log(totals)
    return totals;
 };
 
@@ -46,9 +45,7 @@ export default function Calculator() {
       setInputs(newInputs);
       if (leave) {
          //calculate based on inputs
-         let value = findTotals(newInputs); //temp
-         setResults(value);
-         setEnter(true);
+         setResults(findTotals(newInputs));
       }
    };
    const back = () => {
@@ -56,6 +53,11 @@ export default function Calculator() {
       setEnter(false);
    }
    const onAbout = () => setAbout(about => !about);
+
+   useEffect(() => {
+      if (Object.keys(results).length > 0)
+         setEnter(true);
+   }, [results]);
 
    return (
       <div className="content">
@@ -69,7 +71,7 @@ export default function Calculator() {
 
 const Input = ({start, buffer, about}) => {
    const [inputs, setInputs] = useState({...start});
-   const [valid, setValid] = useState(true);
+   const [valid, setValid] = useState(-1);
 
    const toAbout = () => {
       buffer(inputs, false); //save state, and come back
@@ -77,7 +79,7 @@ const Input = ({start, buffer, about}) => {
    }
 
    const handleChange = ({target}) => {
-      setValid(true); //reset check
+      setValid(-1); //reset check
       setInputs({...inputs, [target.name]: target.value})
    };
 
@@ -86,14 +88,18 @@ const Input = ({start, buffer, about}) => {
          const value = inputs[field];
          return value && value>=0;
       });
-      setValid(res);
+      setValid(res ? 1 : 0);
       if (res) buffer(inputs);
    }
 
    const resetInput = () => {
-      setValid(true);
+      setValid(-1);
       setInputs(fieldStarts);
    }
+
+   useEffect(() => {
+      if (valid === 1) buffer(inputs);
+   }, [valid, buffer, inputs]);
 
    return <>
       <div className="sidebar">
@@ -140,8 +146,8 @@ const Results = (props) => (
 
       <section>
          <h1>Total Material Yields</h1>
-         {Object.entries(props.value).map(([name, value]) => (
-            <p>{name}: {value}</p>
+         {Object.entries(props.values).map(([name, value], i) => (
+            <p key={name+i}>{name}: {value}</p>
          ))}
          <button type="button" onClick={props.back}>Back</button>
       </section>

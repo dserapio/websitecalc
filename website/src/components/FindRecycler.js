@@ -13,7 +13,7 @@ class FindRecycler extends Component {
 
   render() {
     return (
-      <div style={{ height: '100vh', width: '100%'}}>
+      <div className="map">
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyA-U9tVnswDVHRfHH3DLhc-Y8HWFksQyNQ" }}
           defaultCenter={this.props.center}
