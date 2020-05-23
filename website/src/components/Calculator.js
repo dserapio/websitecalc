@@ -9,7 +9,12 @@ const fieldStarts = () => (
    fieldNames.reduce((obj, name) => ({...obj, [name]: ''}), {})
 );
 
-let unit = 1;
+// Units default to kg
+const unitState = {
+   unit: 1,
+   units: "kg"
+};
+
 const findTotals = (inputs) => {
    const materialNames = Object.keys(recycleData[0]).filter((material) => (
       material!=="id" && material!=="title"
@@ -23,7 +28,7 @@ const findTotals = (inputs) => {
       const title = obj.title;
       const amount = inputs[title];
       materialNames.forEach(material => {
-         totals[material] += (obj[material] * amount) * unit;
+         totals[material] += (obj[material] * amount) * unitState.unit;
       })
    });
    return totals;
@@ -90,12 +95,12 @@ const Input = ({start, buffer, about}) => {
       setInputs(fieldStarts);
    }
 
-   const changeToKg = () => {
-      unit = 1;
+   const changeTolbs = () => {
+      unitState.unit = 2.20462;
    }
 
-   const changeToLbs = () => {
-      unit = 2.205;
+   const changeTokg = () => {
+      unitState.unit = 1;
    }
 
    useEffect(() => {
@@ -122,8 +127,8 @@ const Input = ({start, buffer, about}) => {
             <div className="buttons">
                <button className="page-link" type="button" onClick={submitInput}>Calculate</button>
                <button className="page-link" type="button" onClick={resetInput}>Reset</button>
-               <button className="page-link" type="button" onClick={changeToKg}>kg.</button>
-               <button className="page-link" type="button" onClick={changeToLbs}>lbs.</button>
+               <button className="page-link" type="button" onClick={changeTokg}>kg.</button>
+               <button className="page-link" type="button" onClick={changeTolbs} >lbs.</button>
             </div>
          </div>
       </section>
