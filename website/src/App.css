@@ -114,6 +114,7 @@
 .content {
   margin-top: 130px;
   margin-left: 10%;
+  padding-bottom: 50px;
   width: 80%;
 }
 
@@ -190,8 +191,40 @@
   font-size: calc(1px + 2.5vmin);
 }
 
-.littlebox a:hover, .page-link:hover, a:hover {
+.littlebox a:hover {
   background-color: #909090;
+}
+
+button:hover, button:focus {
+  background-color: #B0B0B0;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: relative;
+  display: block;
+  font-size: 20px;
+  padding: 10px 20px;
+  background: none;
+  margin: 10px;
+  outline: none;
+  overflow: hidden;
+  border: 2px solid #0B0332;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 500;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 10px;
+}
+
+form {
+  margin-bottom: -15px;
 }
 
 .textfield {
@@ -211,30 +244,6 @@
 
 .textfield:focus {
   border-bottom: 2px solid #909090;
-}
-
-button {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  position: relative;
-  display: block;
-  font-size: 20px;
-  padding: 10px 20px;
-  background: none;
-  margin: 10px;
-  outline: none;
-  overflow: hidden;
-  border: 2px solid #0B0332;
-}
-
-button:hover {
-  cursor: pointer;
-}
-
-label {
-  font-size: 16px;
-  font-weight: 500;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  margin: 10px;
 }
 
 .error {
@@ -257,7 +266,7 @@ label .error {
 
 .output {
   font-size: 20px;
-  text-align: center;
+  text-align: left;
   margin-bottom: -10px;
   font-weight: bolder;
 }

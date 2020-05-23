@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import RecycleData from '../Data/Recycle.json';
+import recycleData from '../data/recycle-info.json';
 
-const fieldNames = ["Laptop", "Desktops", "LCD", "Phones", "Image", "Others"];
-const fieldLabels = [
-   "Total laptops",
-   "Total Desktops and Servers",
-   "Total Flat Panel Displays (LCDs)",
-   "Total Mobile Phones",
-   "Total Imaging Devices",
-   "Total Others(Mice, Keyboards, etc.)"
-];
+
+const fieldNames = recycleData.map(obj => obj.title);
 
 const fieldStarts = () => (
    fieldNames.reduce((obj, name) => ({...obj, [name]: ''}), {})
 );
 
 const findTotals = (inputs) => {
-   const materialNames = Object.keys(RecycleData[0]).filter((material) => (
+   const materialNames = Object.keys(recycleData[0]).filter((material) => (
       material!=="id" && material!=="title"
    ));
 
@@ -25,10 +18,10 @@ const findTotals = (inputs) => {
       {...obj, [material] : 0}
    ), {});
 
-   RecycleData.forEach(obj => {
+   recycleData.forEach(obj => {
       const title = obj.title;
       const amount = inputs[title];
-      materialNames.forEach((material) => {
+      materialNames.forEach(material => {
          totals[material] += obj[material] * amount;
       })
    });
@@ -89,7 +82,6 @@ const Input = ({start, buffer, about}) => {
          return value && value>=0;
       });
       setValid(res ? 1 : 0);
-      if (res) buffer(inputs);
    }
 
    const resetInput = () => {
@@ -111,7 +103,7 @@ const Input = ({start, buffer, about}) => {
          <p>Enter in any electronic, and we'll breakdown what it's made of</p>
          <form>
             {fieldNames.map((field, i) => (
-               <NumField key={field + i} valid={valid} inputs={inputs} change={handleChange} name={field} label={fieldLabels[i]}/>
+               <NumField key={field + i} valid={valid} inputs={inputs} change={handleChange} name={field}/>
             ))}
          </form>
 
@@ -124,10 +116,10 @@ const Input = ({start, buffer, about}) => {
    </>
 }
 
-const NumField = ({name, label, valid, inputs, change}) => {
+const NumField = ({name, valid, inputs, change}) => {
    const value = inputs[name];
    return <label>
-      {label}
+      Total {name.concat(name[name.length-1]==='s' ? '' : 's')}
       {!valid && !value && <span className="error">Missing required field</span>}
       {!valid && value<0 && <span className="error">Invalid value</span>}
       <input
@@ -146,9 +138,22 @@ const Results = (props) => (
 
       <section>
          <h1>Total Material Yields</h1>
-         {Object.entries(props.values).map(([name, value], i) => (
-            <h2 className="output" key={name+i}>{name}: <p className="output-value">{value} kg</p> </h2>
-         ))}
+         <table>
+            <thead>
+               <tr>
+                  <th className="output">Material</th>
+                  <th className="output">Amount Yield (kg)</th>
+               </tr>
+            </thead>
+            <tbody>
+            {Object.entries(props.values).map(([name, value], i) => (
+               <tr key={name+i}>
+                  <td className="output">{name}</td>
+                  <td className="output-value">{value} kg</td>
+               </tr>
+            ))}
+            </tbody>
+         </table>
          <button className="page-link" type="button" onClick={props.back}>Back</button>
       </section>
    </>
