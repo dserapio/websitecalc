@@ -9,6 +9,7 @@ const fieldStarts = () => (
    fieldNames.reduce((obj, name) => ({...obj, [name]: ''}), {})
 );
 
+let unit = 1;
 const findTotals = (inputs) => {
    const materialNames = Object.keys(recycleData[0]).filter((material) => (
       material!=="id" && material!=="title"
@@ -22,7 +23,7 @@ const findTotals = (inputs) => {
       const title = obj.title;
       const amount = inputs[title];
       materialNames.forEach(material => {
-         totals[material] += obj[material] * amount;
+         totals[material] += (obj[material] * amount) * unit;
       })
    });
    return totals;
@@ -89,9 +90,18 @@ const Input = ({start, buffer, about}) => {
       setInputs(fieldStarts);
    }
 
+   const changeToKg = () => {
+      unit = 1;
+   }
+
+   const changeToLbs = () => {
+      unit = 2.205;
+   }
+
    useEffect(() => {
       if (valid === 1) buffer(inputs);
    }, [valid, buffer, inputs]);
+
 
    return <>
       <div className="sidebar">
@@ -109,8 +119,12 @@ const Input = ({start, buffer, about}) => {
 
          <div className="submit">
             {!valid && <span className="error">Missing required fields</span>}
-            <button className="page-link" type="button" onClick={submitInput}>Calculate</button>
-            <button className="page-link" type="button" onClick={resetInput}>Reset</button>
+            <div className="buttons">
+               <button className="page-link" type="button" onClick={submitInput}>Calculate</button>
+               <button className="page-link" type="button" onClick={resetInput}>Reset</button>
+               <button className="page-link" type="button" onClick={changeToKg}>kg.</button>
+               <button className="page-link" type="button" onClick={changeToLbs}>lbs.</button>
+            </div>
          </div>
       </section>
    </>

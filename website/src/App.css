@@ -275,3 +275,7 @@ label .error {
   font-weight: lighter;
   margin-top: -13px;
 }
+
+.buttons {
+  display: flex;
+}
