@@ -199,6 +199,10 @@ button:hover, button:focus {
   background-color: #B0B0B0;
 }
 
+.active-button {
+  border-width: 4px;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -221,6 +225,17 @@ label {
   font-weight: 500;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 10px;
+}
+
+table {
+  padding-top: 12px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+}
+
+th, td {
+  padding-bottom: 8px;
+  padding-right: 28px;
 }
 
 form {

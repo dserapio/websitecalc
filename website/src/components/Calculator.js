@@ -9,12 +9,6 @@ const fieldStarts = () => (
    fieldNames.reduce((obj, name) => ({...obj, [name]: ''}), {})
 );
 
-// Units default to kg
-const unitState = {
-   unit: 1,
-   currentUnit: "kg"
-};
-
 const findTotals = (inputs) => {
    const materialNames = Object.keys(recycleData[0]).filter((material) => (
       material!=="id" && material!=="title"
@@ -28,7 +22,7 @@ const findTotals = (inputs) => {
       const title = obj.title;
       const amount = inputs[title];
       materialNames.forEach(material => {
-         totals[material] += (obj[material] * amount) * unitState.unit;
+         totals[material] += obj[material] * amount;
       })
    });
    return totals;
@@ -49,6 +43,7 @@ export default function Calculator() {
    };
    const back = () => {
       setInputs(fieldStarts);
+      setResults({});
       setEnter(false);
    }
    const onAbout = () => setAbout(about => !about);
@@ -95,16 +90,6 @@ const Input = ({start, buffer, about}) => {
       setInputs(fieldStarts);
    }
 
-   const changeTolbs = () => {
-      unitState.unit = 2.20462;
-      unitState.currentUnit = "lbs.";
-   }
-
-   const changeTokg = () => {
-      unitState.unit = 1;
-      unitState.currentUnit = "kg";
-   }
-
    useEffect(() => {
       if (valid === 1) buffer(inputs);
    }, [valid, buffer, inputs]);
@@ -129,8 +114,6 @@ const Input = ({start, buffer, about}) => {
             <div className="buttons">
                <button className="page-link" type="button" onClick={submitInput}>Calculate</button>
                <button className="page-link" type="button" onClick={resetInput}>Reset</button>
-               <button className="page-link" type="button" onClick={changeTokg}>kg</button>
-               <button className="page-link" type="button" onClick={changeTolbs} >lbs.</button>
             </div>
          </div>
       </section>
@@ -151,10 +134,29 @@ const NumField = ({name, valid, inputs, change}) => {
    </label>
 }
 
-const Results = (props) => (
-   <>
+const Results = ({about, back, values}) => {
+   const kiloUnits = {
+      convert: 1,
+      name: "kg"
+   };
+   const poundUnits = {
+      convert: 2.20462,
+      name: "lbs."
+   };
+
+   // Units default to kg
+   const [unit, setUnit] = useState(kiloUnits);
+
+   const changeTolbs = () => setUnit(poundUnits);
+   const changeTokg = () => setUnit(kiloUnits);
+
+   const activeAttr = (buttonName) => (
+      unit.name===buttonName ? "active-button" : ""
+   );
+   
+   return <>
       <div className="sidebar">
-         <button className="page-link" type="button" onClick={props.about}>About</button>
+         <button className="page-link" type="button" onClick={about}>About</button>
       </div>
 
       <section>
@@ -163,27 +165,38 @@ const Results = (props) => (
             <thead>
                <tr>
                   <th className="output">Material</th>
-                  <th className="output">Amount Yield ({ unitState.currentUnit })</th>
+                  <th className="output">Amount Yield ({unit.name})</th>
                </tr>
             </thead>
             <tbody>
-            {Object.entries(props.values).map(([name, value], i) => (
+            {Object.entries(values).map(([name, value], i) => (
                <tr key={name+i}>
                   <td className="output">{name}</td>
-                  <td className="output-value">{value}  { unitState.currentUnit } </td>
+                  <td className="output-value">{value * unit.convert} {unit.name} </td>
                </tr>
             ))}
             </tbody>
          </table>
-         <button className="page-link" type="button" onClick={props.back}>Back</button>
+
+         <div className="buttons">
+            <button className="page-link" type="button" onClick={back}>Back</button>
+            <button
+               className={`page-link ${activeAttr('kg')}`}
+               type="button" 
+               onClick={changeTokg}>kg</button>
+            <button
+               className={`page-link ${activeAttr('lbs.')}`}
+               type="button"
+               onClick={changeTolbs}>lbs</button>
+         </div>
       </section>
    </>
-);
+};
 
-const About = (props) => (
+const About = ({calc}) => (
    <>
       <div className="sidebar">
-         <button className="page-link" type="button" onClick={props.calc}>Calculator</button>
+         <button className="page-link" type="button" onClick={calc}>Calculator</button>
       </div>
       
       <section>
