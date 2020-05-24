@@ -12,7 +12,7 @@ const fieldStarts = () => (
 // Units default to kg
 const unitState = {
    unit: 1,
-   units: "kg"
+   currentUnit: "kg"
 };
 
 const findTotals = (inputs) => {
@@ -97,10 +97,12 @@ const Input = ({start, buffer, about}) => {
 
    const changeTolbs = () => {
       unitState.unit = 2.20462;
+      unitState.currentUnit = "lbs.";
    }
 
    const changeTokg = () => {
       unitState.unit = 1;
+      unitState.currentUnit = "kg";
    }
 
    useEffect(() => {
@@ -127,7 +129,7 @@ const Input = ({start, buffer, about}) => {
             <div className="buttons">
                <button className="page-link" type="button" onClick={submitInput}>Calculate</button>
                <button className="page-link" type="button" onClick={resetInput}>Reset</button>
-               <button className="page-link" type="button" onClick={changeTokg}>kg.</button>
+               <button className="page-link" type="button" onClick={changeTokg}>kg</button>
                <button className="page-link" type="button" onClick={changeTolbs} >lbs.</button>
             </div>
          </div>
@@ -161,14 +163,14 @@ const Results = (props) => (
             <thead>
                <tr>
                   <th className="output">Material</th>
-                  <th className="output">Amount Yield (kg)</th>
+                  <th className="output">Amount Yield ({ unitState.currentUnit })</th>
                </tr>
             </thead>
             <tbody>
             {Object.entries(props.values).map(([name, value], i) => (
                <tr key={name+i}>
                   <td className="output">{name}</td>
-                  <td className="output-value">{value} kg</td>
+                  <td className="output-value">{value}  { unitState.currentUnit } </td>
                </tr>
             ))}
             </tbody>
