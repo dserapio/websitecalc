@@ -294,3 +294,21 @@ label .error {
 .buttons {
   display: flex;
 }
+
+.marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ffffff;
+  border-radius: 100%;
+  user-select: none;
+  transform: translate(-50%, -50%);
+  background-color: red;
+  cursor: pointer;
+}
+
+.marker:hover {
+  z-index: 1;
+}
