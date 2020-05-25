@@ -73,12 +73,8 @@
   padding-left: 20px;
   padding-right: 20px;
   text-decoration: none;
-  transition: all 0.5s ease;
+  transition: all 0.6s ease;
   font-size: 23px;
-}
-
-.nav-link:hover {
-  background: #909090;
 }
 
 .nav-list {
@@ -90,17 +86,17 @@
 .logo {
   height: 80px;
   margin: 1px;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 .smaller .logo {
-  height: 50px;
+  height: 40px;
 }
 
 .logoBtn {
   background: transparent;
   padding: 5px;
-  padding-left: 60px;
+  padding-left: 45px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -184,7 +180,10 @@
   border-radius: 5%;
 }
 
-.littlebox a, .littlebox p, .content section a, .content section p {
+.littlebox a,
+.littlebox p,
+.content section a,
+.content section p {
   color: black;
 }
 
@@ -192,7 +191,9 @@
   font-size: calc(1px + 2.5vmin);
 }
 
-.littlebox a:hover, .content section a:hover {
+.nav-link:hover,
+.littlebox a:hover,
+.content section a:hover {
   background-color: #909090;
 }
 
@@ -219,6 +220,7 @@ button {
   outline: none;
   overflow: hidden;
   border: 2px solid #0B0332;
+  transition: all 0.25s ease;
 }
 
 label {
@@ -256,6 +258,7 @@ form {
   padding-top: 0px;
   margin: 10px;
   margin-bottom: 25px;
+  transition: all 0.25s ease-out;
 }
 
 .textfield:focus {
@@ -275,7 +278,7 @@ label .error {
 
 .submit .error {
   display: block;
-  margin-top: -21px;
+  margin-top: -33px;
   margin-left: 10px;
   padding: 0px;
 }

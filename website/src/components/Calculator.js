@@ -97,7 +97,7 @@ const Input = ({start, buffer, about}) => {
 
    return <>
       <div className="sidebar">
-         <button className="page-link" type="button" onClick={toAbout}>About</button>
+         <button type="button" onClick={toAbout}>About</button>
       </div>
 
       <section>
@@ -105,15 +105,15 @@ const Input = ({start, buffer, about}) => {
          <p>Enter in any electronic, and we'll breakdown what it's made of</p>
          <form>
             {fieldNames.map((field, i) => (
-               <NumField key={field + i} valid={valid} inputs={inputs} change={handleChange} name={field}/>
+               <NumField key={field+i} valid={valid} inputs={inputs} change={handleChange} name={field}/>
             ))}
          </form>
 
          <div className="submit">
-            {!valid && <span className="error">Missing required fields</span>}
+            {!valid && <span className="error">Invalid Input Given</span>}
             <div className="buttons">
-               <button className="page-link" type="button" onClick={submitInput}>Calculate</button>
-               <button className="page-link" type="button" onClick={resetInput}>Reset</button>
+               <button type="button" onClick={submitInput}>Calculate</button>
+               <button type="button" onClick={resetInput}>Reset</button>
             </div>
          </div>
       </section>
@@ -156,7 +156,7 @@ const Results = ({about, back, values}) => {
    
    return <>
       <div className="sidebar">
-         <button className="page-link" type="button" onClick={about}>About</button>
+         <button type="button" onClick={about}>About</button>
       </div>
 
       <section>
@@ -179,13 +179,13 @@ const Results = ({about, back, values}) => {
          </table>
 
          <div className="buttons">
-            <button className="page-link" type="button" onClick={back}>Back</button>
+            <button type="button" onClick={back}>Back</button>
             <button
-               className={`page-link ${activeAttr('kg')}`}
+               className={activeAttr('kg')}
                type="button" 
                onClick={changeTokg}>kg</button>
             <button
-               className={`page-link ${activeAttr('lbs.')}`}
+               className={activeAttr('lbs.')}
                type="button"
                onClick={changeTolbs}>lbs</button>
          </div>
@@ -196,7 +196,7 @@ const Results = ({about, back, values}) => {
 const About = ({calc}) => (
    <>
       <div className="sidebar">
-         <button className="page-link" type="button" onClick={calc}>Calculator</button>
+         <button type="button" onClick={calc}>Calculator</button>
       </div>
       
       <section>

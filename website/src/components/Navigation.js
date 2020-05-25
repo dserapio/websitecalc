@@ -8,7 +8,7 @@ const Navigation = () => {
    
    const scrollCheck = () => {
       const distanceY = window.pageYOffset || document.documentElement.scrollTop;
-      const shrinkOn = 50;
+      const shrinkOn = 25;
       setHeight(distanceY > shrinkOn ? "smaller" : "");
    }
 
