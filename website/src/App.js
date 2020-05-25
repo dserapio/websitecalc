@@ -1,31 +1,27 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Navigation from './components/Navigation';
 import Home from './components/Home';
 import Information from './components/Info';
 import Calculator from './components/Calculator';
 import FindRecycler from './components/FindRecycler';
 import Error from './components/Error';
-import Navigation from './components/Navigation';
 
 import './App.css';
 
-function App() {
-  return (
-    <div className="Main">
-      <BrowserRouter>
-        <Navigation />
-        
-        <Switch>
-          <Route path="/" component={Home} exact/>
-          <Route path="/information" component={Information}/>
-          <Route path="/calculator" component={Calculator}/>
-          <Route path="/find-recycler" component={FindRecycler}/>
-          <Route component={Error}/>
-        </Switch>
+const App = () => (
+  <BrowserRouter>
+    <Navigation />
+    
+    <Switch>
+      <Route path="/" component={Home} exact/>
+      <Route path="/information" component={Information}/>
+      <Route path="/calculator" component={Calculator}/>
+      <Route path="/find-recycler" component={FindRecycler}/>
+      <Route component={Error}/>
+    </Switch>
 
-      </BrowserRouter>
-    </div>
-  );
-}
+  </BrowserRouter>
+);
 
 export default App;

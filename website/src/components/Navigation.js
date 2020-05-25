@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../App.css';
 import logo from '../img/e-stewards.png'
- 
-export default function Navigation() {
-    return (
-      <div className="nav">
+
+const Navigation = () => {
+   const [height, setHeight] = useState("");
+   
+   const scrollCheck = () => {
+      const distanceY = window.pageYOffset || document.documentElement.scrollTop;
+      const shrinkOn = 50;
+      setHeight(distanceY > shrinkOn ? "smaller" : "");
+   }
+
+   useEffect(() => {
+      const morph = window.addEventListener('scroll', scrollCheck);
+      return () => {
+         window.removeEventListener('scroll', morph);
+      }
+   }, []);
+
+   return ( 
+      <div className={"nav ".concat(height)}>
          <div className="logoBtn">
             <NavLink className="nav-link" to="/">
                <img className="logo" src={ logo } alt="logo"/>
@@ -18,6 +33,8 @@ export default function Navigation() {
             <NavLink className="nav-link" to="/calculator">Calculator</NavLink>
             <NavLink className="nav-link" to="/find-recycler">Find Recycler</NavLink>
          </div>
-    </div>
-    );
-}
+      </div>
+   );
+};
+
+export default Navigation;

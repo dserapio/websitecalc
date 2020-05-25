@@ -51,24 +51,18 @@
   padding: 0;
 }
 
-.logo {
-  width: 150px;
-  margin: 1px;
-}
-
-.logoBtn {
+.nav {
   background: #FEF5F5;
-  padding: 5px;
-  padding-left: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.nav-list {
-  list-style: none;
-  display: flex;
-  background: transparent;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  top: 0px;
+  right: 0px;
+  padding: 0 20px;
+  opacity: 0.85;
 }
 
 .nav-link {
@@ -87,22 +81,29 @@
   background: #909090;
 }
 
-.nav {
-  background: #FEF5F5;
+.nav-list {
+  list-style: none;
+  display: flex;
+  background: transparent;
+}
+
+.logo {
+  height: 80px;
+  margin: 1px;
+  transition: all 0.3s ease;
+}
+
+.smaller .logo {
+  height: 50px;
+}
+
+.logoBtn {
+  background: transparent;
+  padding: 5px;
+  padding-left: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  top: 0px;
-  right: 0px;
-  padding: 0 20px;
-  opacity: 0.85;
-}
-
-.nav ul a {
-  background: transparent;
 }
 
 .map {
@@ -183,7 +184,7 @@
   border-radius: 5%;
 }
 
-.littlebox a, .littlebox p {
+.littlebox a, .littlebox p, .content section a, .content section p {
   color: black;
 }
 
@@ -191,7 +192,7 @@
   font-size: calc(1px + 2.5vmin);
 }
 
-.littlebox a:hover {
+.littlebox a:hover, .content section a:hover {
   background-color: #909090;
 }
 
