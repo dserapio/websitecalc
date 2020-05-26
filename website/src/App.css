@@ -121,10 +121,11 @@
   margin-left: 10vw;
   padding-bottom: 50px;
   width: 80vw;
+  position: static;
 }
 
 .content section {
-  width: 80vw;
+  width: 60vw;
 }
 
 .content section h1 {
@@ -149,8 +150,9 @@
 }
 
 .sidebar {
-  float: right;
   display: block;
+  right: -18vw;
+  position: absolute;
 }
 
 .title { 
