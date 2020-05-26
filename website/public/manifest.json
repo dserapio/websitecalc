@@ -9,8 +9,8 @@
     },
     {
       "src": "icon72.png",
-      "type": "image/png",
-      "sizes": "72x72 192x192"
+      "sizes": "72x72",
+      "type": "image/png"
     }
   ],
   "start_url": ".",

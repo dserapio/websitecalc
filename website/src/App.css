@@ -1,54 +1,52 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #23232e;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-nav {
-  color: #61dafb;
-  text-decoration: none;
-  text-align: right;
-  padding-right: 10%;
-}
-
-.App-link {
-  font-size: 2em;
-  color: #61dafb;
-  text-decoration: none;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 * {
   margin: 0;
   padding: 0;
+}
+
+.trans {
+  position: absolute;
+}
+
+.zoom-enter {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.zoom-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.zoom-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.zoom-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
 }
 
 .nav {
@@ -57,12 +55,16 @@
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   top: 0px;
   right: 0px;
   padding: 0 20px;
-  opacity: 0.85;
+  opacity: 0.75;
+}
+
+.nav.smaller {
+  opacity: 1;
 }
 
 .nav-link {
@@ -86,8 +88,13 @@
 .logo {
   height: 80px;
   margin: 1px;
+}
+
+.nav,
+.logo {
   transition: all 0.25s ease;
 }
+
 
 .smaller .logo {
   height: 40px;
@@ -103,20 +110,21 @@
 }
 
 .map {
-  margin-top: 100px;
+  position: static;
+  margin-top: 107px;
   width: 100%;
-  height: 89.6vh;
+  height: 89vh;
 }
 
 .content {
   margin-top: 130px;
-  margin-left: 10%;
+  margin-left: 10vw;
   padding-bottom: 50px;
-  width: 80%;
+  width: 80vw;
 }
 
 .content section {
-  width: 80%;
+  width: 80vw;
 }
 
 .content section h1 {
@@ -246,6 +254,7 @@ form {
 }
 
 .textfield {
+  background: transparent;
   display: block;
   box-sizing: border-box;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -278,7 +287,7 @@ label .error {
 
 .submit .error {
   display: block;
-  margin-top: -33px;
+  margin-top: -36px;
   margin-left: 10px;
   padding: 0px;
 }

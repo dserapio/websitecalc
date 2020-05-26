@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
 import '../App.css';
 import recycleData from '../data/recycle-info.json';
 
@@ -28,6 +30,7 @@ const findTotals = (inputs) => {
    return totals;
 };
 
+
 export default function Calculator() {
    const [about, setAbout] = useState(false);
    const [enter, setEnter] = useState(false);
@@ -55,12 +58,37 @@ export default function Calculator() {
 
    return (
       <div className="content">
-         {about && <About calc={onAbout}/>}
-         {!about && !enter && <Input about={onAbout} buffer={bufferInput} start={inputs}/>}
-         {!about && enter && <Results about={onAbout} back={back} values={results}/>}
+         <TransitionGroup>
+            <FadeWrap
+               check={about}
+               comp={() => <About calc={onAbout}/>}
+            />
+            <FadeWrap
+               check={!about && !enter}
+               comp={() => <Input about={onAbout} buffer={bufferInput} start={inputs}/>}
+            />
+            <FadeWrap 
+               check={!about && enter}
+               comp={() => <Results about={onAbout} back={back} values={results}/>}
+            />
+         </TransitionGroup>
       </div>
     );
 }
+
+
+const FadeWrap = ( {check, comp} ) => (
+   <CSSTransition
+      in={check}
+      timeout={350}
+      classNames="fade"
+      unmountOnExit
+   >
+      <div className="trans">
+         {comp()}
+      </div>
+   </CSSTransition>
+);
 
 
 const Input = ({start, buffer, about}) => {

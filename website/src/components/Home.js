@@ -20,7 +20,7 @@ export default function Home () {
          
       <div className="slider">
          <Slider slides={images} autoPlay={10}/>
-         </div>
+      </div>
 
       <div className="moreinfo">
          <div className="littlebox">
