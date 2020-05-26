@@ -1,33 +1,76 @@
-import React from 'react';
-import GoogleMapReact from "google-map-react"
-import locationData from '../data/location-info.json'
+import React, { useState, useCallback, useRef } from 'react';
+import {GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import '../App.css';
+import locationData from '../data/location-info.json'
 
-const FindRecycler = () => (
-  <div className="map">
-    <GoogleMapReact
-      bootstrapURLKeys={{ key: "AIzaSyA-U9tVnswDVHRfHH3DLhc-Y8HWFksQyNQ" }}
-      defaultCenter={ {lat: 41.878113, lng: -87.629799} }
-      defaultZoom={ 10 }
-    >
-      {locationData.map(loc => (
-        <Marker
-          key={loc.id}
-          lat={loc.location[0]}
-          lng={loc.location[1]}
-          name={loc.name}
-          phone={loc.phone}
-        />
-      ))}
-    </GoogleMapReact>
-  </div>
-);
+export default function FindRecycler() {
 
-const Marker = ({name}) => (
-  <div 
-    className="marker" 
-    title = {name}
-  />
-);
+  const {isLoaded, loadError} = useLoadScript({
+    googleMapsApiKey: "AIzaSyA-U9tVnswDVHRfHH3DLhc-Y8HWFksQyNQ"
+  });
 
-export default FindRecycler;
+  const [selected, setSelected] = useState(null);
+  const onMap = useRef();
+  const onMapLoad = useCallback((map) => {
+    onMap.current = map;
+  }, [])
+
+  if (loadError) return "Error Loading Maps";
+  if (!isLoaded) return "Loading Maps";
+
+  return (
+    <div>
+
+      <form >
+        <input type="text" className="search" />
+      </form>
+
+      <GoogleMap 
+        mapContainerClassName={"map"} 
+        zoom={10} 
+        center={{lat: 41.878113, lng: -87.629799}}
+        onLoad={onMapLoad}
+      >
+        {locationData.map(RecycleCenter => (
+          <Marker
+            key={RecycleCenter.id}
+            position={{
+              lat: RecycleCenter.location[0],
+              lng: RecycleCenter.location[1]
+            }}
+
+            onClick={() => {
+              setSelected(RecycleCenter);
+            }}
+            icon={{
+              url: '/icon16.png',
+              scaledSize: new window.google.maps.Size(30,30)
+            }}
+          />
+        ))}
+
+        {selected && (
+          <InfoWindow 
+            position={{
+              lat: selected.location[0],
+              lng: selected.location[1]
+            }}
+            onCloseClick={() => {
+              setSelected(null);
+            }}
+          >
+            <div>
+              <h2> { selected.name } </h2>
+              <h3> { selected.subname } </h3>
+              <p> Phone: { selected.phone } </p>
+              <a href={selected.directions} target="_blank" rel="noopener noreferrer">Get Directions</a>
+            </div>
+          </InfoWindow>
+        )}
+
+      </GoogleMap>
+    
+    </div>
+  )
+  
+}
