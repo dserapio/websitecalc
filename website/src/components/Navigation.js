@@ -6,9 +6,7 @@ import logo from '../img/e-stewards.png'
 import '../App.css';
 
 
-
 const Navigation = () => {
-   
    const linkInfos = useMemo(() => (
       Object.entries(paths)
          .map(entry => [entry[0], entry[0]])

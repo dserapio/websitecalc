@@ -11,9 +11,7 @@ const getWidth = () => window.innerWidth
 /**
  * @function Slider
  */
-const Slider = props => {
-  const { slides } = props
-
+const Slider = ({ autoPlay, slides }) => {
   const firstSlide = slides[0]
   const secondSlide = slides[1]
   const lastSlide = slides[slides.length - 1]
@@ -39,21 +37,22 @@ const Slider = props => {
   })
 
   useEffect(() => {
+    let isMounted = true;
     const play = () => {
       autoPlayRef.current()
     }
 
-    let interval = props.autoPlay
-      ? setInterval(play, props.autoPlay * 1000)
+    let interval = autoPlay
+      ? setInterval(play, autoPlay * 1000)
       : null;
 
     const smooth = e => {
-      if (e.target.className.includes('SliderContent')) {
+      if (isMounted && e.target.className.includes('SliderContent')) {
         transitionRef.current()
 
         if (interval !== null) { //reset timer
           clearInterval(interval);
-          interval = setInterval(play, props.autoPlay * 1000)
+          interval = setInterval(play, autoPlay * 1000)
         }
       }
     }
@@ -64,14 +63,15 @@ const Slider = props => {
     const onResize = window.addEventListener('resize', resize)
 
     return () => {
+      isMounted = false;
       window.removeEventListener('transitionend', transitionEnd)
       window.removeEventListener('resize', onResize)
 
-      if (props.autoPlay) {
+      if (autoPlay) {
         clearInterval(interval)
       }
     }
-  }, [props.autoPlay])
+  }, [autoPlay])
 
   useEffect(() => {
     setState(state => (
