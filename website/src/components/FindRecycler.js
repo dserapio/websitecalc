@@ -19,14 +19,14 @@ export default function FindRecycler() {
   if (!isLoaded) return "Loading Maps";
 
   return (
-    <div>
 
+    <div>
       <form >
         <input type="text" className="search" />
       </form>
 
       <GoogleMap 
-        mapContainerClassName={"map"} 
+        mapContainerClassName="map"
         zoom={10} 
         center={{lat: 41.878113, lng: -87.629799}}
         onLoad={onMapLoad}

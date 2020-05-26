@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
+    "@react-google-maps/api": "^1.9.2",
     "@testing-library/jest-dom": "^5.8.0",
     "@testing-library/react": "^10.0.4",
     "@testing-library/user-event": "^10.3.5",
