@@ -207,19 +207,7 @@
   background-color: #909090;
 }
 
-button:hover, button:focus {
-  background-color: #B0B0B0;
-}
-
-.active-button {
-  border-width: 4px;
-}
-
-button:hover {
-  cursor: pointer;
-}
-
-button {
+button, .button {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   position: relative;
   display: block;
@@ -231,6 +219,20 @@ button {
   overflow: hidden;
   border: 2px solid #0B0332;
   transition: all 0.25s ease;
+}
+
+
+button:hover, .button:hover {
+  cursor: pointer;
+}
+
+button:hover, button:focus,
+.button:hover, .button:focus {
+  background-color: #B0B0B0;
+}
+
+.active-button {
+  border-width: 4px;
 }
 
 label {

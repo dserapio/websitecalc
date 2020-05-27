@@ -38,8 +38,10 @@ const Slider = ({ autoPlay, slides }) => {
 
   useEffect(() => {
     let isMounted = true;
+    
     const play = () => {
-      autoPlayRef.current()
+      if (isMounted)
+        autoPlayRef.current()
     }
 
     let interval = autoPlay
@@ -57,7 +59,10 @@ const Slider = ({ autoPlay, slides }) => {
       }
     }
 
-    const resize = () => resizeRef.current();
+    const resize = () => {
+      if (isMounted)
+        resizeRef.current();
+    }
 
     const transitionEnd = window.addEventListener('transitionend', smooth)
     const onResize = window.addEventListener('resize', resize)

@@ -22,7 +22,7 @@ export default function Calculator() {
       }
    };
    const back = () => {
-      setInputs(fieldStarts);
+      //setInputs(fieldStarts);
       setResults({});
       setEnter(false);
    }
