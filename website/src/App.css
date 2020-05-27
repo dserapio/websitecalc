@@ -30,7 +30,6 @@
   transition: opacity 300ms, transform 300ms;
 }
 
-
 .fade-enter {
   opacity: 0;
 }
@@ -121,37 +120,36 @@
   margin-left: 10vw;
   padding-bottom: 50px;
   width: 80vw;
-  position: static;
 }
 
-.content section {
+section.main {
   width: 60vw;
 }
 
-.content section h1 {
+section.main h1 {
   padding-bottom: 10px;
 }
 
-.content section h2 {
+section.main h2 {
   font-weight: 600;
   font-size: 18px;
   padding-bottom: 2px;
 }
 
-.content section p {
+section.main p {
   padding-left: 6px;
   padding-top: 10px;
   padding-bottom: 20px;
 }
 
-.content section ol {
+section.main ol {
   padding-left: 30px;
   padding-bottom: 3px;
 }
 
-.sidebar {
+section.sidebar {
   display: block;
-  right: -18vw;
+  right: 4vw;
   position: absolute;
 }
 
@@ -195,8 +193,8 @@
 
 .littlebox a,
 .littlebox p,
-.content section a,
-.content section p {
+section.main a,
+section.main p {
   color: black;
 }
 
@@ -206,7 +204,7 @@
 
 .nav-link:hover,
 .littlebox a:hover,
-.content section a:hover {
+section.main a:hover {
   background-color: #909090;
 }
 

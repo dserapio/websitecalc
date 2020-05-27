@@ -2,12 +2,12 @@ import React from 'react';
 import '../../App.css';
 
 const About = ({calc}) => (
-   <>
-      <div className="sidebar">
+   <div className="content">
+      <section className="sidebar">
          <button type="button" onClick={calc}>Calculator</button>
-      </div>
+      </section>
       
-      <section>
+      <section className="main">
          <h1>About the Calculator</h1>
          <p>
             Welcome to the e-Stewards Global Impact Calculator. This tool is designed to estimate
@@ -21,7 +21,7 @@ const About = ({calc}) => (
          </ol>
          <p>These figures can be used to demonstrate and measure individual or corporate responsibility</p>
       </section>
-   </>
+   </div>
 );
 
  export default About;

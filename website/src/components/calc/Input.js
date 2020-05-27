@@ -4,7 +4,7 @@ import {fieldNames, fieldStarts} from '../Calculator';
 import '../../App.css';
 
 const checkValue = (value) => {
-   const num = +value;
+   const num = +value; //cast to num
    return Number.isInteger(num) && num>=0;
 };
 
@@ -28,8 +28,8 @@ const Input = ({start, buffer, about}) => {
    const submitInput = (event) => {
       event.preventDefault();
       const allBlank = fieldNames.every(field => {
-         let value = inputs[field];
-         return value==='' || value===0
+         const value = inputs[field];
+         return value==='' || value==='0'
       });
       setValid(!allBlank ? 1 : 0);
    }
@@ -44,44 +44,39 @@ const Input = ({start, buffer, about}) => {
    }, [valid, inputs, callBuffer]);
 
 
-   return <>
-      <div className="sidebar">
-         <button type="button" onClick={toAbout}>About</button>
-      </div>
+   return (
+      <div className="content">
+         <section className="sidebar">
+            <button type="button" onClick={toAbout}>About</button>
+         </section>
 
-      <section>
-         <h1>Find Out Material Yields</h1>
-         <p>Enter in any electronic, and we'll breakdown what it's made of</p>
+         <section className="main">
+            <h1>Find Out Material Yields</h1>
+            <p>Enter in any electronic, and we'll breakdown what it's made of</p>
 
-         <form id="calc-input" onSubmit={submitInput} noValidate>
-            {fieldNames.map((field, i) => (
-               <NumField key={field+i} valid={valid} inputs={inputs} change={handleChange} name={field}/>
-            ))}
-         </form>
+            <form id="calc-input" onSubmit={submitInput} noValidate>
+               {fieldNames.map((field, i) => (
+                  <NumField key={field+i} name={field} value={inputs[field]} change={handleChange}/>
+               ))}
+            </form>
 
-         <div className="submit">
-            {!valid && <span className="error">All Fields are Empty or 0</span>}
-            <div className="buttons">
-               <input className="button" type="submit" form="calc-input" value="Calculate"/>
-               <input className="button" type="button" onClick={resetInput} value="Reset"/>
+            <div className="submit">
+               {!valid && <span className="error">All Fields are Empty or 0</span>}
+               <div className="buttons">
+                  <input className="button" type="submit" form="calc-input" value="Calculate"/>
+                  <input className="button" type="button" onClick={resetInput} value="Reset"/>
+               </div>
             </div>
-         </div>
-
-      </section>
-   </>
+         </section>
+      </div>
+   );
 }
 
-const NumField = ({name, valid, inputs, change}) => {
-   const value = inputs[name];
-   return <label>
+const NumField = ({name, value, change}) => (
+   <label>
       Total {name.concat(name[name.length-1]==='s' ? '' : 's')}
-      {!valid && !checkValue(value) && <span className="error">Invalid value</span>}
-      <input
-         className="textfield"
-         value={value} name={name} 
-         onChange={change}
-      />
+      <input className="textfield" value={value} name={name} onChange={change}/>
    </label>
- }
+);
 
  export default Input;

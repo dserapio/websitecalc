@@ -34,22 +34,20 @@ export default function Calculator() {
    }, [results]);
 
    return (
-      <div className="content">
-         <TransitionGroup>
-            <FadeWrap
-               check={about}
-               comp={() => <About calc={onAbout}/>}
-            />
-            <FadeWrap
-               check={!about && !enter}
-               comp={() => <Input about={onAbout} buffer={bufferInput} start={inputs}/>}
-            />
-            <FadeWrap 
-               check={!about && enter}
-               comp={() => <Results about={onAbout} back={back} values={results}/>}
-            />
-         </TransitionGroup>
-      </div>
+      <TransitionGroup>
+         <FadeWrap
+            check={about}
+            comp={() => <About calc={onAbout}/>}
+         />
+         <FadeWrap
+            check={!about && !enter}
+            comp={() => <Input about={onAbout} buffer={bufferInput} start={inputs}/>}
+         />
+         <FadeWrap 
+            check={!about && enter}
+            comp={() => <Results about={onAbout} back={back} values={results}/>}
+         />
+      </TransitionGroup>
     );
 }
 
