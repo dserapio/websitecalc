@@ -19,8 +19,8 @@ export const paths = {
 };
 
 const Pages = () => {
+   
    const currLoc = useLocation();
-
    const valid = Object.keys(paths).reduce((accum, path) => (
       accum || matchPath(currLoc.pathname, {path: path, exact: true})
    ), false);

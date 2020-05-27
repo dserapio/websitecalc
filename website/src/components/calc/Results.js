@@ -41,7 +41,7 @@ const Results = ({about, back, values}) => {
                   {Object.entries(values).map(([name, value], i) => (
                      <tr key={name+i}>
                         <td className="output">{name}</td>
-                        <td className="output-value">{value * unit.convert} {unit.name} </td>
+                        <td className="output-value">{(value * unit.convert).toFixed(4)} {unit.name} </td>
                      </tr>
                   ))}
                </tbody>
