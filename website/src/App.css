@@ -177,8 +177,9 @@
   margin-top: calc(-60px - 15vh);
   margin-left: 8%;
   width: 85%;
-  column-count: 3;
-  column-gap: 40px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
 
 .littlebox {
@@ -188,7 +189,8 @@
   font-size: calc(1px + 2vmin);
   font-weight: 550;
   border-radius: 5%;
-  margin-bottom: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .littlebox a,
