@@ -188,6 +188,7 @@
   font-size: calc(1px + 2vmin);
   font-weight: 550;
   border-radius: 5%;
+  margin-bottom: 50px;
 }
 
 .littlebox a,
