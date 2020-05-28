@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
-import {GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import {GoogleMap, useLoadScript, Marker, InfoWindow, MarkerClusterer } from '@react-google-maps/api';
 import '../App.css';
 import locationData from '../data/location-info.json'
 
@@ -22,7 +22,11 @@ export default function FindRecycler() {
 
     <div>
       <form >
-        <input type="text" className="search" />
+        <input 
+          type="text" 
+          className="search" 
+          
+        />
       </form>
 
       <GoogleMap 
@@ -31,23 +35,31 @@ export default function FindRecycler() {
         center={{lat: 41.878113, lng: -87.629799}}
         onLoad={onMapLoad}
       >
-        {locationData.map(RecycleCenter => (
-          <Marker
-            key={RecycleCenter.id}
-            position={{
-              lat: RecycleCenter.location[0],
-              lng: RecycleCenter.location[1]
-            }}
+        <MarkerClusterer 
+          options={ "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m" }
+        >
+          {clusterer =>
+            locationData.map(RecycleCenter => (
+              <Marker
+                key={RecycleCenter.id}
+                position={{
+                  lat: RecycleCenter.location[0],
+                  lng: RecycleCenter.location[1]
+                }}
 
-            onClick={() => {
-              setSelected(RecycleCenter);
-            }}
-            icon={{
-              url: '/icon16.png',
-              scaledSize: new window.google.maps.Size(30,30)
-            }}
-          />
-        ))}
+                clusterer={clusterer}
+
+                onClick={() => {
+                  setSelected(RecycleCenter);
+                }}
+                icon={{
+                  url: '/icon16.png',
+                  scaledSize: new window.google.maps.Size(30,30)
+                }}
+              />
+            ))
+          }
+        </MarkerClusterer>
 
         {selected && (
           <InfoWindow 
