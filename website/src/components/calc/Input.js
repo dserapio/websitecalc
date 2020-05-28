@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 
 import {fieldNames, fieldStarts} from '../Calculator';
 import '../../App.css';
@@ -8,19 +8,11 @@ const checkValue = (value) => {
    return Number.isInteger(num) && num>=0;
 };
 
-const Input = ({start, buffer, about}) => {
-   const [inputs, setInputs] = useState({...start});
-   const [valid, setValid] = useState(-1);
-
-   const callBuffer = useCallback(buffer, []); //keep eye on
-
-   const toAbout = () => {
-      callBuffer(inputs, false); //save state, and come back
-      about();
-   }
+const Input = ({inputs, setInputs, toResults, toAbout}) => {
+   const [valid, setValid] = useState(true);
 
    const handleChange = ({target}) => {
-      setValid(-1); //reset check
+      setValid(true); //reset
       if (checkValue(target.value))
          setInputs(inputs => ({...inputs, [target.name]: target.value}));
    };
@@ -31,18 +23,17 @@ const Input = ({start, buffer, about}) => {
          const value = inputs[field];
          return value==='' || value==='0'
       });
-      setValid(!allBlank ? 1 : 0);
+
+      if (!allBlank)
+         toResults();
+      else
+         setValid(false);
    }
 
    const resetInput = () => {
-      setValid(-1);
+      setValid(true);
       setInputs(fieldStarts);
    }
-
-   useEffect(() => {
-      if (valid === 1) callBuffer(inputs);
-   }, [valid, inputs, callBuffer]);
-
 
    return (
       <div className="content">

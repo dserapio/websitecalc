@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../App.css';
 
-const Results = ({about, back, values}) => {
+const Results = ({toAbout, toBack, values}) => {
    const kiloUnits = {
       convert: 1,
       name: "kg"
@@ -24,7 +24,7 @@ const Results = ({about, back, values}) => {
    return (
       <div className="content">
          <section className="sidebar">
-            <button type="button" onClick={about}>About</button>
+            <button type="button" onClick={toAbout}>About</button>
          </section>
 
          <section className="main">
@@ -48,7 +48,7 @@ const Results = ({about, back, values}) => {
             </table>
 
             <div className="buttons">
-               <button type="button" onClick={back}>Back</button>
+               <button type="button" onClick={toBack}>Back</button>
                <button
                   className={activeAttr('kg')}
                   type="button" 

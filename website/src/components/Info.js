@@ -3,7 +3,6 @@ import '../App.css';
 
 const Information = () => (
    <div className="content">
-      
       <section className="main">
          <section>
             <h1>Information</h1>

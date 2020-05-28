@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Input from './calc/Input';
@@ -14,39 +14,27 @@ export default function Calculator() {
    const [inputs, setInputs] = useState(fieldStarts);
    const [results, setResults] = useState({});
 
-   const bufferInput = (newInputs, leave=true) => {
-      setInputs(newInputs);
-      if (leave) {
-         //calculate based on inputs
-         setResults(findTotals(newInputs));
-      }
-   };
-   const back = () => {
-      //setInputs(fieldStarts);
-      setResults({});
-      setEnter(false);
+   const toResults = () => {
+      setResults(findTotals(inputs));
+      setEnter(true);
    }
+   const toBack = () => setEnter(false);
    const onAbout = () => setAbout(about => !about);
-
-   useEffect(() => {
-      if (Object.keys(results).length > 0)
-         setEnter(true);
-   }, [results]);
 
    return (
       <TransitionGroup>
-         <FadeWrap
-            check={about}
-            comp={() => <About calc={onAbout}/>}
-         />
-         <FadeWrap
-            check={!about && !enter}
-            comp={() => <Input about={onAbout} buffer={bufferInput} start={inputs}/>}
-         />
-         <FadeWrap 
-            check={!about && enter}
-            comp={() => <Results about={onAbout} back={back} values={results}/>}
-         />
+         <FadeWrap check={about}>
+            <About calc={onAbout}/>
+         </FadeWrap>
+
+         <FadeWrap check={!about && !enter}>
+            <Input inputs={inputs} setInputs={setInputs} toResults={toResults} toAbout={onAbout}/>
+         </FadeWrap>
+
+         <FadeWrap check={!about && enter}>
+            <Results values={results} toAbout={onAbout} toBack={toBack}/>
+         </FadeWrap>
+
       </TransitionGroup>
     );
 }
@@ -76,7 +64,7 @@ const findTotals = (inputs) => {
    return totals;
 };
 
-const FadeWrap = ( {check, comp} ) => (
+const FadeWrap = ( {check, children} ) => (
    <CSSTransition
       in={check}
       timeout={350}
@@ -84,7 +72,7 @@ const FadeWrap = ( {check, comp} ) => (
       unmountOnExit
    >
       <div className="trans">
-         {comp()}
+         {children}
       </div>
    </CSSTransition>
 );
