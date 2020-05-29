@@ -10,25 +10,6 @@ import Error from './Error';
 import '../App.css';
 
 
-export const paths = {
-    "/": {Comp: Home, trans: "zoom", pos: true},
-    "/information": {Comp: Information, trans: "fade", pos: true},
-    "/calculator": {Comp: Calculator, trans: "fade", pos: true},
-    "/find-recycler": {Comp: FindRecycler, trans: "fade", pos: false},
-    "/error": {Comp: Error, trans: "fade", pos: true}
-};
-
-export const pathNames = () => (
-   Object.keys(paths)
-      .filter(path => path!=="/error")
-      .map(name => name.replace('/', ''))
-      .map(name => name==="" ? "home" : name)
-      .map(name => name.replace('-', ' '))
-      .map(name => name.replace(/ ([a-z])/, r => r.toUpperCase()))
-      .map(name => name.replace(/^./, f => f.toUpperCase()))
-);
-
-
 const Pages = ({location}) => {
    const linkNames = useMemo(() => {
       const links = Object.keys(paths);
@@ -69,5 +50,28 @@ const Pages = ({location}) => {
       </>
    );
 };
+
+export const paths = {
+   "/": {
+      Comp: Home, trans: "zoom", pos: true },
+   "/information": {
+      Comp: Information, trans: "fade", pos: true },
+   "/calculator": {
+      Comp: Calculator, trans: "fade", pos: true },
+   "/find-recycler": {
+      Comp: FindRecycler, trans: "fade", pos: false },
+   "/error": {
+      Comp: Error, trans: "fade", pos: true }
+};
+
+export const pathNames = () => (
+   Object.keys(paths)
+      .filter(path => path!=="/error")
+      .map(name => name.replace('/', ''))
+      .map(name => name==="" ? "home" : name)
+      .map(name => name.replace('-', ' '))
+      .map(name => name.replace(/ ([a-z])/, r => r.toUpperCase()))
+      .map(name => name.replace(/^./, f => f.toUpperCase()))
+);
 
 export default withRouter(Pages);

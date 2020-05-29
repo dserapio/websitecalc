@@ -14,3 +14,15 @@ export const FadeWrap = ( {check, children} ) => (
       </div>
    </CSSTransition>
 );
+
+export const SlideWrap = ( {check, children} ) => (
+   <CSSTransition
+      in={check}
+      timeout={200}
+      classNames="slide"
+   >
+      <div className="trans">
+         {children}
+      </div>
+   </CSSTransition>
+);
