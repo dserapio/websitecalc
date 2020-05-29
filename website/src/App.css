@@ -211,31 +211,31 @@ section.main a:hover {
 }
 
 button, .button {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Trebuchet MS;
   position: relative;
   display: block;
   font-size: 20px;
-  padding: 10px 20px;
-  background: none;
+  font-weight: bolder;
+  padding: 20px 50px;
   margin: 10px;
   outline: none;
   overflow: hidden;
-  border: 2px solid #0B0332;
+  background-color: #233142;
+  color: white;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  border: none;
   transition: all 0.25s ease;
-}
-
-
-button:hover, .button:hover {
   cursor: pointer;
 }
 
 button:hover, button:focus,
 .button:hover, .button:focus {
-  background-color: #B0B0B0;
+  color: #FFC312;
 }
 
 .active-button {
-  border-width: 4px;
+  color: #FFC312;
 }
 
 label {
