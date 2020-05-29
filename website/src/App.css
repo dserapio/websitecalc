@@ -76,10 +76,14 @@
   background: #FEF5F5;
   display: block;
   color: black;
-  padding: 5px 1vw;
+  padding: 6px 1.6vw;
   text-decoration: none;
   transition: all 0.6s ease;
-  font-size: calc(18px + 0.3vw);
+  font-size: calc(14px + 0.6vw);
+}
+
+.nav-link.active {
+  font-weight: bold;
 }
 
 .logo {
@@ -290,7 +294,7 @@ label .error {
 
 .submit .error {
   display: block;
-  margin-top: -36px;
+  margin-top: -33.4px;
   margin-left: 10px;
   padding: 0px;
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, matchPath, useLocation } from 'react-router-dom';
+import React, { useEffect, useMemo } from 'react';
+import { Route, matchPath, withRouter } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
 import Home from './Home';
@@ -11,41 +11,63 @@ import '../App.css';
 
 
 export const paths = {
-    "/": Home,
-    "/information": Information,
-    "/calculator": Calculator,
-    "/find-recycler": FindRecycler,
-    "/error": Error
+    "/": {Comp: Home, trans: "zoom", pos: true},
+    "/information": {Comp: Information, trans: "fade", pos: true},
+    "/calculator": {Comp: Calculator, trans: "fade", pos: true},
+    "/find-recycler": {Comp: FindRecycler, trans: "fade", pos: false},
+    "/error": {Comp: Error, trans: "fade", pos: true}
 };
 
-const Pages = () => {
-   const currLoc = useLocation();
-   const valid = Object.keys(paths).reduce((accum, path) => (
-      accum || matchPath(currLoc.pathname, {path: path, exact: true})
+export const pathNames = () => (
+   Object.keys(paths)
+      .filter(path => path!=="/error")
+      .map(name => name.replace('/', ''))
+      .map(name => name==="" ? "home" : name)
+      .map(name => name.replace('-', ' '))
+      .map(name => name.replace(/ ([a-z])/, r => r.toUpperCase()))
+      .map(name => name.replace(/^./, f => f.toUpperCase()))
+);
+
+
+const Pages = ({location}) => {
+   const linkNames = useMemo(() => {
+      const links = Object.keys(paths);
+      return pathNames()
+         .reduce((obj, name, i) => ({...obj, [links[i]]: name}), {});
+   }, []);
+   
+   //find valid route before for name for title
+   const valid = Object.keys(paths).reduce((match, path) => (
+      match || matchPath(location.pathname, {path: path, exact: true})
    ), false);
 
-   const comp = valid ? paths[valid.path] : paths["/error"];
-   const trans = comp===Home ? "zoom" : "fade";
-   const pos = comp!==FindRecycler ? "trans" : "";
+   const path = valid ? valid.path : "/error";
+   const matchComp = paths[path].Comp;
 
-   return (<>
-      {Object.entries(paths).map( ( [path, Component] ) => (
-         <Route key={path} exact path={path}>
-            {() => (
-               <CSSTransition
-                  in={Component===comp}
-                  timeout={350}
-                  classNames={trans}
-                  unmountOnExit
-               >
-                  <div className={pos}>
-                     <Component />
-                  </div>
-               </CSSTransition>
-            )}
-         </Route>
-      ))}
-   </>);
+   useEffect(() => {
+      document.title = `e-Stewards - ${linkNames[path]}`;
+   }, [linkNames, path]);
+
+   return (
+      <>
+         {Object.entries(paths).map(( [path, {Comp, trans, pos}] ) => (
+            <Route key={path} exact path={path}>
+               {() => ( //will always render
+                  <CSSTransition
+                     in={Comp===matchComp}
+                     timeout={350}
+                     classNames={trans}
+                     unmountOnExit
+                  >
+                     <div className={pos ? "trans" : ""}>
+                        <Comp />
+                     </div>
+                  </CSSTransition>
+               )}
+            </Route>
+         ))}
+      </>
+   );
 };
 
-export default Pages;
+export default withRouter(Pages);

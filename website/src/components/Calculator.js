@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { TransitionGroup } from 'react-transition-group';
 
+import { FadeWrap } from './trans/Transitions';
 import Input from './calc/Input';
 import Results from './calc/Results';
 import About from './calc/About';
@@ -63,16 +64,3 @@ const findTotals = (inputs) => {
    });
    return totals;
 };
-
-const FadeWrap = ( {check, children} ) => (
-   <CSSTransition
-      in={check}
-      timeout={350}
-      classNames="fade"
-      unmountOnExit
-   >
-      <div className="trans">
-         {children}
-      </div>
-   </CSSTransition>
-);

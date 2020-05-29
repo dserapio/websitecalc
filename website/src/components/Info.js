@@ -4,8 +4,9 @@ import '../App.css';
 const Information = () => (
    <div className="content">
       <section className="main">
+         <h1>Information</h1>
+         
          <section>
-            <h1>Information</h1>
             <h2>General Information</h2>
             <p>
                80% of our collective e-waste is wasted by being left in landfills. Electronics are filled

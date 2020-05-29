@@ -38,12 +38,12 @@ const Results = ({toAbout, toBack, values}) => {
                </thead>
 
                <tbody>
-                  {Object.entries(values).map(([name, value], i) => (
-                     <tr key={name+i}>
-                        <td className="output">{name}</td>
-                        <td className="output-value">{(value * unit.convert).toFixed(4)} {unit.name} </td>
-                     </tr>
-                  ))}
+                     {Object.entries(values).map(([name, value], i) => (
+                        <tr>
+                           <td className="output">{name}</td>
+                           <td className="output-value">{(value * unit.convert).toFixed(4)} {unit.name} </td>
+                        </tr>
+                     ))}
                </tbody>
             </table>
 
