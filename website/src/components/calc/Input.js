@@ -65,7 +65,7 @@ const Input = ({inputs, setInputs, toResults, toAbout}) => {
 
 const NumField = ({name, value, change}) => (
    <label>
-      Total {name.concat(name[name.length-1]==='s' ? '' : 's')}
+      Total {name.concat(name[name.length-1]==='s' || name[name.length-1]===')' ? '' : 's')}
       <input className="textfield" value={value} name={name} onChange={change}/>
    </label>
 );
