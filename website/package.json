@@ -11,10 +11,12 @@
     "@testing-library/user-event": "^10.3.5",
     "google-map-react": "^1.1.7",
     "react": "^16.13.1",
+    "react-device-detect": "^1.12.1",
     "react-dom": "^16.13.1",
     "react-google-maps": "^9.4.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-swipeable": "^5.5.1",
     "react-transition-group": "^4.4.1"
   },
   "scripts": {

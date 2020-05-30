@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { TransitionGroup } from 'react-transition-group';
 
-import { FadeWrap } from './trans/Transitions';
+import { FadeWrap } from './wraps/Transitions';
+import { ContentWrap } from './wraps/Styles';
 import Input from './calc/Input';
 import Results from './calc/Results';
 import About from './calc/About';
@@ -18,22 +19,31 @@ export default function Calculator() {
    const toResults = () => {
       setResults(findTotals(inputs));
       setEnter(true);
-   }
+   };
    const toBack = () => setEnter(false);
    const onAbout = () => setAbout(about => !about);
 
    return (
       <TransitionGroup>
          <FadeWrap check={about}>
-            <About calc={onAbout}/>
+            <ContentWrap>
+               <About calc={onAbout}/>
+            </ContentWrap>
          </FadeWrap>
 
          <FadeWrap check={!about && !enter}>
-            <Input inputs={inputs} setInputs={setInputs} toResults={toResults} toAbout={onAbout}/>
+            <ContentWrap>
+               <Input
+                  inputs={inputs} setInputs={setInputs}
+                  toResults={toResults} toAbout={onAbout}
+               />
+            </ContentWrap>
          </FadeWrap>
 
          <FadeWrap check={!about && enter}>
-            <Results values={results} toAbout={onAbout} toBack={toBack}/>
+            <ContentWrap>
+               <Results values={results} toAbout={onAbout} toBack={toBack}/>
+            </ContentWrap>
          </FadeWrap>
 
       </TransitionGroup>

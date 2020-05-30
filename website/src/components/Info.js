@@ -1,8 +1,9 @@
 import React from 'react';
+import { ContentWrap } from './wraps/Styles';
 import '../App.css';
 
 const Information = () => (
-   <div className="content">
+   <ContentWrap>
       <section className="main">
          <h1>Information</h1>
          
@@ -43,7 +44,7 @@ const Information = () => (
             </p>
          </section>
       </section>
-   </div>
+   </ContentWrap>
 );
 
 export default Information;

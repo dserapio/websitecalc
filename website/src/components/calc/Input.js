@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-
 import {fieldNames, fieldStarts} from '../Calculator';
 import '../../App.css';
+
 
 const checkValue = (value) => {
    const num = +value; //cast to num
@@ -35,32 +35,30 @@ const Input = ({inputs, setInputs, toResults, toAbout}) => {
       setInputs(fieldStarts);
    }
 
-   return (
-      <div className="content">
-         <section className="sidebar">
-            <button type="button" onClick={toAbout}>About</button>
-         </section>
+   return <>
+      <section className="sidebar">
+         <button type="button" onClick={toAbout}>About</button>
+      </section>
 
-         <section className="main">
-            <h1>Find Out Material Yields</h1>
-            <p>Enter in any electronic, and we'll breakdown what it's made of</p>
+      <section className="main">
+         <h1>Find Out Material Yields</h1>
+         <p>Enter in any electronic, and we'll breakdown what it's made of</p>
 
-            <form id="calc-input" onSubmit={submitInput} noValidate>
-               {fieldNames.map((field, i) => (
-                  <NumField key={field+i} name={field} value={inputs[field]} change={handleChange}/>
-               ))}
-            </form>
+         <form id="calc-input" onSubmit={submitInput} noValidate>
+            {fieldNames.map((field, i) => (
+               <NumField key={field+i} name={field} value={inputs[field]} change={handleChange}/>
+            ))}
+         </form>
 
-            <div className="submit">
-               {!valid && <span className="error">All Fields are Empty or 0</span>}
-               <div className="buttons">
-                  <input className="button" type="submit" form="calc-input" value="Calculate"/>
-                  <input className="button" type="button" onClick={resetInput} value="Reset"/>
-               </div>
+         <div className="submit">
+            {!valid && <span className="error">All Fields are Empty or 0</span>}
+            <div className="buttons">
+               <input className="button" type="submit" form="calc-input" value="Calculate"/>
+               <input className="button" type="button" onClick={resetInput} value="Reset"/>
             </div>
-         </section>
-      </div>
-   );
+         </div>
+      </section>
+   </>;
 }
 
 const NumField = ({name, value, change}) => (

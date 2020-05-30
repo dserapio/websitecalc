@@ -29,26 +29,24 @@ const Pages = ({location}) => {
       document.title = `e-Stewards - ${linkNames[path]}`;
    }, [linkNames, path]);
 
-   return (
-      <>
-         {Object.entries(paths).map(( [path, {Comp, trans, pos}] ) => (
-            <Route key={path} exact path={path}>
-               {() => ( //will always render
-                  <CSSTransition
-                     in={Comp===matchComp}
-                     timeout={350}
-                     classNames={trans}
-                     unmountOnExit
-                  >
-                     <div className={pos ? "trans" : ""}>
-                        <Comp />
-                     </div>
-                  </CSSTransition>
-               )}
-            </Route>
-         ))}
-      </>
-   );
+   return <>
+      {Object.entries(paths).map(( [path, {Comp, trans, pos}] ) => (
+         <Route key={path} exact path={path}>
+            {() => ( //will always render
+               <CSSTransition
+                  in={Comp===matchComp}
+                  timeout={350}
+                  classNames={trans}
+                  unmountOnExit
+               >
+                  <div className={pos ? "trans" : ""}>
+                     <Comp />
+                  </div>
+               </CSSTransition>
+            )}
+         </Route>
+      ))}
+   </>;
 };
 
 export const paths = {

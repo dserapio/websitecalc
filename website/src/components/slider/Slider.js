@@ -1,6 +1,9 @@
 /** @jsx jsx */
 import { useState, useEffect, useRef } from 'react'
 import { css, jsx } from '@emotion/core'
+import { Swipeable } from 'react-swipeable'
+import { isMobile } from 'react-device-detect';
+
 import SliderContent from './SliderContent'
 import Slide from './Slide'
 import Arrow from './Arrow'
@@ -131,22 +134,26 @@ const Slider = ({ autoPlay, slides }) => {
   }
 
   return (
-    <div css={SliderCSS}>
-      <SliderContent
-        translate={translate}
-        transition={transition}
-        width={getWidth() * _slides.length}
-      >
-        {_slides.map((_slide, i) => (
-          <Slide width={getWidth()} key={_slide + i} content={_slide} />
-        ))}
-      </SliderContent>
+    <Swipeable onSwipedLeft={nextSlide} onSwipedRight={prevSlide}>
+      <div css={SliderCSS}>
+        <SliderContent
+          translate={translate}
+          transition={transition}
+          width={getWidth() * _slides.length}
+        >
+          {_slides.map((_slide, i) => (
+            <Slide width={getWidth()} key={_slide + i} content={_slide} />
+          ))}
+        </SliderContent>
 
-      <Arrow direction="left" handleClick={prevSlide} />
-      <Arrow direction="right" handleClick={nextSlide} />
+        { !isMobile && <div>
+          <Arrow direction="left" handleClick={prevSlide} />
+          <Arrow direction="right" handleClick={nextSlide} />
+        </div>}
 
-      <Dots slides={slides} activeSlide={activeSlide} />
-    </div>
+        <Dots slides={slides} activeSlide={activeSlide} />
+      </div>
+    </Swipeable>
   )
 }
 
