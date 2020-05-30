@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../../App.css';
+import { PieChart } from 'react-minimal-pie-chart';
 
 const Results = ({toAbout, toBack, values}) => {
    const kiloUnits = {
@@ -20,7 +21,20 @@ const Results = ({toAbout, toBack, values}) => {
    const activeAttr = (buttonName) => (
       unit.name===buttonName ? "active" : ""
    );
-   
+
+   const getColor = () => {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+         color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+   }
+
+   const pieData = Object.entries(values).map(([name, value]) => (
+      { 'title': name, 'value': value, 'color': getColor() }
+   ));
+
    return (
       <div className="content">
          <section className="sidebar">
@@ -57,7 +71,14 @@ const Results = ({toAbout, toBack, values}) => {
                   className={activeAttr('lbs.')}
                   type="button"
                   onClick={changeTolbs}>lbs</button>
-            </div>
+            </div>      
+            
+            <PieChart 
+               data={pieData}
+               radius={PieChart.defaultProps.radius - 7}
+               segmentsShift={(index) => (index === 0 ? 7 : 3)}
+            />
+
          </section>
       </div>
    );
