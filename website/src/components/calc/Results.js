@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../../App.css';
+import { PieChart } from 'react-minimal-pie-chart';
 
 const Results = ({toAbout, toBack, values}) => {
    const kiloUnits = {
@@ -16,11 +17,24 @@ const Results = ({toAbout, toBack, values}) => {
 
    const changeTolbs = () => setUnit(poundUnits);
    const changeTokg = () => setUnit(kiloUnits);
+   
+   const getColor = () => {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+         color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+   }
+
+   const pieData = Object.entries(values).map(([name, value]) => (
+      { 'title': name, 'value': value, 'color': getColor() }
+   ));
 
    const activeAttr = (buttonName) => (
       unit.name===buttonName ? "active" : ""
    );
-   
+
    return <>
       <section className="sidebar">
          <button type="button" onClick={toAbout}>About</button>
@@ -46,17 +60,24 @@ const Results = ({toAbout, toBack, values}) => {
             </tbody>
          </table>
 
-         <div className="buttons">
-            <button type="button" onClick={toBack}>Back</button>
-            <button
-               className={activeAttr('kg')}
-               type="button" 
-               onClick={changeTokg}>kg</button>
-            <button
-               className={activeAttr('lbs.')}
-               type="button"
-               onClick={changeTolbs}>lbs</button>
-         </div>
+            <div className="buttons">
+               <button type="button" onClick={toBack}>Back</button>
+               <button
+                  className={activeAttr('kg')}
+                  type="button" 
+                  onClick={changeTokg}>kg</button>
+               <button
+                  className={activeAttr('lbs.')}
+                  type="button"
+                  onClick={changeTolbs}>lbs</button>
+            </div>
+            
+            <PieChart 
+               data={pieData}
+               radius={PieChart.defaultProps.radius - 7}
+               segmentsShift={(index) => (index === 0 ? 7 : 3)}
+            />
+
       </section>
    </>;
  };
