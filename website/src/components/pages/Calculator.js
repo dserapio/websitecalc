@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { TransitionGroup } from 'react-transition-group';
 
-import { FadeWrap } from './wraps/Transitions';
-import { ContentWrap } from './wraps/Styles';
-import Input from './calc/Input';
-import Results from './calc/Results';
-import About from './calc/About';
-import recycleData from '../data/recycle-info.json';
-import '../App.css';
+import { FadeWrap } from '../wraps/Transitions';
+import { ContentWrap } from '../wraps/Styles';
+import recycleData from '../../data/recycle-info.json';
+import '../../App.css';
+
+import Input from '../calc/Input';
+import Results from '../calc/Results';
+import About from '../calc/About';
 
 
 export default function Calculator() {

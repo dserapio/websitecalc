@@ -14,19 +14,17 @@ const Navigation = () => {
       return pathNames().map((name, i) => [links[i], name]);
    }, []);
 
-   const [hide, setHide] = useState(isMobile); //closed if mobile
-
+   const [hide, setHide] = useState(isMobile); //hide if mobile
    const navRef = useRef();
-   const listRef = useRef();
-   const showRef = useRef();
+   const menuRef = useRef();
 
    useEffect(() => {
-      if (isMobile)
+      if (isMobile) //only check once
          navRef.current.classList.add('mobile');
       else
          navRef.current.classList.remove('mobile');
 
-      const scrollCheck = ({target}) => {
+      const scrollCheck = () => {
          const distanceY = window.pageYOffset || document.documentElement.scrollTop;
          const shrinkOn = 25;
          const navClasses = navRef.current.classList
@@ -39,7 +37,7 @@ const Navigation = () => {
       }
 
       const clickCheck = (({target}) => {
-         if (!showRef.current.contains(target) || target.className.includes('nav-link'))
+         if (!menuRef.current.contains(target) || target.className.includes('nav-link'))
             setHide(true);
       });
 
@@ -54,15 +52,7 @@ const Navigation = () => {
       }
    }, []);
 
-   useEffect(() => {
-      if (hide) {
-         listRef.current.classList.add("hide");
-      } else {
-         listRef.current.classList.remove("hide");
-      }
-   }, [hide]);
-
-   const click = (event) => setHide(hide => !hide);
+   const click = () => setHide(hide => !hide);
 
    return ( 
       <div className="nav" ref={navRef}>
@@ -72,9 +62,10 @@ const Navigation = () => {
             </NavLink>
          </div>
          
-         <div ref={showRef} className="show-nav">
+         <div ref={menuRef}>
             {isMobile && <Burger onClick={click} active={!hide}/>}
-            <div className="nav-list" ref={listRef}>
+
+            <div className={"nav-list".concat(hide ? " hide" : "")}>
                {linkInfos.map(([path, name], i) => (
                   <NavLink key={path+i} className="nav-link" exact to={path}>{name}</NavLink>
                ))}

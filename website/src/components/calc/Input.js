@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {fieldNames, fieldStarts} from '../Calculator';
+import {fieldNames, fieldStarts} from '../pages/Calculator';
 import '../../App.css';
 
 

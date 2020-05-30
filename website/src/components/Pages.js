@@ -2,11 +2,11 @@ import React, { useEffect, useMemo } from 'react';
 import { Route, matchPath, withRouter } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
-import Home from './Home';
-import Information from './Info';
-import Calculator from './Calculator';
-import FindRecycler from './FindRecycler';
-import Error from './Error';
+import Home from './pages/Home';
+import Information from './pages/Info';
+import Calculator from './pages/Calculator';
+import FindRecycler from './pages/FindRecycler';
+import Error from './pages/Error';
 import '../App.css';
 
 

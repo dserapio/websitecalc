@@ -21,7 +21,6 @@ const BurgerCSS = css`
   .container {
     display: inline-block;
     cursor: pointer;
-    z-index: inherit;
   }
   
   .bar1, .bar2, .bar3 {

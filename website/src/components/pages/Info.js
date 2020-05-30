@@ -1,6 +1,6 @@
 import React from 'react';
-import { ContentWrap } from './wraps/Styles';
-import '../App.css';
+import { ContentWrap } from '../wraps/Styles';
+import '../../App.css';
 
 const Information = () => (
    <ContentWrap>

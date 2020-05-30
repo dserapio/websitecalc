@@ -1,6 +1,6 @@
 import React from 'react';
-import '../App.css';
-import Slider from './slider/Slider';
+import '../../App.css';
+import Slider from '../slider/Slider';
  
 export default function Home () {
    const images = [
