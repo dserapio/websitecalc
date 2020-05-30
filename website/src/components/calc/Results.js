@@ -71,13 +71,20 @@ const Results = ({toAbout, toBack, values}) => {
                   type="button"
                   onClick={changeTolbs}>lbs</button>
             </div>
-            
-            <PieChart 
-               data={pieData}
-               radius={PieChart.defaultProps.radius - 7}
-               segmentsShift={(index) => (index === 0 ? 7 : 3)}
-            />
 
+            <div className="piechartbox">
+               <PieChart 
+                  data={pieData}
+                  className="piechart"
+                  radius={PieChart.defaultProps.radius - 7}
+                  segmentsShift={(index) => (index === 0 ? 7 : 0.5)}
+                  animate
+                  label={({ dataEntry }) => Math.round(dataEntry.percentage) + '%'}
+                  labelStyle= {{
+                     fontSize: '5px'
+                  }}
+               />
+            </div>
       </section>
    </>;
  };

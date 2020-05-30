@@ -84,6 +84,10 @@
   transition: transform 200ms ease;
 }
 
+.smaller.mobile .nav-list {
+  top: 7vh;
+}
+
 .mobile .nav-list.hide {
   transform: translateX(999px);
 }
