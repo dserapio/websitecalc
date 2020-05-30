@@ -43,12 +43,14 @@ const Navigation = () => {
             setHide(true);
       });
 
-      const morph = window.addEventListener('scroll', scrollCheck);
-      const exit = window.addEventListener('click', clickCheck);
+      window.addEventListener('scroll', scrollCheck);
+      if (isMobile)
+         window.addEventListener('click', clickCheck);
 
       return () => {
-         window.removeEventListener('scroll', morph);
-         window.removeEventListener('click', exit);
+         window.removeEventListener('scroll', scrollCheck);
+         if (isMobile)
+            window.removeEventListener('click', clickCheck);
       }
    }, []);
 
