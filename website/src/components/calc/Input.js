@@ -35,9 +35,12 @@ const Input = ({inputs, setInputs, toResults, toAbout}) => {
       setInputs(fieldStarts);
    }
 
+   const toggleForm = () => {};
+
    return <>
       <section className="sidebar">
          <button type="button" onClick={toAbout}>About</button>
+         <button type="button" onClick={toggleForm}>With Quantities</button>
       </section>
 
       <section className="main">

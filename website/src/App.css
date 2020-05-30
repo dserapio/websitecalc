@@ -54,7 +54,7 @@
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  z-index: 2;
+  z-index: 1;
   width: 100%;
   top: 0px;
   right: 0px;
@@ -62,10 +62,7 @@
   opacity: 0.75;
 }
 
-.nav.mobile {
-  opacity: 1;
-}
-
+.nav.mobile,
 .nav.smaller {
   opacity: 1;
 }
@@ -77,10 +74,14 @@
 }
 
 .mobile .nav-list {
+  background: #FEF5F5;
+  height: 100vh;
   display: block;
   position: absolute;
+  padding-left: 3%;
+  padding-right:3%;
   right: 0;
-  top: 10vh;
+  top: 11vh;
   transition: transform 200ms ease;
 }
 
@@ -93,17 +94,17 @@
 }
 
 .show-nav {
-  z-index: inherit;
+  z-index: 2;
 }
 
 .nav-link {
-  background: #FEF5F5;
   display: block;
   color: black;
   padding: 6px 1.6vw;
   text-decoration: none;
   transition: all 0.6s ease;
   font-size: calc(14px + 0.6vw);
+  z-index: inherit;
 }
 
 .mobile .nav-link {
@@ -155,6 +156,7 @@
   position: static;
 }
 
+
 section.main {
   width: 80%
 }
@@ -184,26 +186,39 @@ section.main ol {
   padding-bottom: 3px;
 }
 
+
 section.sidebar {
-  display: block;
-  right: 1vw;
+  right: 0;
   position: absolute;
+  display: block;
 }
 
-/*.mobile section.sidebar {
-  
-}*/
+section.sidebar * {
+  margin-left: auto;
+  margin-right: 0;
+}
 
 .mobile section.sidebar {
   position: static;
-  display: inline;
+  display: flex;
+  padding: 0px;
+  /*kind of a hack, div is flipped*/
+  transform: rotate(180deg);
+  padding-top: 25px;
+  justify-content: flex-start;
 }
 
+.mobile section.sidebar * {
+  transform: rotate(-180deg);
+  margin: 5px;
+}
+
+
 .title { 
-  background-color: rgba(254, 245, 245, 0.75);
-  z-index: 1;
+  background-color: rgba(254, 245, 245);
+  opacity: 80%;
   position: absolute;
-  margin-top: 120px;
+  margin-top: -135%;
   width: 90%;
   margin-left: 4%;
   padding: 10px;
@@ -333,7 +348,8 @@ label .error {
 
 .submit .error {
   display: block;
-  margin-top: -33.4px;
+  position: absolute;
+  margin-top: -20px;
   margin-left: 10px;
   padding: 0px;
 }

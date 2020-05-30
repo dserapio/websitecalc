@@ -10,16 +10,16 @@ export default function Home () {
    ]
 
    return <>
+      <div className="slider">
+         <Slider slides={images} autoPlay={10}/>
+      </div>
+
       <div className="title">
          <h1>
             e-Stewards is the 
             globally responsible way to 
             recycle your electronics.
          </h1>
-      </div>
-         
-      <div className="slider">
-         <Slider slides={images} autoPlay={10}/>
       </div>
 
       <div className="moreinfo">

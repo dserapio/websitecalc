@@ -26,7 +26,7 @@ const Navigation = () => {
       else
          navRef.current.classList.remove('mobile');
 
-      const scrollCheck = () => {
+      const scrollCheck = ({target}) => {
          const distanceY = window.pageYOffset || document.documentElement.scrollTop;
          const shrinkOn = 25;
          const navClasses = navRef.current.classList
@@ -39,7 +39,7 @@ const Navigation = () => {
       }
 
       const clickCheck = (({target}) => {
-         if (!showRef.current.contains(target))
+         if (!showRef.current.contains(target) || target.className.includes('nav-link'))
             setHide(true);
       });
 
@@ -72,13 +72,13 @@ const Navigation = () => {
             </NavLink>
          </div>
          
-         {isMobile && <div ref={showRef} className="show-nav">
-            <Burger onClick={click} active={!hide}/>
-         </div>}
-         <div className="nav-list" ref={listRef}>
-            {linkInfos.map(([path, name], i) => (
-               <NavLink key={path+i} className="nav-link" exact to={path}>{name}</NavLink>
-            ))}
+         <div ref={showRef} className="show-nav">
+            {isMobile && <Burger onClick={click} active={!hide}/>}
+            <div className="nav-list" ref={listRef}>
+               {linkInfos.map(([path, name], i) => (
+                  <NavLink key={path+i} className="nav-link" exact to={path}>{name}</NavLink>
+               ))}
+            </div>
          </div>
       </div>
    );
