@@ -63,13 +63,13 @@ const Navigation = () => {
          </div>
          
          <div ref={menuRef}>
-            {isMobile && <Burger onClick={click} active={!hide}/>}
-
             <div className={"nav-list".concat(hide ? " hide" : "")}>
                {linkInfos.map(([path, name], i) => (
                   <NavLink key={path+i} className="nav-link" exact to={path}>{name}</NavLink>
                ))}
             </div>
+            
+            {isMobile && <Burger onClick={click} active={!hide}/>}
          </div>
       </div>
    );
