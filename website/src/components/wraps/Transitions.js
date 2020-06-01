@@ -18,7 +18,7 @@ export const FadeWrap = ( {active, children} ) => {
          classNames="fade"
          unmountOnExit
       >
-         <div ref={divRef} className="trans">
+         <div ref={divRef} className="rel">
             {children}
          </div>
       </CSSTransition>

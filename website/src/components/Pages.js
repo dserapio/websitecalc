@@ -25,17 +25,26 @@ const Pages = ({location}) => {
    const path = valid ? valid.path : "/error";
    const matchComp = paths[path].Comp;
 
+   const divClass = (rel, fill) => {
+      let ret = "";
+      if (rel)
+         ret = ret.concat(" rel");
+      //if (fill)
+      //   ret = ret.concat(" fill");
+      return ret;
+   }
+
    useEffect(() => {
       document.title = `e-Stewards - ${linkNames[path]}`;
    }, [linkNames, path]);
 
    return <>
-      {Object.entries(paths).map(( [path, {Comp, trans, pos}] ) => (
+      {Object.entries(paths).map(( [path, {Comp, trans, rel, fill}] ) => (
          <Route key={path} exact path={path}>
             {() => ( //will always render
                <TransWrap 
                   active={Comp===matchComp} trans={trans} 
-                  divClass={pos ? "trans" : ""}
+                  divClass={divClass(rel, fill)}
                >
                   <Comp/>
                </TransWrap>
@@ -48,15 +57,15 @@ const Pages = ({location}) => {
 
 export const paths = {
    "/": {
-      Comp: Home, trans: "zoom", pos: true },
+      Comp: Home, trans: "zoom", rel: true, fill: false },
    "/information": {
-      Comp: Information, trans: "fade", pos: true },
+      Comp: Information, trans: "fade", rel: true, fill: true },
    "/calculator": {
-      Comp: Calculator, trans: "fade", pos: true },
+      Comp: Calculator, trans: "fade", rel: true, fill: true },
    "/find-recycler": {
-      Comp: FindRecycler, trans: "fade", pos: false },
+      Comp: FindRecycler, trans: "fade", rel: false, fill: true },
    "/error": {
-      Comp: Error, trans: "fade", pos: true }
+      Comp: Error, trans: "fade", rel: true, fill: false }
 };
 
 export const pathNames = () => (

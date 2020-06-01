@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/core'
 import { useSwipeable } from 'react-swipeable'
 import { isMobile } from 'react-device-detect';
 
+import { menuZone } from '../Navigation'
 import SliderContent from './SliderContent'
 import Slide from './Slide'
 import Arrow from './Arrow'
@@ -60,11 +61,15 @@ const Slider = ({ autoPlay, slides }) => {
           interval = setInterval(play, autoPlay * 1000)
         }
       }
+      else if (!isMounted)
+        console.log('not mounted');
     }
 
     const resize = () => {
       if (isMounted)
         resizeRef.current();
+      else
+        console.log('skipping resize');
     }
 
     const transitionEnd = window.addEventListener('transitionend', smooth)
@@ -133,10 +138,15 @@ const Slider = ({ autoPlay, slides }) => {
     }
   }
 
-  const swipes = useSwipeable({
-    onSwipedLeft: nextSlide, 
+  /*const swipeNext = ({initial}) => {
+    if (initial[0] < menuZone())
+      nextSlide();
+  }*/
+
+  const swipes = {}/*useSwipeable({
+    onSwipedLeft: swipeNext, 
     onSwipedRight: prevSlide
-  });
+  });*/
 
   return (
     <div {...swipes} css={SliderCSS}>
