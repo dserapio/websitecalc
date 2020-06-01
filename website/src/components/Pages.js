@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { Route, matchPath, withRouter } from 'react-router-dom';
-import { CSSTransition } from 'react-transition-group';
 
+import { TransWrap } from './wraps/Transitions';
 import Home from './pages/Home';
 import Information from './pages/Info';
 import Calculator from './pages/Calculator';
@@ -33,21 +33,18 @@ const Pages = ({location}) => {
       {Object.entries(paths).map(( [path, {Comp, trans, pos}] ) => (
          <Route key={path} exact path={path}>
             {() => ( //will always render
-               <CSSTransition
-                  in={Comp===matchComp}
-                  timeout={350}
-                  classNames={trans}
-                  unmountOnExit
+               <TransWrap 
+                  active={Comp===matchComp} trans={trans} 
+                  divClass={pos ? "trans" : ""}
                >
-                  <div className={pos ? "trans" : ""}>
-                     <Comp />
-                  </div>
-               </CSSTransition>
+                  <Comp/>
+               </TransWrap>
             )}
          </Route>
       ))}
    </>;
 };
+
 
 export const paths = {
    "/": {

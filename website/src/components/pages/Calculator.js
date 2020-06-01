@@ -26,13 +26,13 @@ export default function Calculator() {
 
    return (
       <TransitionGroup>
-         <FadeWrap check={about}>
+         <FadeWrap active={about}>
             <ContentWrap>
                <About calc={onAbout}/>
             </ContentWrap>
          </FadeWrap>
 
-         <FadeWrap check={!about && !enter}>
+         <FadeWrap active={!about && !enter}>
             <ContentWrap>
                <Input
                   inputs={inputs} setInputs={setInputs}
@@ -41,7 +41,7 @@ export default function Calculator() {
             </ContentWrap>
          </FadeWrap>
 
-         <FadeWrap check={!about && enter}>
+         <FadeWrap active={!about && enter}>
             <ContentWrap>
                <Results values={results} toAbout={onAbout} toBack={toBack}/>
             </ContentWrap>
