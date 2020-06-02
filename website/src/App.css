@@ -385,3 +385,12 @@ label .error {
 .piechart {
   font-size: 5px;
 }
+
+.color-box {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 5px;
+}
