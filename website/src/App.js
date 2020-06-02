@@ -41,8 +41,8 @@ const App = () => {
   return (
     <div {...swipes}>
       <BrowserRouter>
-        <Navigation listRef={listRef} hide={hide} setHide={setHide}/>
-        <Pages navInfo={{listRef: listRef, hide: hide}}/>
+        <Navigation ref={listRef} hide={hide} setHide={setHide}/>
+        <Pages navInfo={{listRef: listRef}}/>
       </BrowserRouter>
     </div>
   );

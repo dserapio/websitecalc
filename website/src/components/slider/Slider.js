@@ -25,70 +25,19 @@ const Slider = ({ navInfo, autoPlay, slides }) => {
     translate: getWidth(),
     transition: 0.45,
     _slides: [lastSlide, firstSlide, secondSlide],
-    updating: false
+    updating: false,
+    signal: false
   })
 
-  const { activeSlide, translate, _slides, transition, updating } = state
+  const { 
+    activeSlide, translate, _slides,
+    transition, updating, signal 
+  } = state;
 
   const autoPlayRef = useRef()
   const transitionRef = useRef()
   const resizeRef = useRef()
 
-  useEffect(() => {
-    autoPlayRef.current = nextSlide
-    transitionRef.current = smoothTransition
-    resizeRef.current = handleResize
-  })
-
-  useEffect(() => {
-    let isMounted = true;
-    
-    const play = () => {
-      if (isMounted)
-        autoPlayRef.current()
-    }
-
-    let interval = autoPlay
-      ? setInterval(play, autoPlay * 1000)
-      : null;
-
-    const smooth = e => {
-      if (isMounted && e.target.className.includes('SliderContent')) {
-        transitionRef.current()
-
-        if (interval !== null) { //reset timer
-          clearInterval(interval);
-          interval = setInterval(play, autoPlay * 1000)
-        }
-      }
-    }
-
-    const resize = () => {
-      if (isMounted)
-        resizeRef.current();
-    }
-
-    const transitionEnd = window.addEventListener('transitionend', smooth)
-    const onResize = window.addEventListener('resize', resize)
-
-    return () => {
-      isMounted = false;
-      window.removeEventListener('transitionend', transitionEnd)
-      window.removeEventListener('resize', onResize)
-
-      if (autoPlay) {
-        clearInterval(interval)
-      }
-    }
-  }, [autoPlay])
-
-  useEffect(() => {
-    setState(state => (
-      state.transition === 0
-        ? { ...state, transition: 0.45, updating: false }
-        : state
-    ))
-  }, [transition])
 
   const handleResize = () => {
     setState({ ...state, translate: getWidth(), transition: 0 })
@@ -133,6 +82,72 @@ const Slider = ({ navInfo, autoPlay, slides }) => {
       })
     }
   }
+
+
+  useEffect(() => {
+    autoPlayRef.current = nextSlide;
+    transitionRef.current = smoothTransition;
+    resizeRef.current = handleResize;
+  })
+
+
+  useEffect(() => {
+    let mounted = true;
+
+    const play = () => {
+      if (mounted)
+        autoPlayRef.current()
+    }
+
+    let interval = autoPlay
+      ? setInterval(play, autoPlay * 1000)
+      : null;
+
+    const smooth = e => {
+      if (mounted && e.target.className.includes('SliderContent')) {
+        transitionRef.current()
+
+        if (interval !== null) { //reset timer
+          clearInterval(interval);
+          interval = setInterval(play, autoPlay * 1000)
+        }
+      }
+    }
+
+    const resize = () => {
+      if (mounted)
+        resizeRef.current();
+    }
+
+    const transitionEnd = window.addEventListener('transitionend', smooth)
+    const onResize = window.addEventListener('resize', resize)
+    setState(state => ({...state, signal: true}));
+
+    return () => {
+      mounted = false;
+      window.removeEventListener('transitionend', transitionEnd)
+      window.removeEventListener('resize', onResize)
+
+      if (autoPlay) {
+        clearInterval(interval)
+      }
+    }
+  }, [autoPlay])
+
+  useEffect(() => {
+    setState(state => (
+      state.transition === 0
+        ? { ...state, transition: 0.45, updating: false }
+        : state
+    ))
+  }, [transition])
+
+  useEffect(() => {
+    //immediately go to next slide
+    if (signal)
+      autoPlayRef.current();
+  }, [signal]);
+
 
   const swipeNext = ({initial,  event}) => {
     if (!openMenu(navInfo.listRef, {checkX: initial[0], target: event.target}))
