@@ -381,3 +381,7 @@ label .error {
   outline: none;
   font-size: 16px;
 }
+
+.piechart {
+  font-size: 5px;
+}
