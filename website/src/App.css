@@ -393,6 +393,8 @@ label .error {
 
 .piechart {
   font-size: 5px;
+  height: 400px;
+  margin: 10px;
 }
 
 .color-box {
@@ -402,4 +404,10 @@ label .error {
   position: absolute;
   margin-top: 10px;
   margin-left: 5px;
+}
+
+.outputs {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between; 
 }
