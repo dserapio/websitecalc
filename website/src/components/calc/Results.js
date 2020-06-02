@@ -12,23 +12,25 @@ const Results = ({toAbout, toBack, values}) => {
       name: "lbs."
    };
 
+   const colors = ['#444444', '#FFC300', '#FF5733', '#C70039', '#900C3F',
+   '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
+
    // Units default to kg
    const [unit, setUnit] = useState(kiloUnits);
+   const [selected, setSelected] = useState(0);
+   const lineWidth = 60;
 
    const changeTolbs = () => setUnit(poundUnits);
    const changeTokg = () => setUnit(kiloUnits);
    
-   const getColor = () => {
-      var letters = '0123456789ABCDEF';
-      var color = '#';
-      for (var i = 0; i < 6; i++) {
-         color += letters[Math.floor(Math.random() * 16)];
-      }
+   const getColor = (index) => {
+      var color = '';
+      color = colors[index];
       return color;
    }
 
-   const pieData = Object.entries(values).map(([name, value]) => (
-      { 'title': name, 'value': value, 'color': getColor() }
+   const pieData = Object.entries(values).map(([name, value], index) => (
+      { 'title': name, 'value': value, 'color': getColor(index) }
    ));
 
    const activeAttr = (buttonName) => (
@@ -76,12 +78,20 @@ const Results = ({toAbout, toBack, values}) => {
                <PieChart 
                   data={pieData}
                   className="piechart"
-                  radius={PieChart.defaultProps.radius - 7}
-                  segmentsShift={(index) => (index === 0 ? 7 : 0.5)}
+                  radius={PieChart.defaultProps.radius - 6}
+                  lineWidth={60}
+                  segmentsStyle={{ transition: 'stroke .10s', cursor: 'pointer' }}
+                  segmentsShift={ (index) => (index === selected ? 6 : 1) }
                   animate
                   label={({ dataEntry }) => Math.round(dataEntry.percentage) + '%'}
-                  labelStyle= {{
-                     fontSize: '5px'
+                  labelStyle={{
+                     fill: '#fff',
+                     opacity: 0.75,
+                     pointerEvents: 'none',
+                  }}
+                  labelPosition = {110 - lineWidth / 2}
+                  onClick={(_, index) => {
+                     setSelected(index === selected ? undefined : index);
                   }}
                />
             </div>
