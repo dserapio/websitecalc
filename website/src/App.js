@@ -13,13 +13,13 @@ const App = () => {
   const listRef = useRef(); //the sliding elem
 
   const pullMenu = ({initial, event}) => {
-    if (openMenu(listRef, {checkX: initial[0], target: event.target}))
+    if (openMenu(listRef.current, {checkX: initial[0], target: event.target}))
       setHide(false);
   }
 
   const hideMenu = ({event, initial, deltaX}) => {
     const currX = initial[0] - deltaX;
-    if (closeMenu(listRef, {checkX: currX, target: event.target}))
+    if (closeMenu(listRef.current, {checkX: currX, target: event.target}))
       setHide(true);
   }
 

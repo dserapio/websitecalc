@@ -33,7 +33,7 @@ const Navigation = forwardRef(({hide, setHide}, ref) => {
    useEffect(() => {
       const scrollCheck = () => {
          const distanceY = window.pageYOffset || document.documentElement.scrollTop;
-         const shrinkOn = 25;
+         const shrinkOn = window.innerHeight * 0.02;
          
          if (distanceY > shrinkOn)
             navRef.current.classList.add("smaller");
@@ -89,28 +89,28 @@ const Navigation = forwardRef(({hide, setHide}, ref) => {
 
 /**
  * Determines if the nav menu would be opened by this event
- * @param {React.MutableRefObject<undefined>} menuRef
+ * @param {HTMLDivElement} menu
  * @param {Object} event 
  * @param {number} event.checkX 
  * @param {EventTarget} event.target
  * @returns {boolean}
  */
-export const openMenu = (menuRef, {checkX, target}) => (
-   menuRef.current.className.includes('hide') && checkX >= window.innerWidth*0.9
+export const openMenu = (menu, {checkX, target}) => (
+   menu.className.includes('hide') && checkX >= window.innerWidth*0.9
 );
 
 /**
  * Determines if the nav menu would be closed by this event
- * @param {React.MutableRefObject<undefined>} menuRef 
+ * @param {HTMLDivElement} menu 
  * @param {Object} event 
  * @param {number} event.checkX 
  * @param {EventTarget} event.target
  * @returns {boolean}
  */
-export const closeMenu = (menuRef, {checkX, target}) => {
-   const pastListX = () => checkX >= window.innerWidth-menuRef.current.clientWidth;
-   return !menuRef.current.className.includes('hide') 
-      && (menuRef.current.contains(target) || pastListX());
+export const closeMenu = (menu, {checkX, target}) => {
+   const pastListX = () => checkX >= window.innerWidth-menu.clientWidth;
+   return !menu.className.includes('hide') 
+      && (menu.contains(target) || pastListX());
 };
 
 export default Navigation;

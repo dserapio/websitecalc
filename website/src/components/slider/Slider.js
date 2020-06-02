@@ -150,13 +150,13 @@ const Slider = ({ navInfo, autoPlay, slides }) => {
 
 
   const swipeNext = ({initial,  event}) => {
-    if (!openMenu(navInfo.listRef, {checkX: initial[0], target: event.target}))
+    if (!openMenu(navInfo.listRef.current, {checkX: initial[0], target: event.target}))
       nextSlide();
   }
 
   const swipePrev = ({initial, deltaX, event}) => {
     const currX = initial[0] - deltaX;
-    if (!closeMenu(navInfo.listRef, {checkX: currX, target: event.target}))
+    if (!closeMenu(navInfo.listRef.current, {checkX: currX, target: event.target}))
       prevSlide();
   }
 

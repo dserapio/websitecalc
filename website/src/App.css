@@ -72,7 +72,7 @@
 }
 
 .nav-menu {
-  padding-right: 20px;
+  padding-right: calc(10px + 1vw);
 }
 
 .nav-list {
@@ -86,7 +86,7 @@
   height: 100vh;
   display: block;
   position: absolute;
-  padding-top: 16%;
+  padding-top: 20%;
   right: 0;
   top: 0;
   transition: transform 200ms ease;
@@ -114,18 +114,18 @@
   font-weight: bold;
 }
 
-.logo {
-  height: 80px;
-  margin: 1px;
-}
-
 .nav,
 .logo {
   transition: all 0.25s ease;
 }
 
+.logo {
+  height: calc(25px + 2.5vw + 2vh);
+  margin: 1px;
+}
+
 .smaller .logo {
-  height: 40px;
+  height: calc(15px + 2vw + 2vh);
 }
 
 .logoBtn {
@@ -145,9 +145,9 @@
 
 .content {
   position: relative;
-  padding-top: 130px;
+  padding-top: calc(50px + 4vw + 3.5vh);
   padding-left: 7vw;
-  padding-bottom: 50px;
+  padding-bottom: 5vh;
   width: 80vw;
 }
 
@@ -198,17 +198,21 @@ section.sidebar * {
   margin-right: 0vw;
 }
 
-.mobile section.sidebar {
+.mobile section.sidebar,
+.buttons {
   position: static;
   display: flex;
   padding: 0px;
-  
-  padding-bottom: 25px;
-  margin-left: -7px;
+  padding-bottom: 4vh;
+  margin-left: -1vw;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
-.mobile section.sidebar * {
+.mobile section.sidebar *,
+.buttons * {
   margin: 5px;
+  flex: 0 0 auto;
 }
 
 .title {
@@ -232,7 +236,7 @@ section.sidebar * {
 .moreinfo {
   justify-content: center;
   position: relative;
-  margin-top: calc(55px + 49vh);
+  margin-top: calc(10px + 45vh);
   width: 85%;
   margin-left: auto;
   margin-right: auto;
@@ -272,9 +276,9 @@ section.main a:hover {
 button, .button {
   position: relative;
   display: block;
-  font-size: 20px;
+  font-size: 2.5vh;
   font-weight: bold;
-  padding: 20px 35px;
+  padding: 2.5vh calc(2vh + 1vw);
   margin: 10px;
   outline: none;
   overflow: hidden;
@@ -293,10 +297,10 @@ button:hover, button:focus, button.active,
 }
 
 label {
-  font-size: 22px;
+  font-size: calc(5px + 2vh);
   font-weight: 500;
   margin: 10px;
-  padding-top: 8px;
+  padding-top: 1vh;
 }
 
 table {
@@ -319,7 +323,7 @@ form {
   display: block;
   box-sizing: border-box;
   width: 80%;
-  font-size: 20px;
+  font-size: inherit;
   border: none;
   border-bottom: 2px solid black;
   outline: none;
@@ -363,10 +367,6 @@ label .error {
 .output-value {
   font-weight: lighter;
   margin-top: -13px;
-}
-
-.buttons {
-  display: flex;
 }
 
 .search {
