@@ -1,16 +1,17 @@
 import React, { useEffect, useMemo } from 'react';
 import { Route, matchPath, withRouter } from 'react-router-dom';
 
-import { TransWrap } from './wraps/Transitions';
 import Home from './pages/Home';
 import Information from './pages/Info';
 import Calculator from './pages/Calculator';
 import FindRecycler from './pages/FindRecycler';
 import Error from './pages/Error';
+
+import { TransWrap } from './wraps/Transitions';
 import '../App.css';
 
 
-const Pages = ({location}) => {
+const Pages = ({location, navInfo}) => {
    const linkNames = useMemo(() => {
       const links = Object.keys(paths);
       return pathNames()
@@ -46,7 +47,7 @@ const Pages = ({location}) => {
                   active={Comp===matchComp} trans={trans} 
                   divClass={divClass(rel, fill)}
                >
-                  <Comp/>
+                  <Comp navInfo={navInfo}/>
                </TransWrap>
             )}
          </Route>

@@ -232,7 +232,7 @@ section.sidebar * {
 .moreinfo {
   justify-content: center;
   position: relative;
-  margin-top: calc(50px + 50vh);
+  margin-top: calc(55px + 49vh);
   width: 85%;
   margin-left: auto;
   margin-right: auto;

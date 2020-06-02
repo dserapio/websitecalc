@@ -7,14 +7,20 @@ import { paths, pathNames } from './Pages';
 import logo from '../img/e-stewards.png'
 import '../App.css';
 
-
-const Navigation = ({menuRef, hide, setHide}) => {
+/**
+ * @param {Object} props
+ * @param {React.MutableRefObject<undefined>} props.listRef
+ * @param {boolean} props.hide
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setHide
+ */
+const Navigation = ({listRef, hide, setHide}) => {
    const linkInfos = useMemo(() => {
       const links = Object.keys(paths);
       return pathNames().map((name, i) => [links[i], name]);
    }, []);
 
    const navRef = useRef();
+   const menuRef = useRef(); //sliding ref and the burger button group
 
    useEffect(() => {
       if (isMobile) //only check once
@@ -46,7 +52,7 @@ const Navigation = ({menuRef, hide, setHide}) => {
          if (isMobile)
             window.removeEventListener('click', menuClick);
       }
-   }, [menuRef, setHide]);
+   }, [setHide]);
 
    const burgClick = () => setHide(hide => !hide);
 
@@ -60,7 +66,7 @@ const Navigation = ({menuRef, hide, setHide}) => {
          </div>
          
          <div ref={menuRef} className="nav-menu">
-            <div className={"nav-list".concat(hide ? " hide" : "")}>
+            <div ref={listRef} className={"nav-list".concat(hide ? " hide" : "")}>
                {linkInfos.map(([path, name], i) => (
                   <NavLink key={path+i} className="nav-link" exact to={path}>{name}</NavLink>
                ))}
@@ -72,6 +78,31 @@ const Navigation = ({menuRef, hide, setHide}) => {
    );
 };
 
-export const menuZone = () => window.innerWidth*0.85;
+
+/**
+ * Determines if the nav menu would be opened by this event
+ * @param {React.MutableRefObject<undefined>} menuRef
+ * @param {Object} event 
+ * @param {number} event.checkX 
+ * @param {EventTarget} event.target
+ * @returns {boolean}
+ */
+export const openMenu = (menuRef, {checkX, target}) => (
+   menuRef.current.className.includes('hide') && checkX >= window.innerWidth*0.9
+);
+
+/**
+ * Determines if the nav menu would be closed by this event
+ * @param {React.MutableRefObject<undefined>} menuRef 
+ * @param {Object} event 
+ * @param {number} event.checkX 
+ * @param {EventTarget} event.target
+ * @returns {boolean}
+ */
+export const closeMenu = (menuRef, {checkX, target}) => {
+   const pastListX = () => checkX >= window.innerWidth-menuRef.current.clientWidth;
+   return !menuRef.current.className.includes('hide') 
+      && (menuRef.current.contains(target) || pastListX());
+};
 
 export default Navigation;

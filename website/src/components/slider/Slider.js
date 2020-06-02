@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core'
 import { useSwipeable } from 'react-swipeable'
 import { isMobile } from 'react-device-detect';
 
-import { menuZone } from '../Navigation'
+import { openMenu, closeMenu } from '../Navigation'
 import SliderContent from './SliderContent'
 import Slide from './Slide'
 import Arrow from './Arrow'
@@ -15,7 +15,7 @@ const getWidth = () => window.innerWidth
 /**
  * @function Slider
  */
-const Slider = ({ autoPlay, slides }) => {
+const Slider = ({ navInfo, autoPlay, slides }) => {
   const firstSlide = slides[0]
   const secondSlide = slides[1]
   const lastSlide = slides[slides.length - 1]
@@ -61,15 +61,11 @@ const Slider = ({ autoPlay, slides }) => {
           interval = setInterval(play, autoPlay * 1000)
         }
       }
-      else if (!isMounted)
-        console.log('not mounted');
     }
 
     const resize = () => {
       if (isMounted)
         resizeRef.current();
-      else
-        console.log('skipping resize');
     }
 
     const transitionEnd = window.addEventListener('transitionend', smooth)
@@ -138,15 +134,21 @@ const Slider = ({ autoPlay, slides }) => {
     }
   }
 
-  /*const swipeNext = ({initial}) => {
-    if (initial[0] < menuZone())
+  const swipeNext = ({initial,  event}) => {
+    if (!openMenu(navInfo.listRef, {checkX: initial[0], target: event.target}))
       nextSlide();
-  }*/
+  }
 
-  const swipes = {}/*useSwipeable({
+  const swipePrev = ({initial, deltaX, event}) => {
+    const currX = initial[0] - deltaX;
+    if (!closeMenu(navInfo.listRef, {checkX: currX, target: event.target}))
+      prevSlide();
+  }
+
+  const swipes = useSwipeable({
     onSwipedLeft: swipeNext, 
-    onSwipedRight: prevSlide
-  });*/
+    onSwipedRight: swipePrev
+  });
 
   return (
     <div {...swipes} css={SliderCSS}>
