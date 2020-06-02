@@ -202,16 +202,22 @@ section.sidebar * {
 .buttons {
   position: static;
   display: flex;
-  padding: 0px;
-  padding-bottom: 4vh;
-  margin-left: -1vw;
   flex-wrap: nowrap;
   overflow-x: auto;
+  margin-left: 0;
+  margin-bottom: 1vh;
+  padding: 0px;
+  padding-bottom: 15px;
+}
+
+.mobile section.sidebar {
+  margin-left: -1vw;
 }
 
 .mobile section.sidebar *,
 .buttons * {
   margin: 5px;
+  margin-bottom: 0;
   flex: 0 0 auto;
 }
 
@@ -260,6 +266,7 @@ section.sidebar * {
 .littlebox p,
 section.main a,
 section.main p {
+  overflow-wrap: break-word;
   color: black;
 }
 
@@ -299,8 +306,10 @@ button:hover, button:focus, button.active,
 label {
   font-size: calc(5px + 2vh);
   font-weight: 500;
+  box-decoration-break: clone;
   margin: 10px;
   padding-top: 1vh;
+  overflow-wrap: break-word;
 }
 
 table {
