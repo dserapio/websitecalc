@@ -369,6 +369,14 @@ label {
   transition: all 0.25s;
 }
 
+label.subfield {
+  font-size: calc(5px + 1vh);
+}
+
+.subfield .textfield {
+  width: 60%;
+}
+
 .textfield:focus {
   border-bottom: 2px solid #909090;
   transform: scale(1.01);

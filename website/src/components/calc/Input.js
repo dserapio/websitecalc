@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import {fieldNames, fieldStarts} from '../pages/Calculator';
+import { fieldNames } from '../pages/Calculator';
 import '../../App.css';
 
 
-const checkValue = (value) => {
+const checkInt = (value) => {
    const num = +value; //cast to num
    return Number.isInteger(num) && num>=0;
 };
+
+const checkPos = (value) => {
+   const num = +value;
+   return num>=0;
+}
 
 const pluralize = (str) => {
    const last = str[str.length-1];
@@ -22,31 +27,29 @@ const Input = ({inputs, setInputs, weight, swapWeight, toResults, toAbout}) => {
 
    const handleChange = ({target}) => {
       setValid(true); //reset
-      if (checkValue(target.value)) {
-         setInputs(inputs => { //more expensive?
-            const name = target.name;
-            const loc = name.indexOf('-');
-            const field = name.substring(0, loc===-1 ? name.length : loc);
-            const obj = inputs[field];
+      if (checkPos(target.value)) {
+         const name = target.name;
+         const loc = name.indexOf('-');
 
-            if (name.includes("weight"))
-               obj.weight = target.value;
-            else if (name.includes("boxes"))
-               obj.boxes = target.value;
-            else
-               obj.amount = target.value;
+         const field = name.substring(0, loc===-1 ? name.length : loc);
+         const attr = name.substring(loc+1, name.length);
 
-            return {...inputs, [target.name]: obj};
+         if (attr!=='weight' && !checkInt(target.value))
+            return; //extra check
+
+         setInputs({
+            type: attr,
+            field: field,
+            value: target.value
          });
       }
    };
 
    const submitInput = (event) => {
       event.preventDefault();
-      const allBlank = fieldNames.every(field => {
-         const value = inputs[field].amount;
-         return value==='' || value==='0'
-      });
+      const allBlank = fieldNames.every(field => (
+         !inputs[field].amount
+      ));
 
       if (allBlank)
          setValid(false);
@@ -56,7 +59,7 @@ const Input = ({inputs, setInputs, weight, swapWeight, toResults, toAbout}) => {
 
    const resetInput = () => {
       setValid(true);
-      setInputs(fieldStarts);
+      setInputs({type: 'reset'});
    }
 
    const toggleMod = () => {
@@ -114,24 +117,24 @@ const MaterialField = ({name, value, change, avg, boxes}) => <>
       Total {pluralize(name)}
       <input
          className="textfield" 
-         name={name} 
+         name={`${name}-amount`} 
          value={value.amount} 
          onChange={change}
       />
    </label>
-   {avg && <label>
+   {avg && <label className="subfield">
       Average Weight Per {name}
       <input
-         className="textfield subfield" 
+         className="textfield" 
          name={`${name}-weight`} 
          value={value.weight} 
          onChange={change}
       />
    </label>}
-   {boxes && <label>
+   {boxes && <label className="subfield">
       Number of {pluralize(name)} Per Container
       <input
-         className="textfield subfield"
+         className="textfield"
          name={`${name}-boxes`} 
          value={value.boxes} 
          onChange={change}

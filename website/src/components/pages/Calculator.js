@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { TransitionGroup } from 'react-transition-group';
 
 import { FadeWrap } from '../wraps/Transitions';
@@ -15,7 +15,7 @@ export default function Calculator() {
    const [about, setAbout] = useState(false);
    const [enter, setEnter] = useState(false);
    const [weight, setWeight] = useState(false);
-   const [inputs, setInputs] = useState(fieldStarts);
+   const [inputs, setInputs] = useReducer(setField, undefined, fieldStarts);
    const [results, setResults] = useState({});
 
    const toResults = () => {
@@ -60,15 +60,31 @@ export default function Calculator() {
 
 export const fieldNames = recycleData.map(data => data.title);
 
-export const fieldStarts = () => (
+const fieldDefaults = (weight='') => ({
+   amount: '',
+   boxes: '1',
+   weight: weight ? weight : ''
+});
+
+const fieldStarts = () => (
    recycleData.reduce((obj, data) => (
-      {...obj, [data.title]: {
-         amount: '',
-         boxes: '1',
-         weight: data.weight ? data.weight : ''
-      }}
+      {...obj, [data.title]: fieldDefaults(data.weight)}
    ), {})
 );
+
+const setField = (inputs, action) => {
+   if (action.type==='reset')
+      return fieldStarts();
+
+   const attrNames = Object.keys(fieldDefaults()); //not sure
+   if (attrNames.includes(action.type)) {
+      const obj = inputs[action.field];
+      obj[action.type] = action.value;
+      return {...inputs, [action.field]: obj};
+   }
+      
+   throw new Error();
+}
 
 const convertWeight = (convert) => (
    fieldNames.reduce((inputs, field) => {
