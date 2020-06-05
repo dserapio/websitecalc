@@ -51,10 +51,16 @@ export default function Calculator() {
     );
 }
 
-export const fieldNames = recycleData.map(obj => obj.title);
+export const fieldNames = recycleData.map(data => data.title);
 
 export const fieldStarts = () => (
-   fieldNames.reduce((obj, name) => ({...obj, [name]: ''}), {})
+   recycleData.reduce((obj, data) => (
+      {...obj, [data.title]: {
+         amount: '',
+         containers: '1',
+         weight: '4'
+      }}
+   ), {})
 );
 
 const findTotals = (inputs) => {
@@ -68,7 +74,7 @@ const findTotals = (inputs) => {
 
    recycleData.forEach(obj => {
       const title = obj.title;
-      const amount = inputs[title];
+      const amount = inputs[title].amount;
       materialNames.forEach(material => {
          totals[material] += obj[material] * amount;
       })

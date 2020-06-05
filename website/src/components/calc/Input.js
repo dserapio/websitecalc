@@ -10,11 +10,18 @@ const checkValue = (value) => {
 
 const Input = ({inputs, setInputs, toResults, toAbout}) => {
    const [valid, setValid] = useState(true);
+   const [weight, setWeight] = useState(false);
 
    const handleChange = ({target}) => {
       setValid(true); //reset
-      if (checkValue(target.value))
-         setInputs(inputs => ({...inputs, [target.name]: target.value}));
+      
+      if (checkValue(target.value)) {
+         setInputs(inputs => { //more expensive?
+            const obj = inputs[target.name];
+            obj.amount = target.value;
+            return {...inputs, [target.name]: obj};
+         });
+      }
    };
 
    const submitInput = (event) => {
@@ -35,12 +42,15 @@ const Input = ({inputs, setInputs, toResults, toAbout}) => {
       setInputs(fieldStarts);
    }
 
-   const toggleForm = () => {};
+   const toggleForm = () => setWeight(weight => !weight);
 
    return <>
       <section className="sidebar">
          <button type="button" onClick={toAbout}>About</button>
-         <button type="button" onClick={toggleForm}>With Quantities</button>
+         <button 
+            className={weight ? " active" : ""}
+            type="button"
+            onClick={toggleForm}>By Total Weight</button>
       </section>
 
       <section className="main">
@@ -49,7 +59,15 @@ const Input = ({inputs, setInputs, toResults, toAbout}) => {
 
          <form id="calc-input" onSubmit={submitInput} noValidate>
             {fieldNames.map((field, i) => (
-               <NumField key={field+i} name={field} value={inputs[field]} change={handleChange}/>
+               <label key={field+i}>
+                  Total {field.concat(field[field.length-1]==='s' || field[field.length-1]===')' ? '' : 's')}
+                  <input
+                     className="textfield" 
+                     name={field} 
+                     value={inputs[field].amount} 
+                     onChange={handleChange}
+                  />
+               </label>
             ))}
          </form>
 
@@ -63,12 +81,5 @@ const Input = ({inputs, setInputs, toResults, toAbout}) => {
       </section>
    </>;
 }
-
-const NumField = ({name, value, change}) => (
-   <label>
-      Total {name.concat(name[name.length-1]==='s' || name[name.length-1]===')' ? '' : 's')}
-      <input className="textfield" value={value} name={name} onChange={change}/>
-   </label>
-);
 
  export default Input;

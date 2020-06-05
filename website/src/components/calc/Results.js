@@ -40,6 +40,14 @@ const Results = ({toAbout, toBack, values}) => {
    return <>
       <section className="sidebar">
          <button type="button" onClick={toAbout}>About</button>
+         <button
+            className={activeAttr('kg')}
+            type="button" 
+            onClick={changeTokg}>kg</button>
+         <button
+            className={activeAttr('lbs.')}
+            type="button"
+            onClick={changeTolbs}>lbs</button>
       </section>
 
       <section className="main">
@@ -87,14 +95,6 @@ const Results = ({toAbout, toBack, values}) => {
 
          <div className="buttons">
             <button type="button" onClick={toBack}>Back</button>
-            <button
-               className={activeAttr('kg')}
-               type="button" 
-               onClick={changeTokg}>kg</button>
-            <button
-               className={activeAttr('lbs.')}
-               type="button"
-               onClick={changeTolbs}>lbs</button>
          </div>
       </section>
    </>;

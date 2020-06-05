@@ -25,15 +25,15 @@ const BurgerCSS = css`
   
   .bar1, .bar2, .bar3 {
     width: 5vh;
-    height: 0.65vh;
+    height: 0.6vh;
     background-color: #888;
-    margin: 0.8vh 1.4vh;
+    margin: 0.75vh 1.35vh;
     transition: 0.4s;
   }
   
   /* Rotate first bar */
   .bar1.active {
-    transform: rotate(-45deg) translate(-1.4vh, 1.2vh) ;
+    transform: rotate(-45deg) translate(-1.3vh, 1.15vh) ;
   }
   
   /* Fade out the second bar */
@@ -43,7 +43,7 @@ const BurgerCSS = css`
   
   /* Rotate last bar */
   .bar3.active {
-    transform: rotate(45deg) translate(-0.7vh, -0.65vh) ;
+    transform: rotate(45deg) translate(-0.6vh, -0.55vh) ;
   }
 `;
 
