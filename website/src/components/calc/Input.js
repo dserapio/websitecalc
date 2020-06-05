@@ -89,6 +89,18 @@ const Input = ({inputs, setInputs, weight, swapWeight, toResults, toAbout}) => {
       <section className="main">
          <h1>Find Out Material Yields</h1>
          <p>Enter in any electronic, and we'll breakdown what it's made of</p>
+         <p>
+            By default, you enter in the the total of individual electronics.
+            Clicking "By Total Weight" you can choose to enter the total weight
+            of each of the electronics
+         </p>
+
+         <p>
+            "Set Avg. Weight" brings out a new field where you enter the 
+            average weight of each of the electronics. "# of Containers" also 
+            brings out a new field where you enter the number of that electronic
+            can fit into a specific container.
+         </p>
 
          <form id="calc-input" onSubmit={submitInput} noValidate>
             {fieldNames.map((field, i) => (
