@@ -35,7 +35,7 @@ const Results = ({toAbout, toBack, values}) => {
    ));
 
    const infoBoxContent = (pieData) => (
-      pieData.title + ' has value ' + Math.round(pieData.value)
+      pieData.title + ' has value ' + (pieData.value * unit.convert).toFixed(4)
    );
    
    const activeAttr = (buttonName) => (
