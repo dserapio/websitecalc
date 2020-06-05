@@ -92,7 +92,7 @@
   height: 100vh;
   display: block;
   position: absolute;
-  padding-top: 15vh;
+  padding-top: 10vh;
   right: 0;
   top: 0;
   transition: transform 200ms ease;
@@ -325,7 +325,7 @@ button, .button {
   border: 2px solid #41911f;
   transition: all 0.3s ease;
   cursor: pointer;
-  opacity: 75%;
+  opacity: 70%;
 }
 
 button:active, button.active, 
@@ -371,6 +371,7 @@ label {
 
 .textfield:focus {
   border-bottom: 2px solid #909090;
+  transform: scale(1.01);
 }
 
 .error {

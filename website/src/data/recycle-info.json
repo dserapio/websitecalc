@@ -2,6 +2,7 @@
     {
         "id": 1,
         "title": "Laptop",
+        "weight": 0.0,
         "GHG Emissions": 0.0000299364,
         "Lead": 0.0061,
         "Mercury": 0.000004,
@@ -17,6 +18,7 @@
     {
         "id": 2,
         "title": "Cathode Ray Tube (CRT) Display",
+        "weight": 24.800,
         "GHG Emissions": 0.0000299364,
         "Lead": 1.082,
         "Mercury": 0.0,
@@ -32,6 +34,7 @@
     {
         "id": 3,
         "title": "Desktop and Server",
+        "weight": 9.900,
         "GHG Emissions": 0.0000299364,
         "Lead": 0.0198,
         "Mercury": 0.0,
@@ -47,6 +50,7 @@
     {
         "id": 4,
         "title": "Flat Panel Display",
+        "weight": 0.0,
         "GHG Emissions": 0.0000299364,
         "Lead": 0.01071,
         "Mercury": 0.00004574,
@@ -62,6 +66,7 @@
     {
         "id": 5,
         "title": "Mobile Phone",
+        "weight": 0.113,
         "GHG Emissions": 0.0000299364,
         "Lead": 0.000339,
         "Mercury": 0.00000004,
@@ -77,6 +82,7 @@
     {
         "id": 6,
         "title": "Hard Drive",
+        "weight": 0.0,
         "GHG Emissions": 0.0000299364,
         "Lead": 0.0,
         "Mercury": 0.0,
@@ -92,6 +98,7 @@
     {
         "id": 7,
         "title": "Imaging Devices (Copiers/Printers/Faxes)",
+        "weight": 17.400,
         "GHG Emissions": 0.0000299364,
         "Lead": 0.0266,
         "Mercury": 0.0,
@@ -107,6 +114,7 @@
     {
         "id": 8,
         "title": "Others (Keyboards, mice, games)",
+        "weight": 0.0,
         "GHG Emissions": 0.0000299364,
         "Lead": 0.0410286,
         "Mercury": 0.0,

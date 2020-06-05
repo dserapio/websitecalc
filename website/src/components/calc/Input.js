@@ -8,17 +8,34 @@ const checkValue = (value) => {
    return Number.isInteger(num) && num>=0;
 };
 
-const Input = ({inputs, setInputs, toResults, toAbout}) => {
+const pluralize = (str) => {
+   const last = str[str.length-1];
+   return str.concat(last==='s' || last===')' ? '' : 's');
+};
+
+
+const Input = ({inputs, setInputs, weight, swapWeight, toResults, toAbout}) => {
    const [valid, setValid] = useState(true);
-   const [weight, setWeight] = useState(false);
+   const [modAvg, setModAvg] = useState(false);
+   const [boxes, setBoxes] = useState(false);
+
 
    const handleChange = ({target}) => {
       setValid(true); //reset
-      
       if (checkValue(target.value)) {
          setInputs(inputs => { //more expensive?
-            const obj = inputs[target.name];
-            obj.amount = target.value;
+            const name = target.name;
+            const loc = name.indexOf('-');
+            const field = name.substring(0, loc===-1 ? name.length : loc);
+            const obj = inputs[field];
+
+            if (name.includes("weight"))
+               obj.weight = target.value;
+            else if (name.includes("boxes"))
+               obj.boxes = target.value;
+            else
+               obj.amount = target.value;
+
             return {...inputs, [target.name]: obj};
          });
       }
@@ -27,14 +44,14 @@ const Input = ({inputs, setInputs, toResults, toAbout}) => {
    const submitInput = (event) => {
       event.preventDefault();
       const allBlank = fieldNames.every(field => {
-         const value = inputs[field];
+         const value = inputs[field].amount;
          return value==='' || value==='0'
       });
 
-      if (!allBlank)
-         toResults();
-      else
+      if (allBlank)
          setValid(false);
+      else 
+         toResults();
    }
 
    const resetInput = () => {
@@ -42,15 +59,28 @@ const Input = ({inputs, setInputs, toResults, toAbout}) => {
       setInputs(fieldStarts);
    }
 
-   const toggleForm = () => setWeight(weight => !weight);
+   const toggleMod = () => {
+      setValid(true);
+      setModAvg(mod => !mod);
+   }
+
+   const toggleBox = () => {
+      setValid(true);
+      setBoxes(box => !box);
+   }
 
    return <>
       <section className="sidebar">
          <button type="button" onClick={toAbout}>About</button>
          <button 
-            className={weight ? " active" : ""}
-            type="button"
-            onClick={toggleForm}>By Total Weight</button>
+            className={weight ? " active" : ""} type="button"
+            onClick={swapWeight}>By Total Weight</button>
+         <button 
+            className={modAvg ? " active" : ""} type="button"
+            onClick={toggleMod}>Set Avg. Weight</button>
+         <button 
+            className={boxes ? " active" : ""} type="button"
+            onClick={toggleBox}># of Containers</button>
       </section>
 
       <section className="main">
@@ -59,15 +89,11 @@ const Input = ({inputs, setInputs, toResults, toAbout}) => {
 
          <form id="calc-input" onSubmit={submitInput} noValidate>
             {fieldNames.map((field, i) => (
-               <label key={field+i}>
-                  Total {field.concat(field[field.length-1]==='s' || field[field.length-1]===')' ? '' : 's')}
-                  <input
-                     className="textfield" 
-                     name={field} 
-                     value={inputs[field].amount} 
-                     onChange={handleChange}
-                  />
-               </label>
+               <MaterialField key={field+i}
+                  name={field} value={inputs[field]}
+                  change={handleChange}
+                  avg={modAvg} boxes={boxes}
+               />
             ))}
          </form>
 
@@ -80,6 +106,37 @@ const Input = ({inputs, setInputs, toResults, toAbout}) => {
          </div>
       </section>
    </>;
-}
+};
+
+
+const MaterialField = ({name, value, change, avg, boxes}) => <>
+   <label>
+      Total {pluralize(name)}
+      <input
+         className="textfield" 
+         name={name} 
+         value={value.amount} 
+         onChange={change}
+      />
+   </label>
+   {avg && <label>
+      Average Weight Per {name}
+      <input
+         className="textfield subfield" 
+         name={`${name}-weight`} 
+         value={value.weight} 
+         onChange={change}
+      />
+   </label>}
+   {boxes && <label>
+      Number of {pluralize(name)} Per Container
+      <input
+         className="textfield subfield"
+         name={`${name}-boxes`} 
+         value={value.boxes} 
+         onChange={change}
+      />
+   </label>}
+</>
 
  export default Input;
