@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../App.css';
 import { PieChart } from 'react-minimal-pie-chart';
+import ReactTooltip from 'react-tooltip';
 
 const Results = ({toAbout, toBack, values}) => {
    const kiloUnits = {
@@ -18,7 +19,7 @@ const Results = ({toAbout, toBack, values}) => {
    // Units default to kg
    const [unit, setUnit] = useState(kiloUnits);
    const [selected, setSelected] = useState(0);
-   const lineWidth = 60;
+   const [hovered, setHovered] = useState(null);
 
    const changeTolbs = () => setUnit(poundUnits);
    const changeTokg = () => setUnit(kiloUnits);
@@ -32,6 +33,10 @@ const Results = ({toAbout, toBack, values}) => {
    const pieData = Object.entries(values).map(([name, value], index) => (
       { 'title': name, 'value': value, 'color': getColor(index) }
    ));
+
+   const infoBoxContent = (pieData) => (
+      pieData.title + ' has value ' + Math.round(pieData.value)
+   );
 
    const activeAttr = (buttonName) => (
       unit.name===buttonName ? "active" : ""
@@ -71,26 +76,33 @@ const Results = ({toAbout, toBack, values}) => {
                </tbody>
             </table>
 
-            <PieChart 
-               data={pieData}
-               className="piechart"
-               radius={PieChart.defaultProps.radius - 6}
-               lineWidth={60}
-               segmentsStyle={{ transition: 'stroke .10s', cursor: 'pointer' }}
-               segmentsShift={ (index) => (index === selected ? 6 : 1) }
-               animate
-               label={({ dataEntry }) => Math.round(dataEntry.percentage) + '%'}
-               labelStyle={{
-                  fill: '#fff',
-                  opacity: 0.75,
-                  pointerEvents: 'none',
-               }}
-               labelPosition = {110 - lineWidth / 2}
-               onClick={(_, index) => {
-                  setSelected(index === selected ? undefined : index);
-               }}
-            />
-
+            
+            <div data-tip="" data-for="chart">
+               <PieChart 
+                  data={pieData}
+                  className="piechart"
+                  radius={PieChart.defaultProps.radius - 6}
+                  lineWidth={60}
+                  segmentsStyle={{ transition: 'stroke .10s', cursor: 'pointer' }}
+                  segmentsShift={ (index) => (index === selected ? 6 : 1) }
+                  animate
+                  onMouseOver={(_, index) => {
+                     setHovered(index);
+                  }}
+                  onMouseOut={(_, index) => {
+                     setHovered(null);
+                  }}
+                  onClick={(_, index) => {
+                     setSelected(index === selected ? undefined : index);
+                  }}
+               />
+               <ReactTooltip
+                  id="chart"
+                  getContent={() => 
+                     typeof hovered === 'number' ? infoBoxContent(pieData[hovered]) : null
+                  }
+               />
+            </div>
          </div>
 
          <div className="buttons">
