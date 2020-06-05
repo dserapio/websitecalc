@@ -37,7 +37,7 @@ const Results = ({toAbout, toBack, values}) => {
    const infoBoxContent = (pieData) => (
       pieData.title + ' has value ' + Math.round(pieData.value)
    );
-
+   
    const activeAttr = (buttonName) => (
       unit.name===buttonName ? "active" : ""
    );
@@ -69,7 +69,7 @@ const Results = ({toAbout, toBack, values}) => {
                <tbody>
                   {Object.entries(values).map(([name, value], i) => (
                      <tr key={name+i}>
-                        <td className="output">{name} <div className="color-box" style={{ backgroundColor: getColor(i) }}></div></td>
+                        <td className="output">{name} </td>
                         <td className="output-value">{(value * unit.convert).toFixed(4)} {unit.name} </td>
                      </tr>
                   ))}
@@ -85,15 +85,16 @@ const Results = ({toAbout, toBack, values}) => {
                   lineWidth={60}
                   segmentsStyle={{ transition: 'stroke .10s', cursor: 'pointer' }}
                   segmentsShift={ (index) => (index === selected ? 6 : 1) }
-                  animate
+                  animate                  
+                  onClick={(_, index) => {
+                     setSelected(index === selected ? undefined : index);
+                     setHovered(index === selected ? undefined : index);
+                  }}
                   onMouseOver={(_, index) => {
                      setHovered(index);
                   }}
                   onMouseOut={(_, index) => {
                      setHovered(null);
-                  }}
-                  onClick={(_, index) => {
-                     setSelected(index === selected ? undefined : index);
                   }}
                />
                <ReactTooltip
