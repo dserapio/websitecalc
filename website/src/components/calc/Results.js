@@ -1,29 +1,21 @@
 import React, { useState } from 'react';
-import '../../App.css';
 import { PieChart } from 'react-minimal-pie-chart';
 import ReactTooltip from 'react-tooltip';
+import '../../App.css';
 
-const Results = ({toAbout, toBack, values}) => {
-   const kiloUnits = {
-      convert: 1,
-      name: "kg"
-   };
-   const poundUnits = {
-      convert: 2.20462,
-      name: "lbs."
-   };
 
+export default function Results (props) {
+   const {
+      unit, tolbs, tokg, 
+      toAbout, toBack, values} = props;
+      
    const colors = ['#444444', '#FFC300', '#FF5733', '#C70039', '#900C3F',
    '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
 
    // Units default to kg
-   const [unit, setUnit] = useState(kiloUnits);
    const [selected, setSelected] = useState(0);
    const [hovered, setHovered] = useState(null);
 
-   const changeTolbs = () => setUnit(poundUnits);
-   const changeTokg = () => setUnit(kiloUnits);
-   
    const getColor = (index) => {
       var color = '';
       color = colors[index];
@@ -37,22 +29,18 @@ const Results = ({toAbout, toBack, values}) => {
    const infoBoxContent = (pieData) => (
       pieData.title + ' has value ' + (pieData.value * unit.convert).toFixed(4)
    );
-   
-   const activeAttr = (buttonName) => (
-      unit.name===buttonName ? "active" : ""
-   );
 
    return <>
       <section className="sidebar">
          <button type="button" onClick={toAbout}>About</button>
          <button
-            className={activeAttr('kg')}
+            className={unit.name==='kg' ? "active" : ""}
             type="button" 
-            onClick={changeTokg}>kg</button>
+            onClick={tokg}>kg</button>
          <button
-            className={activeAttr('lbs.')}
+            className={unit.name==='lbs' ? "active" : ""}
             type="button"
-            onClick={changeTolbs}>lbs</button>
+            onClick={tolbs}>lbs</button>
       </section>
 
       <section className="main">
@@ -76,7 +64,6 @@ const Results = ({toAbout, toBack, values}) => {
                </tbody>
             </table>
 
-            
             <div data-tip="" data-for="chart">
                <PieChart 
                   data={pieData}
@@ -100,7 +87,7 @@ const Results = ({toAbout, toBack, values}) => {
                <ReactTooltip
                   id="chart"
                   getContent={() => 
-                     typeof hovered === 'number' ? infoBoxContent(pieData[hovered]) : null
+                     hovered ? infoBoxContent(pieData[hovered]) : null
                   }
                />
             </div>
@@ -112,5 +99,3 @@ const Results = ({toAbout, toBack, values}) => {
       </section>
    </>;
  };
-
- export default Results;

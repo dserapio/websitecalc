@@ -8,7 +8,7 @@ import Pages from './components/Pages';
 
 import './App.css';
 
-const App = () => {
+export default function App() {
   const [hide, setHide] = useState(isMobile); //hide if mobile
   const listRef = useRef(); //the sliding elem
 
@@ -48,4 +48,3 @@ const App = () => {
   );
 }
 
-export default App;

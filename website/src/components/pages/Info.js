@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContentWrap } from '../wraps/Styles';
+import { ContentWrap } from '../utils/Styles';
 import '../../App.css';
 
 const Information = () => (

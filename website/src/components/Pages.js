@@ -7,7 +7,7 @@ import Calculator from './pages/Calculator';
 import FindRecycler from './pages/FindRecycler';
 import Error from './pages/Error';
 
-import { TransWrap } from './wraps/Transitions';
+import { TransWrap } from './utils/Transitions';
 import '../App.css';
 
 

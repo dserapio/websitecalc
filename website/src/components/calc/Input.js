@@ -19,9 +19,13 @@ const pluralize = (str) => {
 };
 
 
-const Input = ({inputs, setInputs, weight, swapWeight, toResults, toAbout}) => {
+export default function Input (props) {
+   const {
+      inputs, setInputs, toResults,
+      weight, swapWeight, toAbout,
+      unit, tolbs, tokg } = props;
+
    const [valid, setValid] = useState(true);
-   const [modAvg, setModAvg] = useState(false);
    const [boxes, setBoxes] = useState(false);
 
 
@@ -62,11 +66,6 @@ const Input = ({inputs, setInputs, weight, swapWeight, toResults, toAbout}) => {
       setInputs({type: 'reset'});
    }
 
-   const toggleMod = () => {
-      setValid(true);
-      setModAvg(mod => !mod);
-   }
-
    const toggleBox = () => {
       setValid(true);
       setBoxes(box => !box);
@@ -78,9 +77,14 @@ const Input = ({inputs, setInputs, weight, swapWeight, toResults, toAbout}) => {
          <button 
             className={weight ? " active" : ""} type="button"
             onClick={swapWeight}>By Total Weight</button>
-         <button 
-            className={modAvg ? " active" : ""} type="button"
-            onClick={toggleMod}>Set Avg. Weight</button>
+         <button
+            className={unit.name==='kg' ? "active" : ""}
+            type="button" 
+            onClick={tokg}>kg</button>
+         <button
+            className={unit.name==='lbs' ? "active" : ""}
+            type="button"
+            onClick={tolbs}>lbs</button>
          <button 
             className={boxes ? " active" : ""} type="button"
             onClick={toggleBox}># of Containers</button>
@@ -95,7 +99,7 @@ const Input = ({inputs, setInputs, weight, swapWeight, toResults, toAbout}) => {
                <MaterialField key={field+i}
                   name={field} value={inputs[field]}
                   change={handleChange}
-                  avg={modAvg} boxes={boxes}
+                  weight={weight} boxes={boxes}
                />
             ))}
          </form>
@@ -112,9 +116,9 @@ const Input = ({inputs, setInputs, weight, swapWeight, toResults, toAbout}) => {
 };
 
 
-const MaterialField = ({name, value, change, avg, boxes}) => <>
+const MaterialField = ({name, value, change, weight, boxes}) => <>
    <label>
-      Total {pluralize(name)}
+      Total {pluralize(name)} {weight && "(Weight)"}
       <input
          className="textfield" 
          name={`${name}-amount`} 
@@ -122,12 +126,12 @@ const MaterialField = ({name, value, change, avg, boxes}) => <>
          onChange={change}
       />
    </label>
-   {avg && <label className="subfield">
+   {!weight && <label className="subfield">
       Average Weight Per {name}
       <input
          className="textfield" 
          name={`${name}-weight`} 
-         value={value.weight} 
+         value={value.weight.value} 
          onChange={change}
       />
    </label>}
@@ -141,5 +145,3 @@ const MaterialField = ({name, value, change, avg, boxes}) => <>
       />
    </label>}
 </>
-
- export default Input;

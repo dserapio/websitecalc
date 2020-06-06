@@ -1,8 +1,9 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect, useRef } from 'react';
 import { TransitionGroup } from 'react-transition-group';
 
-import { FadeWrap } from '../wraps/Transitions';
-import { ContentWrap } from '../wraps/Styles';
+import { FadeWrap } from '../utils/Transitions';
+import { ContentWrap } from '../utils/Styles';
+import { convertObj } from '../utils/UnitConvert';
 import recycleData from '../../data/recycle-info.json';
 import '../../App.css';
 
@@ -12,22 +13,64 @@ import About from '../calc/About';
 
 
 export default function Calculator() {
-   const [about, setAbout] = useState(false);
-   const [enter, setEnter] = useState(false);
-   const [weight, setWeight] = useState(false);
+   const [flags, setFlags] = useState({
+      about: false,
+      enter: false,
+      weight: false
+   });
+   const [unit, setUnit] = useState( convertObj('kg') );
    const [inputs, setInputs] = useReducer(setField, undefined, fieldStarts);
-   const [results, setResults] = useState({});
+   const [results, setResults] = useState( {} );
+
+   const defCheck = useRef();
+
+   const tolbs = () => setUnit(convertObj('lbs'));
+   const tokg = () => setUnit(convertObj('kg'));
 
    const toResults = () => {
-      setResults( weight
-         ? findTotals( convertWeight(inputs) )
-         : findTotals(inputs)
-      );
-      setEnter(true);
+      setResults( findTotals(
+         flags.weight ? convertWeight(inputs) : inputs, 
+         unit.convert
+      ));
+      setFlags(flags => ({...flags, enter: true}));
    };
-   const swapWeight = () => setWeight(weight => !weight);
-   const toBack = () => setEnter(false);
-   const onAbout = () => setAbout(about => !about);
+
+   const toBack = () => 
+      setFlags(flags => ({...flags, enter: false}))
+
+   const swapWeight = () => 
+      setFlags(flags => ({...flags, weight: !flags.weight}))
+
+   const onAbout = () => 
+      setFlags(flags => ({...flags, about: !flags.about}));
+
+
+   useEffect(() => { //remove dependency on inputs
+      defCheck.current = () =>
+         Object.entries(inputs).reduce((accumObj, [field, fieldObj]) => (
+            {...accumObj, [field]: fieldObj.weight}  
+         ), {})
+   }, [inputs]);
+
+   useEffect(() => {
+      if (!defCheck.current)
+         return;
+      const defaults = defCheck.current();
+      recycleData.forEach(obj => { //keep eye on
+         const field = obj.title;
+         const weight = defaults[field];
+         if (weight.value && weight.default) {
+            setInputs({
+               type: 'weight', 
+               field: field, 
+               value: obj.weight*unit.convert,
+               default: true
+            });
+         }
+      });
+   }, [unit]);
+
+   const {about, enter, weight} = flags;
 
    return (
       <TransitionGroup>
@@ -42,6 +85,7 @@ export default function Calculator() {
                <Input
                   inputs={inputs} setInputs={setInputs}
                   weight={weight} swapWeight={swapWeight}
+                  unit={unit} tolbs={tolbs} tokg={tokg} 
                   toResults={toResults}
                   toAbout={onAbout}
                />
@@ -50,7 +94,10 @@ export default function Calculator() {
 
          <FadeWrap active={!about && enter}>
             <ContentWrap>
-               <Results values={results} toAbout={onAbout} toBack={toBack}/>
+               <Results values={results} 
+                  unit={unit} tolbs={tolbs} tokg={tokg} 
+                  toAbout={onAbout} toBack={toBack}
+               />
             </ContentWrap>
          </FadeWrap>
 
@@ -60,31 +107,43 @@ export default function Calculator() {
 
 export const fieldNames = recycleData.map(data => data.title);
 
-const fieldDefaults = (weight='') => ({
-   amount: '',
-   boxes: '1',
-   weight: weight ? weight : ''
-});
-
 const fieldStarts = () => (
-   recycleData.reduce((obj, data) => (
-      {...obj, [data.title]: fieldDefaults(data.weight)}
-   ), {})
+   recycleData.reduce((obj, data) => ({
+      ...obj, [data.title]: {
+         amount: '',
+         boxes: '1',
+         weight: {
+            default: true,
+            value: data.weight ? data.weight : ''
+         }
+      }
+   }), {})
 );
 
-const setField = (inputs, action) => {
-   if (action.type==='reset')
-      return fieldStarts();
 
-   const attrNames = Object.keys(fieldDefaults()); //not sure
-   if (attrNames.includes(action.type)) {
-      const obj = inputs[action.field];
-      obj[action.type] = action.value;
-      return {...inputs, [action.field]: obj};
+const setField = (inputs, action) => {
+   switch(action.type) {
+      case 'reset':
+         return fieldStarts();
+
+      case 'amount':
+      case 'boxes':
+         const obj = inputs[action.field];
+         obj[action.type] = action.value;
+         return {...inputs, [action.field]: obj};
+
+      case 'weight':
+         const wObj = inputs[action.field];
+         wObj[action.type].value = action.value;
+         if (!action.default)
+            wObj[action.type].default = false;
+         return {...inputs, [action.field]: wObj};
+
+      default:
+         throw new Error();
    }
-      
-   throw new Error();
 }
+
 
 const convertWeight = (convert) => (
    fieldNames.reduce((inputs, field) => {
@@ -97,20 +156,21 @@ const convertWeight = (convert) => (
    }, convert)
 );
 
-const findTotals = (inputs) => {
+
+const findTotals = (inputs, convert) => {
    const materialNames = Object.keys(recycleData[0]).filter((material) => (
       !(material==="id" || material==="title" || material==="weight")
    ));
    
-   let totals = materialNames.reduce((obj, material) => (
+   const totals = materialNames.reduce((obj, material) => (
       {...obj, [material] : 0}
    ), {});
 
    recycleData.forEach(obj => {
       const data = inputs[obj.title];
-      const unitRatio = obj.weight && data.weight
-         ? data.weight / obj.weight
-         : 1;
+      const weight = convert * data.weight.value;
+
+      const unitRatio = obj.weight && weight ? weight/obj.weight : 1;
       const amount = data.amount * unitRatio * data.boxes;
 
       materialNames.forEach(material => {
