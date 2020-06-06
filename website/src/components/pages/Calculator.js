@@ -28,10 +28,7 @@ export default function Calculator() {
    const tokg = () => setUnit(convertObj('kg'));
 
    const toResults = () => {
-      setResults( findTotals(
-         flags.weight ? convertWeight(inputs) : inputs, 
-         unit.convert
-      ));
+      setResults(findTotals(inputs, unit.convert, flags.weight));
       setFlags(flags => ({...flags, enter: true}));
    };
 
@@ -60,7 +57,7 @@ export default function Calculator() {
       recycleData.forEach(obj => { //keep eye on
          const field = obj.title;
          const weight = defaults[field];
-         
+
          if (weight.value && weight.default)
             setInputs({
                type: 'weight', 
@@ -145,19 +142,7 @@ const setField = (inputs, action) => {
 }
 
 
-const convertWeight = (convert) => (
-   fieldNames.reduce((inputs, field) => {
-      const fieldVals = inputs[field];
-      fieldVals.amount = fieldVals.amount && fieldVals.weight
-         ? parseInt(fieldVals.amount / fieldVals.weight)
-         : fieldVals.amount;
-
-      return inputs;
-   }, convert)
-);
-
-
-const findTotals = (inputs, convert) => {
+const findTotals = (inputs, convert, weightAmount=false) => {
    const materialNames = Object.keys(recycleData[0]).filter((material) => (
       !(material==="id" || material==="title" || material==="weight")
    ));
@@ -168,13 +153,18 @@ const findTotals = (inputs, convert) => {
 
    recycleData.forEach(obj => {
       const data = inputs[obj.title];
-      const weight = convert * data.weight.value;
+      const weight = data.weight.value;
 
-      const unitRatio = obj.weight && weight ? weight/obj.weight : 1;
-      const amount = data.amount * unitRatio * data.boxes;
+      const amount = weightAmount && data.amount && weight
+         ? parseInt(data.amount / weight)
+         : data.amount;
+      const unitRatio = obj.weight && weight 
+         ? weight / (convert*obj.weight) 
+         : 1;
+      const materialAmnt= amount * unitRatio * data.boxes;
 
       materialNames.forEach(material => {
-         totals[material] += obj[material] * amount;
+         totals[material] += obj[material] * materialAmnt;
       })
    });
 
