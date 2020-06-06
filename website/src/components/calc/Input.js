@@ -11,7 +11,15 @@ const checkInt = (value) => {
 const checkPos = (value) => {
    const num = +value;
    return num>=0;
-}
+};
+
+const parseTarget = (target) => {
+   const name = target.name;
+   const loc = name.indexOf('-');
+   const field = name.substring(0, loc===-1 ? name.length : loc);
+   const attr = name.substring(loc+1, name.length);
+   return [field, attr];
+};
 
 const pluralize = (str) => {
    const last = str[str.length-1];
@@ -27,16 +35,36 @@ export default function Input (props) {
 
    const [valid, setValid] = useState(true);
    const [boxes, setBoxes] = useState(false);
+   const [store, setStore] = useState('');
 
+
+   const fieldFocus = ({target}) => { //clear default
+      setValid(true);
+      const [field, attr] = parseTarget(target);
+      const fieldVal = inputs[field][attr];
+
+      if ( !(fieldVal.value && fieldVal.default) )
+         return;
+
+      setStore(fieldVal.value);
+      setInputs({type: attr, field: field, value: ''});
+   };
+
+   const fieldBlur = ({target}) => {
+      const [field, attr] = parseTarget(target);
+
+      if (store && !target.value) {
+         setInputs({
+            type: attr, field: field, 
+            value: store, default: true
+         });
+      }
+      setStore('');
+   };
 
    const handleChange = ({target}) => {
-      setValid(true); //reset
       if (checkPos(target.value)) {
-         const name = target.name;
-         const loc = name.indexOf('-');
-
-         const field = name.substring(0, loc===-1 ? name.length : loc);
-         const attr = name.substring(loc+1, name.length);
+         const [field, attr] = parseTarget(target);
 
          if (attr!=='weight' && !checkInt(target.value))
             return; //extra check
@@ -112,6 +140,7 @@ export default function Input (props) {
                   name={field} value={inputs[field]}
                   change={handleChange}
                   weight={weight} boxes={boxes}
+                  focus={fieldFocus} blur={fieldBlur}
                />
             ))}
          </form>
@@ -128,32 +157,47 @@ export default function Input (props) {
 };
 
 
-const MaterialField = ({name, value, change, weight, boxes}) => <>
-   <label>
-      Total {pluralize(name)} {weight && "(Weight)"}
-      <input
-         className="textfield" 
-         name={`${name}-amount`} 
-         value={value.amount} 
-         onChange={change}
-      />
-   </label>
-   {!weight && <label className="subfield">
-      Average Weight Per {name}
-      <input
-         className="textfield" 
-         name={`${name}-weight`} 
-         value={value.weight.value} 
-         onChange={change}
-      />
-   </label>}
-   {boxes && <label className="subfield">
-      Number of {pluralize(name)} Per Container
-      <input
-         className="textfield"
-         name={`${name}-boxes`} 
-         value={value.boxes} 
-         onChange={change}
-      />
-   </label>}
-</>
+const MaterialField = (props) => {
+   const {
+      name, value,
+      weight, boxes, 
+      change, focus, blur} = props;
+
+   return (
+      <div className="fields">
+         <label>
+            Total {pluralize(name)} {weight && "(Weight)"}
+            <input
+               className="textfield" 
+               name={`${name}-amount`} 
+               value={value.amount} 
+               onChange={change}
+               onFocus={focus}
+               onBlur={blur}
+            />
+         </label>
+         {!weight && <label className="subfield">
+            Average Weight Per {name}
+            <input
+               className="textfield" 
+               name={`${name}-weight`} 
+               value={value.weight.value} 
+               onChange={change}
+               onFocus={focus}
+               onBlur={blur}
+            />
+         </label>}
+         {boxes && <label className="subfield">
+            Number of {pluralize(name)} Per Container
+            <input
+               className="textfield"
+               name={`${name}-boxes`} 
+               value={value.boxes} 
+               onChange={change}
+               onFocus={focus}
+               onBlur={blur}
+            />
+         </label>}
+      </div>
+   );
+};

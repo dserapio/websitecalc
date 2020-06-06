@@ -243,7 +243,7 @@ section.main h1 {
 section.main h2 {
   font-weight: 600;
   font-size: 18px;
-  padding-bottom: 2px;
+  padding-bottom: 12px;
 }
 
 section.main p {
@@ -342,7 +342,12 @@ button:hover, button:focus,
 /* calculator input */
 
 form {
-  margin-bottom: -15px;
+  width: 80%;
+  margin-bottom: -0.5vh;
+}
+
+.mobile form {
+  width: 100%;
 }
 
 label {
@@ -358,7 +363,7 @@ label {
   background: transparent;
   display: block;
   box-sizing: border-box;
-  width: 85%;
+  width: 80%;
   font-size: inherit;
   border: none;
   border-bottom: 2px solid black;
@@ -366,8 +371,12 @@ label {
   padding: 3px;
   padding-top: 0px;
   margin: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 0.25vh;
   transition: all 0.25s;
+}
+
+.fields {
+  margin-bottom: 5px;
 }
 
 label.subfield {
@@ -375,7 +384,9 @@ label.subfield {
 }
 
 .subfield .textfield {
-  width: 60%;
+  margin-top: 1px;
+  margin-bottom: 4px;
+  width: 45%;
 }
 
 .textfield:focus {
@@ -399,7 +410,6 @@ label .error {
   position: absolute;
   margin-top: -25px;
   margin-left: 10px;
-  padding: 0px;
 }
 
 table {

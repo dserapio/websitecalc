@@ -55,18 +55,19 @@ export default function Calculator() {
    useEffect(() => {
       if (!defCheck.current)
          return;
+
       const defaults = defCheck.current();
       recycleData.forEach(obj => { //keep eye on
          const field = obj.title;
          const weight = defaults[field];
-         if (weight.value && weight.default) {
+         
+         if (weight.value && weight.default)
             setInputs({
                type: 'weight', 
                field: field, 
                value: obj.weight*unit.convert,
                default: true
             });
-         }
       });
    }, [unit]);
 
@@ -135,8 +136,7 @@ const setField = (inputs, action) => {
       case 'weight':
          const wObj = inputs[action.field];
          wObj[action.type].value = action.value;
-         if (!action.default)
-            wObj[action.type].default = false;
+         wObj[action.type].default = action.default;
          return {...inputs, [action.field]: wObj};
 
       default:
