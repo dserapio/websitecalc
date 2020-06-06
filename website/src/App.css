@@ -229,7 +229,7 @@
 }
 
 section.main {
-  width: 80%
+  width: 75%
 }
 
 .mobile section.main {
@@ -237,7 +237,7 @@ section.main {
 }
 
 section.main h1 {
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
 
 section.main h2 {
@@ -363,7 +363,7 @@ label {
   background: transparent;
   display: block;
   box-sizing: border-box;
-  width: 80%;
+  width: 85%;
   font-size: inherit;
   border: none;
   border-bottom: 2px solid black;
@@ -376,17 +376,17 @@ label {
 }
 
 .fields {
-  margin-bottom: 5px;
+  margin-bottom: 1vh;
 }
 
 label.subfield {
-  font-size: calc(5px + 1vh);
+  font-size: calc(4px + 1.2vh);
 }
 
 .subfield .textfield {
-  margin-top: 1px;
-  margin-bottom: 4px;
-  width: 45%;
+  margin-top: calc(4px + 0.3vh);
+  margin-bottom: 1vh;
+  width: 40%;
 }
 
 .textfield:focus {

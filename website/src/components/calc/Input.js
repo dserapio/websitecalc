@@ -105,6 +105,9 @@ export default function Input (props) {
          <button 
             className={weight ? " active" : ""} type="button"
             onClick={swapWeight}>By Total Weight</button>
+         <button 
+            className={boxes ? " active" : ""} type="button"
+            onClick={toggleBox}># of Containers</button>
          <button
             className={unit.name==='kg' ? "active" : ""}
             type="button" 
@@ -113,9 +116,6 @@ export default function Input (props) {
             className={unit.name==='lbs' ? "active" : ""}
             type="button"
             onClick={tolbs}>lbs</button>
-         <button 
-            className={boxes ? " active" : ""} type="button"
-            onClick={toggleBox}># of Containers</button>
       </section>
 
       <section className="main">
@@ -177,7 +177,7 @@ const MaterialField = (props) => {
             />
          </label>
          {!weight && <label className="subfield">
-            Average Weight Per {name}
+            Average Weight
             <input
                className="textfield" 
                name={`${name}-weight`} 
@@ -188,7 +188,7 @@ const MaterialField = (props) => {
             />
          </label>}
          {boxes && <label className="subfield">
-            Number of {pluralize(name)} Per Container
+            Number Per Container
             <input
                className="textfield"
                name={`${name}-boxes`} 
