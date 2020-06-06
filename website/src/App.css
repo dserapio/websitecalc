@@ -250,6 +250,7 @@ section.main p {
   padding-left: 6px;
   padding-top: 10px;
   padding-bottom: 20px;
+  margin-top: -20px;
 }
 
 section.main ol {
