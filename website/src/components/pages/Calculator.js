@@ -1,4 +1,5 @@
-import React, { useState, useReducer, useEffect, useRef } from 'react';
+import React, { 
+   useState, useReducer, useEffect, useRef, useCallback } from 'react';
 import { TransitionGroup } from 'react-transition-group';
 
 import { FadeWrap } from '../utils/Transitions';
@@ -21,7 +22,7 @@ export default function Calculator() {
    const [unit, setUnit] = useState( convertObj('kg') );
    const [inputs, setInputs] = useReducer(setField, undefined, fieldStarts);
    const [results, setResults] = useState( {} );
-
+   
    const defCheck = useRef();
 
    const tolbs = () => setUnit(convertObj('lbs'));
@@ -41,28 +42,25 @@ export default function Calculator() {
    const onAbout = () => 
       setFlags(flags => ({...flags, about: !flags.about}));
 
+   //remove dependency on inputs
+   defCheck.current = useCallback(() => (
+      Object.entries(inputs).reduce((accumObj, [field, fieldObj]) => (
+         {...accumObj, [field]: fieldObj.weight}  
+      ), {})
+   ), [inputs]);
 
-   useEffect(() => { //remove dependency on inputs
-      defCheck.current = () =>
-         Object.entries(inputs).reduce((accumObj, [field, fieldObj]) => (
-            {...accumObj, [field]: fieldObj.weight}  
-         ), {})
-   }, [inputs]);
-
+   //update default weight values when unit changed
    useEffect(() => {
-      if (!defCheck.current)
-         return;
-
       const defaults = defCheck.current();
-      recycleData.forEach(obj => { //keep eye on
-         const field = obj.title;
+      recycleData.forEach(data => {
+         const field = data.title;
          const weight = defaults[field];
 
          if (weight.value && weight.default)
             setInputs({
                type: 'weight', 
-               field: field, 
-               value: obj.weight*unit.convert,
+               field, 
+               value: data.weight*unit.convert,
                default: true
             });
       });
@@ -105,14 +103,17 @@ export default function Calculator() {
 
 export const fieldNames = recycleData.map(data => data.title);
 
-const fieldStarts = () => (
+const fieldStarts = (convert=1) => (
    recycleData.reduce((obj, data) => ({
       ...obj, [data.title]: {
          amount: '',
-         boxes: '1',
+         boxes: {
+            default: true,
+            value: '1'
+         },
          weight: {
             default: true,
-            value: data.weight ? data.weight : ''
+            value: data.weight ? data.weight*convert : ''
          }
       }
    }), {})
@@ -122,19 +123,21 @@ const fieldStarts = () => (
 const setField = (inputs, action) => {
    switch(action.type) {
       case 'reset':
-         return fieldStarts();
+         return action.value
+            ? fieldStarts(action.value)
+            : fieldStarts();
 
       case 'amount':
-      case 'boxes':
-         const obj = inputs[action.field];
-         obj[action.type] = action.value;
-         return {...inputs, [action.field]: obj};
+         const aObj = inputs[action.field];
+         aObj[action.type] = action.value;
+         return {...inputs, [action.field]: aObj};
 
+      case 'boxes':
       case 'weight':
-         const wObj = inputs[action.field];
-         wObj[action.type].value = action.value;
-         wObj[action.type].default = action.default;
-         return {...inputs, [action.field]: wObj};
+         const obj = inputs[action.field];
+         obj[action.type].value = action.value;
+         obj[action.type].default = action.default;
+         return {...inputs, [action.field]: obj};
 
       default:
          throw new Error();
@@ -143,6 +146,7 @@ const setField = (inputs, action) => {
 
 
 const findTotals = (inputs, convert, weightAmount=false) => {
+   
    const materialNames = Object.keys(recycleData[0]).filter((material) => (
       !(material==="id" || material==="title" || material==="weight")
    ));
@@ -151,20 +155,20 @@ const findTotals = (inputs, convert, weightAmount=false) => {
       {...obj, [material] : 0}
    ), {});
 
-   recycleData.forEach(obj => {
-      const data = inputs[obj.title];
-      const weight = data.weight.value;
+   recycleData.forEach(data => {
+      const obj = inputs[data.title];
+      const weight = obj.weight.value;
 
-      const amount = weightAmount && data.amount && weight
-         ? parseInt(data.amount / weight)
-         : data.amount;
-      const unitRatio = obj.weight && weight 
-         ? weight / (convert*obj.weight) 
+      const amount = weightAmount && obj.amount && weight
+         ? parseInt(obj.amount / weight)
+         : obj.amount;
+      const unitRatio = data.weight && weight 
+         ? weight / (convert*data.weight) 
          : 1;
-      const materialAmnt= amount * unitRatio * data.boxes;
+      const materialAmnt= amount * unitRatio * obj.boxes.value;
 
       materialNames.forEach(material => {
-         totals[material] += obj[material] * materialAmnt;
+         totals[material] += data[material] * materialAmnt;
       })
    });
 

@@ -43,7 +43,7 @@ export default function Input (props) {
       const [field, attr] = parseTarget(target);
       const fieldVal = inputs[field][attr];
 
-      if ( !(fieldVal.value && fieldVal.default) )
+      if (!fieldVal.value || !fieldVal.default)
          return;
 
       setStore(fieldVal.value);
@@ -79,9 +79,10 @@ export default function Input (props) {
 
    const submitInput = (event) => {
       event.preventDefault();
-      const allBlank = fieldNames.every(field => (
-         !inputs[field].amount
-      ));
+      const allBlank = fieldNames.every(field => {
+         const amount = inputs[field].amount;
+         return !(amount && amount>0);
+      });
 
       if (allBlank)
          setValid(false);
@@ -91,7 +92,7 @@ export default function Input (props) {
 
    const resetInput = () => {
       setValid(true);
-      setInputs({type: 'reset'});
+      setInputs({type: 'reset', value: unit.convert});
    }
 
    const toggleBox = () => {
@@ -121,32 +122,21 @@ export default function Input (props) {
       <section className="main">
          <h1>Find Out Material Yields</h1>
          <p>Enter in any electronic, and we'll breakdown what it's made of</p>
-         <p>
-            By default, you enter in the the total of individual electronics.
-            Clicking "By Total Weight" you can choose to enter the total weight
-            of each of the electronics
-         </p>
-
-         <p>
-            "Set Avg. Weight" brings out a new field where you enter the 
-            average weight of each of the electronics. "# of Containers" also 
-            brings out a new field where you enter the number of that electronic
-            can fit into a specific container.
-         </p>
+         <p>Click the "About" button for more help on how to use the calculator</p>
 
          <form id="calc-input" onSubmit={submitInput} noValidate>
             {fieldNames.map((field, i) => (
                <MaterialField key={field+i}
                   name={field} value={inputs[field]}
-                  change={handleChange}
                   weight={weight} boxes={boxes}
-                  focus={fieldFocus} blur={fieldBlur}
+                  onChange={handleChange}
+                  onFocus={fieldFocus} onBlur={fieldBlur}
                />
             ))}
          </form>
 
          <div className="submit">
-            {!valid && <span className="error">All Fields are Empty or 0</span>}
+            {!valid && <span className="error">All "Total" Fields are Empty or 0</span>}
             <div className="buttons">
                <input className="button" type="submit" form="calc-input" value="Calculate"/>
                <input className="button" type="button" onClick={resetInput} value="Reset"/>
@@ -159,45 +149,36 @@ export default function Input (props) {
 
 const MaterialField = (props) => {
    const {
-      name, value,
-      weight, boxes, 
-      change, focus, blur} = props;
+      name, value, weight, boxes, ...ons} = props;
 
    return (
       <div className="fields">
-         <label>
-            Total {pluralize(name)} {weight && "(Weight)"}
-            <input
-               className="textfield" 
-               name={`${name}-amount`} 
-               value={value.amount} 
-               onChange={change}
-               onFocus={focus}
-               onBlur={blur}
-            />
-         </label>
-         {!weight && <label className="subfield">
-            Average Weight
-            <input
-               className="textfield" 
-               name={`${name}-weight`} 
-               value={value.weight.value} 
-               onChange={change}
-               onFocus={focus}
-               onBlur={blur}
-            />
-         </label>}
-         {boxes && <label className="subfield">
-            Number Per Container
-            <input
-               className="textfield"
-               name={`${name}-boxes`} 
-               value={value.boxes} 
-               onChange={change}
-               onFocus={focus}
-               onBlur={blur}
-            />
-         </label>}
+         <TextField
+            label={`Total ${pluralize(name)}${weight ? " (Weight)" : ""}`}
+            name={`${name}-amount`}
+            value={value.amount} {...ons}
+         />
+         {!weight && 
+            <TextField
+               label="Average Weight"
+               name={`${name}-weight`} subfield
+               value={value.weight.value} {...ons}
+            />}
+         {boxes && 
+            <TextField
+               label="Number Per Container"
+               name={`${name}-boxes`} subfield
+               value={value.boxes.value} {...ons}
+            />}
       </div>
    );
 };
+
+const TextField = ({label, subfield, ...input}) => (
+   <div className={"text-container".concat(subfield ? " subfield" : "")}>
+      <label> 
+         {label}
+         <input className="textfield" {...input}/>
+      </label>
+   </div>
+)

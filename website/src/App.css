@@ -350,6 +350,10 @@ form {
   width: 100%;
 }
 
+.fields {
+  margin-bottom: 1vh;
+}
+
 label {
   font-size: calc(5px + 2vh);
   font-weight: 500;
@@ -359,11 +363,25 @@ label {
   padding-top: 1vh;
 }
 
+label.subfield,
+.subfield label {
+  font-size: calc(4px + 1.2vh);
+}
+
+.text-container {
+  width: 85%;
+}
+
+.subfield .text-container,
+.text-container.subfield {
+  width: 35%;
+}
+
 .textfield {
   background: transparent;
+  width: 100%;
   display: block;
   box-sizing: border-box;
-  width: 85%;
   font-size: inherit;
   border: none;
   border-bottom: 2px solid black;
@@ -375,18 +393,9 @@ label {
   transition: all 0.25s;
 }
 
-.fields {
-  margin-bottom: 1vh;
-}
-
-label.subfield {
-  font-size: calc(4px + 1.2vh);
-}
-
 .subfield .textfield {
   margin-top: calc(4px + 0.3vh);
   margin-bottom: 1vh;
-  width: 40%;
 }
 
 .textfield:focus {
