@@ -363,18 +363,29 @@ label {
   padding-top: 1vh;
 }
 
-label.subfield,
 .subfield label {
+  white-space: nowrap;
   font-size: calc(4px + 1.2vh);
+}
+
+.subfields {
+  width: 72%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mobile .subfields {
+  width: 80%;
 }
 
 .text-container {
   width: 85%;
+  margin-top: auto;
 }
 
-.subfield .text-container,
 .text-container.subfield {
-  width: 35%;
+  width: 42%;
+
 }
 
 .textfield {

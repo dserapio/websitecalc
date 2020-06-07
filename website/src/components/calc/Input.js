@@ -158,18 +158,20 @@ const MaterialField = (props) => {
             name={`${name}-amount`}
             value={value.amount} {...ons}
          />
-         {!weight && 
-            <TextField
-               label="Average Weight"
-               name={`${name}-weight`} subfield
-               value={value.weight.value} {...ons}
-            />}
-         {boxes && 
-            <TextField
-               label="Number Per Container"
-               name={`${name}-boxes`} subfield
-               value={value.boxes.value} {...ons}
-            />}
+         <div className="subfields">
+            {!weight && 
+               <TextField
+                  label="Average Weight"
+                  name={`${name}-weight`} subfield
+                  value={value.weight.value} {...ons}
+               />}
+            {boxes && 
+               <TextField
+                  label="Number Per Container"
+                  name={`${name}-boxes`} subfield
+                  value={value.boxes.value} {...ons}
+               />}
+         </div>
       </div>
    );
 };
