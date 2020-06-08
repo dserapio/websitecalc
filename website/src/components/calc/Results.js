@@ -8,7 +8,7 @@ export default function Results (props) {
    const {
       unit, tolbs, tokg, 
       toAbout, toBack, values} = props;
-      
+
    const colors = ['#444444', '#FFC300', '#FF5733', '#C70039', '#900C3F',
    '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
 
@@ -32,15 +32,17 @@ export default function Results (props) {
 
    return <>
       <section className="sidebar">
-         <button type="button" onClick={toAbout}>About</button>
-         <button
-            className={unit.name==='kg' ? "active" : ""}
-            type="button" 
-            onClick={tokg}>kg</button>
-         <button
-            className={unit.name==='lbs' ? "active" : ""}
-            type="button"
-            onClick={tolbs}>lbs</button>
+         <div className="button-group">
+            <button type="button" onClick={toAbout}>About</button>
+            <button
+               className={unit.name==='kg' ? "active" : ""}
+               type="button" 
+               onClick={tokg}>kg</button>
+            <button
+               className={unit.name==='lbs' ? "active" : ""}
+               type="button"
+               onClick={tolbs}>lbs</button>
+         </div>
       </section>
 
       <section className="main">

@@ -34,6 +34,7 @@ export default function Input (props) {
       unit, tolbs, tokg } = props;
 
    const [valid, setValid] = useState(true);
+   const [avg, setAvg] = useState(true);
    const [boxes, setBoxes] = useState(false);
    const [store, setStore] = useState('');
 
@@ -51,9 +52,8 @@ export default function Input (props) {
    };
 
    const fieldBlur = ({target}) => {
-      const [field, attr] = parseTarget(target);
-
       if (store && !target.value) {
+         const [field, attr] = parseTarget(target);
          setInputs({
             type: attr, field: field, 
             value: store, default: true
@@ -63,18 +63,19 @@ export default function Input (props) {
    };
 
    const handleChange = ({target}) => {
-      if (checkPos(target.value)) {
-         const [field, attr] = parseTarget(target);
+      if (!checkPos(target.value))
+         return;
 
-         if (attr!=='weight' && !checkInt(target.value))
-            return; //extra check
+      const [field, attr] = parseTarget(target);
 
-         setInputs({
-            type: attr,
-            field: field,
-            value: target.value
-         });
-      }
+      if (attr!=='weight' && !checkInt(target.value))
+         return; //extra check
+
+      setInputs({
+         type: attr,
+         field: field,
+         value: target.value
+      });
    };
 
    const submitInput = (event) => {
@@ -84,7 +85,12 @@ export default function Input (props) {
          return !(amount && amount>0);
       });
 
-      if (allBlank)
+      const allWeights = fieldNames.reduce((res, field) => {
+         const weight = inputs[field].weight.value;
+         return res && Boolean(weight) && weight>0;
+      }, true);
+
+      if (allBlank)// || !allWeights)
          setValid(false);
       else 
          toResults();
@@ -95,6 +101,11 @@ export default function Input (props) {
       setInputs({type: 'reset', value: unit.convert});
    }
 
+   const toggleAvg = () => {
+      setValid(true);
+      setAvg(avg => !avg);
+   }
+
    const toggleBox = () => {
       setValid(true);
       setBoxes(box => !box);
@@ -102,45 +113,55 @@ export default function Input (props) {
 
    return <>
       <section className="sidebar">
-         <button type="button" onClick={toAbout}>About</button>
-         <button 
-            className={weight ? " active" : ""} type="button"
-            onClick={swapWeight}>By Total Weight</button>
-         <button 
-            className={boxes ? " active" : ""} type="button"
-            onClick={toggleBox}># of Containers</button>
-         <button
-            className={unit.name==='kg' ? "active" : ""}
-            type="button" 
-            onClick={tokg}>kg</button>
-         <button
-            className={unit.name==='lbs' ? "active" : ""}
-            type="button"
-            onClick={tolbs}>lbs</button>
+         <div className="button-group">
+            <button type="button" onClick={toAbout}>About</button>
+            <button 
+               className={avg ? " active" : ""} type="button"
+               onClick={toggleAvg}>Set Avg. Weight</button>
+            <button 
+               className={boxes ? " active" : ""} type="button"
+               onClick={toggleBox}># of Containers</button>
+         </div>
+
+         <div className="button-group">
+            <button 
+               className={weight ? " active" : ""} type="button"
+               onClick={swapWeight}>By Total Weight</button>
+            <button
+               className={unit.name==='kg' ? "active" : ""}
+               type="button" 
+               onClick={tokg}>kg</button>
+            <button
+               className={unit.name==='lbs' ? "active" : ""}
+               type="button"
+               onClick={tolbs}>lbs</button>
+         </div>
       </section>
 
       <section className="main">
          <h1>Find Out Material Yields</h1>
-         <p>Enter in any electronic, and we'll breakdown what it's made of</p>
-         <p>Click the "About" button for more help on how to use the calculator</p>
+         <p>Enter in any electronic, and we'll breakdown what it's made of.</p>
+         <p>Click the "About" button for more help on how to use the calculator.</p>
 
          <form id="calc-input" onSubmit={submitInput} noValidate>
             {fieldNames.map((field, i) => (
                <MaterialField key={field+i}
                   name={field} value={inputs[field]}
-                  weight={weight} boxes={boxes}
-                  onChange={handleChange}
-                  onFocus={fieldFocus} onBlur={fieldBlur}
+                  weight={weight} avg={avg} boxes={boxes}
+                  unit={unit.name}
+                  onChange={handleChange} onFocus={fieldFocus} onBlur={fieldBlur}
                />
             ))}
          </form>
 
          <div className="submit">
-            {!valid && <span className="error">All "Total" Fields are Empty or 0</span>}
             <div className="buttons">
                <input className="button" type="submit" form="calc-input" value="Calculate"/>
                <input className="button" type="button" onClick={resetInput} value="Reset"/>
             </div>
+            {!valid && <span className="error">
+               Require at least one "Total" field and all "Average Weight" fields not zero
+            </span>}
          </div>
       </section>
    </>;
@@ -149,27 +170,30 @@ export default function Input (props) {
 
 const MaterialField = (props) => {
    const {
-      name, value, weight, boxes, ...ons} = props;
+      name, value, unit, weight, avg, boxes, ...ons} = props;
 
    return (
       <div className="fields">
          <TextField
-            label={`Total ${pluralize(name)}${weight ? " (Weight)" : ""}`}
+            label={`Total ${pluralize(name)}${weight ? ` (${unit})` : ""}`}
             name={`${name}-amount`}
-            value={value.amount} {...ons}
+            value={value.amount}
+            {...ons}
          />
          <div className="subfields">
-            {!weight && 
+            {avg && 
                <TextField
-                  label="Average Weight"
+                  label={`Average Weight (${unit})`}
                   name={`${name}-weight`} subfield
-                  value={value.weight.value} {...ons}
+                  value={value.weight.value}
+                  {...ons}
                />}
             {boxes && 
                <TextField
                   label="Number Per Container"
                   name={`${name}-boxes`} subfield
-                  value={value.boxes.value} {...ons}
+                  value={value.boxes.value}
+                  {...ons}
                />}
          </div>
       </div>

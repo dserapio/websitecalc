@@ -188,7 +188,7 @@
 .moreinfo {
   justify-content: center;
   position: relative;
-  margin-top: calc(10px + 45vh);
+  margin-top: calc(8px + 50vh);
   width: 85%;
   margin-left: auto;
   margin-right: auto;
@@ -236,26 +236,22 @@ section.main {
   width: 100%;
 }
 
-section.main h1 {
-  padding-bottom: 15px;
-}
-
 section.main h2 {
   font-weight: 600;
   font-size: 18px;
-  padding-bottom: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 section.main p {
   padding-left: 6px;
-  padding-top: 10px;
-  padding-bottom: 20px;
-  margin-top: -20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 section.main ol {
   padding-left: 30px;
-  padding-bottom: 3px;
+  margin-bottom: 3px;
 }
 
 section.sidebar {
@@ -273,21 +269,21 @@ section.sidebar * {
   margin-left: 0;
 }
 
-.mobile section.sidebar,
+.mobile section.sidebar .button-group,
 .buttons {
-  position: static;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  margin-left: 0;
-  margin-bottom: 1vh;
-  padding: 0px;
-  padding-bottom: 15px;
 }
 
 .mobile section.sidebar {
-  margin-left: -2.5vw;
+  position: static;
   width: 90vw;
+  margin-left: 0;
+  margin-left: -2.5vw;
+  margin-bottom: 1vh;
+  padding: 0;
+  padding-bottom: 15px;
 }
 
 .mobile section.sidebar *,
@@ -339,10 +335,11 @@ button:hover, button:focus,
   border-color: white;
 }
 
+
 /* calculator input */
 
 form {
-  width: 80%;
+  width: 90%;
   margin-bottom: -0.5vh;
 }
 
@@ -351,21 +348,16 @@ form {
 }
 
 .fields {
-  margin-bottom: 1vh;
+  margin-bottom: 0.5vh;
 }
 
-label {
-  font-size: calc(5px + 2vh);
-  font-weight: 500;
-  box-decoration-break: clone;
-  overflow-wrap: break-word;
-  margin: 10px;
-  padding-top: 1vh;
+.text-container {
+  width: 85%;
 }
 
-.subfield label {
-  white-space: nowrap;
-  font-size: calc(4px + 1.2vh);
+.text-container.subfield {
+  width: 42%;
+  margin-top: auto;
 }
 
 .subfields {
@@ -378,14 +370,17 @@ label {
   width: 80%;
 }
 
-.text-container {
-  width: 85%;
-  margin-top: auto;
+label {
+  font-size: calc(5px + 2vh);
+  font-weight: 500;
+  box-decoration-break: clone;
+  overflow-wrap: break-word;
+  margin: 10px;
 }
 
-.text-container.subfield {
-  width: 42%;
-
+.subfield label {
+  white-space: nowrap;
+  font-size: calc(4px + 1.4vh);
 }
 
 .textfield {
@@ -426,10 +421,9 @@ label .error {
 }
 
 .submit .error {
-  display: block;
-  position: absolute;
-  margin-top: -25px;
+  display: inline-block;
   margin-left: 10px;
+  width: 90%;
 }
 
 table {

@@ -159,11 +159,11 @@ const findTotals = (inputs, convert, weightAmount=false) => {
       const obj = inputs[data.title];
       const weight = obj.weight.value;
 
-      const amount = weightAmount && obj.amount && weight
-         ? parseInt(obj.amount / weight)
+      const amount = weightAmount && weight //temporary
+         ? obj.amount / weight
          : obj.amount;
-      const unitRatio = data.weight && weight 
-         ? weight / (convert*data.weight) 
+      const unitRatio = data.weight //temporary
+         ? weight / (convert*data.weight)
          : 1;
       const materialAmnt= amount * unitRatio * obj.boxes.value;
 

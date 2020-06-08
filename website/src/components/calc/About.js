@@ -3,7 +3,9 @@ import '../../App.css';
 
 const About = ({calc}) => <>
    <section className="sidebar">
-      <button type="button" onClick={calc}>Calculator</button>
+      <div className="button-group">
+         <button type="button" onClick={calc}>Calculator</button>
+      </div>
    </section>
    
    <section className="main">
