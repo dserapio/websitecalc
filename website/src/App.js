@@ -1,26 +1,32 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useReducer } from 'react';
 import { useSwipeable } from 'react-swipeable'
 import { BrowserRouter } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 
-import Navigation, { openMenu, closeMenu } from './components/Navigation';
+import Navigation, { NavContext, navChange, navStart } from './components/Navigation';
 import Pages from './components/Pages';
 
 import './App.css';
 
 export default function App() {
-  const [hide, setHide] = useState(isMobile); //hide if mobile
+  // hide if mobile
+  const [navInfo, setNavBase] = useReducer(navChange, navStart(isMobile));
   const listRef = useRef(); //the sliding elem
 
-  const pullMenu = ({initial, event}) => {
-    if (openMenu(listRef.current, {checkX: initial[0], target: event.target}))
-      setHide(false);
+
+  const setNav = (type) =>
+    setNavBase({type, menu: listRef.current});
+
+
+  const pullMenu = ({initial}) => {
+    if (navInfo.hide && initial[0] >= navInfo.area)
+      setNav('open');
   }
 
-  const hideMenu = ({event, initial, deltaX}) => {
+  const hideMenu = ({initial, deltaX}) => {
     const currX = initial[0] - deltaX;
-    if (closeMenu(listRef.current, {checkX: currX, target: event.target}))
-      setHide(true);
+    if (!navInfo.hide && currX >= navInfo.area)
+      setNav('close');
   }
 
   const swipeCheck = ({event, dir}) => {
@@ -28,8 +34,8 @@ export default function App() {
       if (event.cancelable)
         event.preventDefault();
 
-    } else if (dir==='Up' || dir==='Down')
-      setHide(true);
+    } else if (!navInfo.hide && (dir==='Up' || dir==='Down'))
+      setNav('close');
   }
 
   const swipes = useSwipeable({
@@ -41,10 +47,14 @@ export default function App() {
   return (
     <div {...swipes}>
       <BrowserRouter>
-        <Navigation ref={listRef} hide={hide} setHide={setHide}/>
-        <Pages navInfo={{listRef: listRef}}/>
+        <Navigation ref={listRef} hide={navInfo.hide} setNav={setNav}/>
+        
+        <NavContext.Provider value={navInfo}>
+          <Pages />
+        </NavContext.Provider>
+
       </BrowserRouter>
     </div>
   );
-}
+};
 

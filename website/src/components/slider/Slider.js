@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import { css, jsx } from '@emotion/core'
 import { useSwipeable } from 'react-swipeable'
 import { isMobile } from 'react-device-detect';
 
-import { openMenu, closeMenu } from '../Navigation'
+import { NavContext } from '../Navigation'
 import SliderContent from './SliderContent'
 import Slide from './Slide'
 import Arrow from './Arrow'
@@ -15,7 +15,7 @@ const getWidth = () => window.innerWidth
 /**
  * @function Slider
  */
-const Slider = ({ navInfo, autoPlay, slides }) => {
+const Slider = ({ autoPlay, slides }) => {
   const firstSlide = slides[0]
   const secondSlide = slides[1]
   const lastSlide = slides[slides.length - 1]
@@ -149,14 +149,15 @@ const Slider = ({ navInfo, autoPlay, slides }) => {
   }, [signal]);
 
 
-  const swipeNext = ({initial,  event}) => {
-    if (!openMenu(navInfo.listRef.current, {checkX: initial[0], target: event.target}))
+  const navInfo = useContext(NavContext);
+
+  const swipeNext = ({initial}) => {
+    if (initial[0] < navInfo.area)
       nextSlide();
   }
 
-  const swipePrev = ({initial, deltaX, event}) => {
-    const currX = initial[0] - deltaX;
-    if (!closeMenu(navInfo.listRef.current, {checkX: currX, target: event.target}))
+  const swipePrev = () => {
+    if (navInfo.hide)
       prevSlide();
   }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css';
 import Slider from '../slider/Slider';
  
-export default function Home ({navInfo}) {
+export default function Home () {
    const images = [
       'https://s3files.core77.com/blog/images/lead_n_spotlight/477276_title__52109_cnNbfrAUP.jpg',
       'https://icdn2.digitaltrends.com/image/digitaltrends/technological-waste.jpg',
@@ -11,7 +11,7 @@ export default function Home ({navInfo}) {
 
    return <>
       <div className="slider">
-         <Slider navInfo={navInfo} slides={images} autoPlay={10}/>
+         <Slider slides={images} autoPlay={10}/>
       </div>
 
       <div className="title">

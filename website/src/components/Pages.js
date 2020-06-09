@@ -11,7 +11,7 @@ import { TransWrap } from './utils/Transitions';
 import '../App.css';
 
 
-const Pages = ({location, navInfo}) => {
+const Pages = ({location}) => {
    const linkNames = useMemo(() => {
       const links = Object.keys(paths);
       return pathNames()
@@ -47,7 +47,7 @@ const Pages = ({location, navInfo}) => {
                   active={Comp===matchComp} trans={trans} 
                   divClass={divClass(rel, fill)}
                >
-                  <Comp navInfo={navInfo}/>
+                  <Comp />
                </TransWrap>
             )}
          </Route>
@@ -58,15 +58,15 @@ const Pages = ({location, navInfo}) => {
 
 export const paths = {
    "/": {
-      Comp: Home, trans: "zoom", rel: true, fill: false },
+      Comp: Home, trans: "zoom", rel: true },
    "/information": {
-      Comp: Information, trans: "fade", rel: true, fill: true },
+      Comp: Information, trans: "fade", rel: true },
    "/calculator": {
-      Comp: Calculator, trans: "fade", rel: true, fill: true },
+      Comp: Calculator, trans: "fade", rel: true },
    "/find-recycler": {
-      Comp: FindRecycler, trans: "fade", rel: false, fill: true },
+      Comp: FindRecycler, trans: "fade", rel: false },
    "/error": {
-      Comp: Error, trans: "fade", rel: true, fill: false }
+      Comp: Error, trans: "fade", rel: true }
 };
 
 export const pathNames = () => (

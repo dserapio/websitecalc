@@ -39,4 +39,4 @@ const About = ({calc}) => <>
    </section>
 </>;
 
- export default About;
+ export default React.memo(About);
