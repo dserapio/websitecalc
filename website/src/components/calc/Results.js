@@ -17,17 +17,23 @@ export default function Results (props) {
    const [hovered, setHovered] = useState(null);
 
    const getColor = (index) => {
-      var color = '';
-      color = colors[index];
-      return color;
+      return colors[index];
    }
 
    const pieData = Object.entries(values).map(([name, value], index) => (
       { 'title': name, 'value': value, 'color': getColor(index) }
    ));
 
+   const getTotal = () => {
+      var total = 0;
+      for (var i in pieData) {
+         total += parseFloat(pieData[i].value);
+      }
+      return total;
+   };
+
    const infoBoxContent = (pieData) => (
-      pieData.title + ' has value ' + (pieData.value * unit.convert).toFixed(4)
+      pieData.title + ' : ' + Math.round((pieData.value/getTotal())*100) + '%'
    );
 
    return <>
