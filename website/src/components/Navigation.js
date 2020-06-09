@@ -1,9 +1,10 @@
-import React, { useRef, useEffect, useMemo, forwardRef } from 'react';
+import React, { useRef, useEffect, useMemo, forwardRef, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 
 import Burger from './Burger';
 import { paths, pathNames } from './Pages';
+import { ThemeContext } from './utils/Styles';
 import logo from '../img/e-stewards.png'
 import '../App.css';
 
@@ -45,9 +46,12 @@ const Navigation = forwardRef(({hide, setNav}, ref) => {
       }
    }, []);
 
+
    //remove dependency for the effect, so don't have
    //to add and remove event listener
-   closeRef.current = () => setNav('close');
+   useEffect(() => {
+      closeRef.current = () => setNav('close');
+   });
 
    useEffect(() => {
       const menuClick = (( {target} ) => {
@@ -64,23 +68,26 @@ const Navigation = forwardRef(({hide, setNav}, ref) => {
       };
    }, []);
 
+   const theme = useContext(ThemeContext);
 
    return ( 
-      <div className="nav" ref={navRef}>
-         <div className="logoBtn">
+      <div className="nav" ref={navRef} style={{backgroundColor: theme.mainAlt, color: theme.off}}>
+         <div className="logoBtn" 
+            style={{backgroundColor: theme.name==="light" ? "transparent" : theme.off}}
+         >
             <NavLink className="nav-link" exact to="/">
                <img className="logo" src={logo} alt="logo"/>
             </NavLink>
          </div>
          
          <div ref={menuRef} className="nav-menu">
-            <div ref={ref} className={"nav-list".concat(hide ? " hide" : "")}>
+            <div ref={ref} style={{backgroundColor: theme.mainAlt, color: theme.off}} className={"nav-list".concat(hide ? " hide" : "")}>
                {linkInfos.map(([path, name], i) => (
                   <NavLink key={path+i} className="nav-link" exact to={path}>{name}</NavLink>
                ))}
             </div>
             
-            {isMobile && <Burger onClick={() => setNav('swap')} active={!hide}/>}
+            {isMobile && <Burger onClick={() => setNav('swap')} active={!hide} color={theme.offAlt}/>}
          </div>
       </div>
    );
@@ -119,15 +126,15 @@ const openedArea = (menu) =>
 export const navChange = (navInfo, action) => {
    switch(action.type) {
       case 'open':
-         return {hide: false, area: openedArea(action.menu)};
+         return { hide: false, area: openedArea(action.menu) };
    
       case 'close':
-         return {hide: true, area: closedArea()};
+         return { hide: true, area: closedArea() };
    
       case 'swap':
-         return {hide: !navInfo.hide, area: navInfo.hide 
-         ? closedArea()
-         : openedArea(action.menu)};
+         return { hide: !navInfo.hide, area: navInfo.hide 
+            ? closedArea()
+            : openedArea(action.menu) };
    
       default:
          throw new Error();
@@ -139,7 +146,7 @@ export const navChange = (navInfo, action) => {
  * @param {boolean} hide 
  */
 export const navStart = (hide) => (
-   {hide: hide, area: closedArea()}
+   { hide, area: closedArea() }
 );
 
 /**

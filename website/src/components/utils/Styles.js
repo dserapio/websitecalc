@@ -20,3 +20,32 @@ export const ContentWrap = ({children}) => <>
         </div>
     </MobileView>
 </>;
+
+export const lightTheme = {
+    name: 'light',
+    main: 'white',
+    mainAlt: '#FEF5F5',
+    off: 'black',
+    offAlt: '#909090'
+};
+
+export const darkTheme = {
+    name: 'dark',
+    main: '#383530',
+    mainAlt: '#2b2a2a',
+    off: 'lightgray',
+    offAlt: 'lightgray'
+}
+
+export const toggleTheme = (theme, {name}) => {
+    switch(name) {
+        case 'light':
+            return lightTheme;
+        case 'dark':
+            return darkTheme;
+        default:
+            throw new Error();
+    }
+}
+
+export const ThemeContext = React.createContext(lightTheme);

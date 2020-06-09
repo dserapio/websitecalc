@@ -1,8 +1,9 @@
-import React, { useRef, useReducer } from 'react';
+import React, { useRef, useReducer, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable'
 import { BrowserRouter } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 
+import { ThemeContext, toggleTheme, lightTheme, darkTheme } from './components/utils/Styles';
 import Navigation, { NavContext, navChange, navStart } from './components/Navigation';
 import Pages from './components/Pages';
 
@@ -11,6 +12,7 @@ import './App.css';
 export default function App() {
   // hide if mobile
   const [navInfo, setNavBase] = useReducer(navChange, navStart(isMobile));
+  const [theme, setTheme] = useReducer(toggleTheme, lightTheme);
   const listRef = useRef(); //the sliding elem
 
 
@@ -38,6 +40,12 @@ export default function App() {
       setNav('close');
   }
 
+  useEffect(() => {
+    const body = document.querySelector("body");
+    body.style.backgroundColor = theme.main;
+    body.style.color = theme.off;
+  });
+
   const swipes = useSwipeable({
     onSwipedLeft: pullMenu,
     onSwipedRight: hideMenu,
@@ -47,11 +55,13 @@ export default function App() {
   return (
     <div {...swipes}>
       <BrowserRouter>
-        <Navigation ref={listRef} hide={navInfo.hide} setNav={setNav}/>
+        <ThemeContext.Provider value={theme}>
+          <Navigation ref={listRef} hide={navInfo.hide} setNav={setNav}/>
         
-        <NavContext.Provider value={navInfo}>
-          <Pages />
-        </NavContext.Provider>
+          <NavContext.Provider value={navInfo}>
+            <Pages />
+          </NavContext.Provider>
+        </ThemeContext.Provider>
 
       </BrowserRouter>
     </div>

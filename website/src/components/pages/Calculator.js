@@ -1,5 +1,4 @@
-import React, { 
-   useState, useReducer, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useReducer, useEffect, useRef } from 'react';
 import { TransitionGroup } from 'react-transition-group';
 
 import { FadeWrap } from '../utils/Transitions';
@@ -14,16 +13,13 @@ import About from '../calc/About';
 
 
 export default function Calculator() {
-   const [flags, setFlags] = useState({
-      about: false,
-      enter: false,
-      weight: false
-   });
+   const [flags, setFlags] = useState({ about: false, enter: false, weight: false });
    const [unit, setUnit] = useState( convertObj('kg') );
    const [inputs, setInputs] = useReducer(setField, undefined, fieldStarts);
    const [results, setResults] = useState( {} );
    
    const defCheck = useRef();
+
 
    const tolbs = () => setUnit(convertObj('lbs'));
    const tokg = () => setUnit(convertObj('kg'));
@@ -42,12 +38,15 @@ export default function Calculator() {
    const onAbout = () => 
       setFlags(flags => ({...flags, about: !flags.about}));
 
+
    //remove dependency on inputs
-   defCheck.current = useCallback(() => (
-      Object.entries(inputs).reduce((accumObj, [field, fieldObj]) => (
-         {...accumObj, [field]: fieldObj.weight}  
-      ), {})
-   ), [inputs]);
+   useEffect(() => {
+      defCheck.current = () => (
+         Object.entries(inputs).reduce((accumObj, [field, fieldObj]) => (
+            {...accumObj, [field]: fieldObj.weight}  
+         ), {})
+      );
+   }, [inputs]);
 
    //update default weight values when unit changed
    useEffect(() => {

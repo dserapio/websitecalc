@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { fieldNames } from '../pages/Calculator';
+import { ThemeContext } from '../utils/Styles';
 import '../../App.css';
 
 
@@ -37,6 +38,8 @@ export default function Input (props) {
    const [avg, setAvg] = useState(true);
    const [boxes, setBoxes] = useState(false);
    const [store, setStore] = useState('');
+
+   const theme = useContext(ThemeContext);
 
 
    const fieldFocus = ({target}) => { //clear default
@@ -144,14 +147,14 @@ export default function Input (props) {
          <p>Click the "About" button for more help on how to use the calculator.</p>
 
          <form id="calc-input" onSubmit={submitInput} noValidate>
-            {fieldNames.map((field, i) => (
+            {fieldNames.map((field, i) =>
                <MaterialField key={field+i}
                   name={field} value={inputs[field]}
                   weight={weight} avg={avg} boxes={boxes}
-                  unit={unit.name}
+                  theme={theme} unit={unit.name}
                   onChange={handleChange} onFocus={fieldFocus} onBlur={fieldBlur}
                />
-            ))}
+            )}
          </form>
 
          <div className="submit">
@@ -170,7 +173,7 @@ export default function Input (props) {
 
 const MaterialField = (props) => {
    const {
-      name, value, unit, weight, avg, boxes, ...ons} = props;
+      name, value, unit, weight, avg, boxes, ...rest} = props;
 
    return (
       <div className="fields">
@@ -178,7 +181,7 @@ const MaterialField = (props) => {
             label={`Total ${pluralize(name)}${weight ? ` (${unit})` : ""}`}
             name={`${name}-amount`}
             value={value.amount}
-            {...ons}
+            {...rest}
          />
          <div className="subfields">
             {avg && 
@@ -186,25 +189,25 @@ const MaterialField = (props) => {
                   label={`Average Weight (${unit})`}
                   name={`${name}-weight`} subfield
                   value={value.weight.value}
-                  {...ons}
+                  {...rest}
                />}
             {boxes && 
                <TextField
                   label="Number Per Container"
                   name={`${name}-boxes`} subfield
                   value={value.boxes.value}
-                  {...ons}
+                  {...rest}
                />}
          </div>
       </div>
    );
 };
 
-const TextField = ({label, subfield, ...input}) => (
+//border color not inheriting
+const TextField = ({label, subfield, theme, ...input}) =>
    <div className={"text-container".concat(subfield ? " subfield" : "")}>
       <label> 
          {label}
-         <input className="textfield" {...input}/>
+         <input className="textfield" {...input} style={{borderColor: theme.off}}/>
       </label>
    </div>
-)
