@@ -4,17 +4,19 @@ import React from 'react';
 export const lightTheme = {
     name: 'light',
     main: 'white',
-    mainAlt: '#FDF4F4',
+    mainAlt: '#f3f0ed',
     off: 'black',
-    offAlt: '#909090'
+    offAlt: '#909090',
+    shadow: '#a19dbb'
 };
 
 export const darkTheme = {
     name: 'dark',
-    main: '#383530',
-    mainAlt: '#2b2a2a',
+    main: '#2b2a2a',
+    mainAlt: '#36383d',
     off: 'lightgray',
-    offAlt: 'lightgray'
+    offAlt: '#909090',
+    shadow: '#151515'
 }
 
 /**

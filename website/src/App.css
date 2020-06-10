@@ -88,11 +88,11 @@
 }
 
 .mobile .nav-list {
-  background: #FEF5F5;
+  z-index: -1;
   height: 100vh;
   display: block;
   position: absolute;
-  padding-top: 10vh;
+  padding-top: 10.25vh;
   right: 0;
   top: 0;
   transition: transform 200ms ease;
@@ -241,7 +241,7 @@
 
 .content {
   position: relative;
-  padding-top: calc(55px + 2.5vw + 4vh);
+  padding-top: calc(60px + 2.5vw + 4.5vh);
   padding-left: 7vw;
   padding-bottom: 5vh;
   width: 80vw;
@@ -428,7 +428,6 @@ label {
 }
 
 .textfield:focus {
-  border-bottom: 2px solid #909090;
   transform: scale(1.01);
 }
 

@@ -14,12 +14,11 @@ import './App.css';
 export default function App() {
   const [theme, swapTheme] = useReducer(toggleTheme, lightTheme);
   const [navInfo, setNavBase] = useReducer(navChange, navStart(isMobile)); // hide if mobile
-  const listRef = useRef(); //the sliding elem
+  const listRef = useRef(); //the sliding nav elem
 
 
   const setNav = (type) =>
     setNavBase({type, menu: listRef.current});
-
 
   const pullMenu = ({initial}) => {
     if (navInfo.hide && initial[0] >= navInfo.area)
@@ -41,17 +40,19 @@ export default function App() {
       setNav('close');
   }
 
-  useEffect(() => {
-    const body = document.querySelector("body");
-    body.style.backgroundColor = theme.main;
-    body.style.color = theme.off;
-  });
- 
   const swipes = useSwipeable({
     onSwipedLeft: pullMenu,
     onSwipedRight: hideMenu,
     onSwiping: swipeCheck
   });
+
+  useEffect(() => {
+    const body = document.body;
+    body.style.backgroundColor = theme.main;
+    body.style.color = theme.off;
+    
+  }, [theme]);
+
 
   return (
     <div {...swipes}>

@@ -26,26 +26,19 @@ const Pages = ({location}) => {
    const path = valid ? valid.path : "/error";
    const matchComp = paths[path].Comp;
 
-   const divClass = (rel, fill) => {
-      let ret = "";
-      if (rel)
-         ret = ret.concat(" rel");
-      //if (fill)
-      //   ret = ret.concat(" fill");
-      return ret;
-   }
+   const divClass = (rel) => rel ? "rel" : "";
 
    useEffect(() => {
       document.title = `e-Stewards - ${linkNames[path]}`;
    }, [linkNames, path]);
 
    return <>
-      {Object.entries(paths).map(( [path, {Comp, trans, rel, fill}] ) => (
+      {Object.entries(paths).map(( [path, {Comp, trans, rel}] ) => (
          <Route key={path} exact path={path}>
             {() => ( //will always render
                <TransWrap 
                   active={Comp===matchComp} trans={trans} 
-                  divClass={divClass(rel, fill)}
+                  divClass={divClass(rel)}
                >
                   <Comp />
                </TransWrap>

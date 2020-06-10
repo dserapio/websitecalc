@@ -57,8 +57,7 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
 
    useEffect(() => {
       const menuClick = (( {target} ) => {
-         if (!menuRef.current.contains(target) 
-            || target.className.includes('nav-link') || target.className.includes('Toggle'))
+         if (!menuRef.current.contains(target) || target.className.includes('nav-link'))
             closeRef.current();
       });
 
@@ -71,18 +70,16 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
       };
    }, []);
 
-   const closeSwap = () => {
-      setNav('close');
-      swapTheme();
-   }
-
    const theme = useContext(ThemeContext);
    const isDark = theme.name==="dark";
+   const isLight = !isDark;
 
    return ( 
-      <div className="nav" ref={navRef} style={{backgroundColor: theme.mainAlt, color: theme.off}}>
+      <div className="nav" ref={navRef} 
+         style={{backgroundColor: theme.mainAlt, color: theme.off, boxShadow: `0 1px 10px 2px ${theme.shadow}`}}
+      >
          <div className="logoBtn" 
-            style={{backgroundColor: theme.name==="light" ? "transparent" : theme.off}}
+            style={{backgroundColor: isLight ? "transparent" : theme.offAlt}}
          >
             <NavLink className="nav-link" exact to="/">
                <img className="logo" src={logo} alt="logo"/>
@@ -100,8 +97,9 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
                <div className="nav-link theme-link" onClick={swapTheme}>
                   {!isMobile && (isDark ? "Light Mode" : "Dark Mode")}
                   {isMobile && <>
-                     <span>Dark Mode</span>
-                     <Toggle checked={isDark} onChange={closeSwap}/>
+                     Dark Mode
+                     <Toggle checked={isDark}
+                        onChange={() => { setNav('close'); swapTheme(); }}/>
                   </>}
                </div>
             </div>
