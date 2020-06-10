@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { fieldNames } from '../pages/Calculator';
-import { ThemeContext } from '../utils/Styles';
+import ThemeContext from '../../contexts/ThemeContext';
 import '../../App.css';
 
 
@@ -204,10 +204,11 @@ const MaterialField = (props) => {
 };
 
 //border color not inheriting
-const TextField = ({label, subfield, theme, ...input}) =>
+const TextField = ({label, subfield, theme, ...input}) => (
    <div className={"text-container".concat(subfield ? " subfield" : "")}>
       <label> 
          {label}
          <input className="textfield" {...input} style={{borderColor: theme.off}}/>
       </label>
    </div>
+);

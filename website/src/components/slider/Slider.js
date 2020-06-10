@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core'
 import { useSwipeable } from 'react-swipeable'
 import { isMobile } from 'react-device-detect';
 
-import { NavContext } from '../Navigation'
+import NavContext from '../../contexts/NavContext'
 import SliderContent from './SliderContent'
 import Slide from './Slide'
 import Arrow from './Arrow'

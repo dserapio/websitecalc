@@ -111,10 +111,25 @@
   font-size: calc(14px + 0.6vw);
 }
 
+.theme-link {
+  display: flex;
+  justify-content: space-between;
+  /*font-size: calc(10px + 0.4vw);*/
+}
+
+.mobile .theme-link {
+  width: 80%;
+  font-size: calc(14px + 0.6vw);
+}
+
 .mobile .nav-list .nav-link {
   font-size: calc(16px + 2vw);
   padding: 2vh 10vw 2vh 6vw;
   overflow-y: scroll;
+}
+
+.nav-link:hover {
+  cursor: pointer;
 }
 
 .nav-link.active {
@@ -329,7 +344,7 @@ button, .button {
   border: 2px solid #41911f;
   transition: all 0.3s ease;
   cursor: pointer;
-  opacity: 70%;
+  opacity: 65%;
 }
 
 button:active, button.active, 
