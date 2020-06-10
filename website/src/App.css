@@ -449,45 +449,39 @@ label .error {
 }
 
 table {
-  padding-top: 12px;
-  padding-bottom: 15px;
-  padding-left: 10px;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1em;
+  min-width: 400px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
 }
 
-th, td {
-  padding-bottom: 8px;
-  padding-right: 28px;
-}
-
-
-/* calculator results */
-
-.output {
-  font-size: 20px;
+thead tr {
+  background-color: #41911f;
+  color: #fff;
   text-align: left;
-  margin-bottom: -10px;
   font-weight: bolder;
 }
 
-.output-value {
-  font-weight: lighter;
-  margin-top: -13px;
+th, td {
+  padding: 12px 15px;
 }
 
+tr {
+  border-bottom: 1px solid #EBEBEB;
+}
+
+tr:nth-last-of-type(even) {
+  background-color: #F1F1F1;
+}
+
+/* calculator results */
 
 .piechart {
-  font-size: 5px;
   height: 400px;
   margin: 10px;
-}
-
-.color-box {
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  position: absolute;
-  margin-top: 10px;
-  margin-left: 5px;
 }
 
 .outputs {
