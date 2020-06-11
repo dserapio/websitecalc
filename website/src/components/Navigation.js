@@ -72,14 +72,12 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
 
    const isDark = theme.name==="dark";
    const isLight = !isDark;
-   
 
    return ( 
-      <div className="nav" ref={navRef} 
-         style={{backgroundColor: theme.mainAlt, color: theme.off}}
-      >
+      <div className="nav" ref={navRef} style={{backgroundColor: theme.mainAlt}}>
+         
          <div className="logoBtn" 
-            style={{backgroundColor: isLight ? "transparent" : theme.off}}
+            style={{backgroundColor: isLight ? "transparent" : theme.offAlt}}
          >
             <NavLink className="nav-link" exact to="/">
                <img className="logo" src={logo} alt="logo"/>
@@ -88,19 +86,18 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
          
          <div ref={menuRef} className="nav-menu">
             <div ref={ref} className={`nav-list ${hide ? "hide" : ""}`}
-               style={{backgroundColor: theme.mainAlt, color: theme.off}}
+               style={{backgroundColor: theme.mainAlt}}
             >
                {linkInfos.map(([path, name], i) => (
                   <NavLink key={path+i} className="nav-link" exact to={path}>{name}</NavLink>
                ))}
 
                <div className="nav-link theme-link" onClick={swapTheme}>
-                  {!isMobile && (isDark ? <img className="theme-logo" src={sunLogo} alt="Light Mode"/> : <img className="theme-logo" src={moonLogo} alt="Dark Mode"/>)}
-                  {isMobile && <>
-                     <img className="theme-logo" src={moonLogo} alt="Dark Mode"/>
-                  </>}
+                  {!isLight && <img className="theme-logo" src={sunLogo} alt="Light Mode"/>}
+                  {!isDark && <img className="theme-logo" src={moonLogo} alt="Dark Mode"/>}
                </div>
             </div>
+
             {isMobile && <Burger onClick={() => setNav('swap')} active={!hide} color={theme.offAlt}/>}
          </div>
       </div>

@@ -19,14 +19,6 @@ export default function FindRecycler() {
   if (!isLoaded) return "Loading Maps";
 
   return <>
-    <form >
-      <input 
-        type="text" 
-        className="search" 
-        
-      />
-    </form>
-
     <GoogleMap 
       mapContainerClassName="map"
       zoom={10} 
@@ -77,8 +69,14 @@ export default function FindRecycler() {
           </div>
         </InfoWindow>
       )}
-
     </GoogleMap>
+    
+    <form >
+      <input 
+        type="text" 
+        className="search"
+      />
+    </form>
     
   </>
   

@@ -60,7 +60,6 @@
 /* navigation comp */
 
 .nav {
-  background: #FEF5F5;
   position: fixed;
   z-index: 1;
   display: flex;
@@ -92,6 +91,7 @@
   z-index: -1;
   height: 100vh;
   display: block;
+  background: inherit;
   position: absolute;
   padding-top: 10vh;
   right: 0;
@@ -112,10 +112,24 @@
   font-size: calc(16px + 0.2vw);
 }
 
+.nav-link:hover {
+  cursor: pointer;
+}
+
+.nav-link.active {
+  font-weight: bolder;
+}
+
+.mobile .nav-list .nav-link {
+  font-size: calc(20px + 0.6vw);
+  padding: 2vh 10vw 2vh 6vw;
+  overflow-y: scroll;
+}
+
 .theme-link {
   display: flex;
   justify-content: space-between;
-  /*font-size: calc(10px + 0.4vw);*/
+  opacity: 0.75;
 }
 
 .theme-logo {
@@ -127,25 +141,6 @@
   position: fixed;
   bottom: 0;
   padding-bottom: 3rem;
-}
-
-.mobile .nav-list .nav-link {
-  font-size: calc(20px + 0.4vw);
-  padding: 2vh 10vw 2vh 6vw;
-  overflow-y: scroll;
-}
-
-.mobile .theme-link {
-  width: 80%;
-  font-size: calc(14px + 0.6vw);
-}
-
-.nav-link:hover {
-  cursor: pointer;
-}
-
-.nav-link.active {
-  font-weight: bold;
 }
 
 .nav, .logo {
@@ -174,22 +169,29 @@
 /* find recycler map styles */
 
 .map {
-  margin-top: 125px;
+  margin-top: 9.5vh;
   width: 100%;
-  height: 88.6vh;
+  height: 90.5vh;
+  overflow: hidden;
 }
 
 .search {
   position: absolute;
-  top: 8rem;
+  top: 6rem;
   left: 0.5rem;
   width: 100%;
   height: 100%;
   max-width: 280px;
   max-height: 30px;
-  z-index: 1;
   outline: none;
   font-size: 16px;
+  padding-left: 3px;
+  opacity: 0.75;
+  transition: opacity 0.35s;
+}
+
+.search:focus {
+  opacity: 1;
 }
 
 
@@ -253,7 +255,7 @@
 
 .content {
   position: relative;
-  padding-top: calc(60px + 5vh);
+  padding-top: calc(60px + 6vh);
   padding-left: 7vw;
   padding-bottom: 5vh;
   width: 80vw;
@@ -262,6 +264,7 @@
 .content.mobile {
   width: 85vw;
   position: static;
+  padding-top: calc(60px + 5vh);
 }
 
 section.main {
@@ -270,6 +273,10 @@ section.main {
 
 .mobile section.main {
   width: 100%;
+}
+
+section.main h1 {
+  margin-bottom: 15px;
 }
 
 section.main h2 {
@@ -460,7 +467,16 @@ label .error {
   width: 90%;
 }
 
-table {
+
+/* calculator results */
+
+.outputs {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.outputs table {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 1em;
@@ -481,18 +497,9 @@ th, td {
   padding: 12px 15px;
 }
 
-
-/* calculator results */
-
 .piechart {
   height: 400px;
   margin: 10px;
-}
-
-.outputs {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
 }
 
 .mobile .outputs {
