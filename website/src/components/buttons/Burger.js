@@ -41,7 +41,7 @@ export default function Burger({active, onClick, color}) {
       onClick={onClick}
     >
       {bars.map((name, i) => (
-        <div key={name} className={name.concat(active ? " active" : "")}/>
+        <div key={name} className={`${name} ${active ? "active" : ""}`}/>
       ))}
     </div>
   );

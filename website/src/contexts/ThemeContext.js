@@ -6,8 +6,7 @@ export const lightTheme = {
     main: 'white',
     mainAlt: '#f3f0ed',
     off: 'black',
-    offAlt: '#909090',
-    shadow: '#a19dbb'
+    offAlt: '#909090'
 };
 
 export const darkTheme = {
@@ -15,8 +14,7 @@ export const darkTheme = {
     main: '#2b2a2a',
     mainAlt: '#36383d',
     off: 'lightgray',
-    offAlt: '#909090',
-    shadow: '#151515'
+    offAlt: '#909090'
 }
 
 /**

@@ -77,12 +77,11 @@ export default function Calculator() {
 
          <FadeWrap active={!about && !enter}>
             <ContentWrap>
-               <Input
-                  inputs={inputs} setInputs={setInputs}
-                  weight={weight} swapWeight={swapWeight}
+               <Input inputs={inputs} setInputs={setInputs}
                   unit={unit} tolbs={tolbs} tokg={tokg} 
-                  toResults={toResults}
+                  weight={weight} swapWeight={swapWeight}
                   toAbout={onAbout}
+                  toResults={toResults}
                />
             </ContentWrap>
          </FadeWrap>
@@ -91,7 +90,8 @@ export default function Calculator() {
             <ContentWrap>
                <Results values={results} 
                   unit={unit} tolbs={tolbs} tokg={tokg} 
-                  toAbout={onAbout} toBack={toBack}
+                  toAbout={onAbout}
+                  toBack={toBack}
                />
             </ContentWrap>
          </FadeWrap>

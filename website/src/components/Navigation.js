@@ -22,15 +22,14 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
    const menuRef = useRef(); //sliding ref and the burger button group
    const closeRef = useRef(); //for dependency
 
+   const theme = useContext(ThemeContext);
+   
    useEffect(() => {
       if (isMobile) //only check once
          navRef.current.classList.add('mobile');
       else
          navRef.current.classList.remove('mobile');
-   }, []);
 
-   
-   useEffect(() => {
       const scrollCheck = () => {
          const distanceY = window.pageYOffset || document.documentElement.scrollTop;
          const shrinkOn = window.innerHeight * 0.02;
@@ -49,7 +48,7 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
    }, []);
 
 
-   //remove dependency for the effect, so don't have
+   //remove dependency for the another effect, so don't have
    //to add and remove event listener
    useEffect(() => {
       closeRef.current = () => setNav('close');
@@ -70,16 +69,16 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
       };
    }, []);
 
-   const theme = useContext(ThemeContext);
    const isDark = theme.name==="dark";
    const isLight = !isDark;
+   
 
    return ( 
       <div className="nav" ref={navRef} 
-         style={{backgroundColor: theme.mainAlt, color: theme.off, boxShadow: `0 1px 10px 2px ${theme.shadow}`}}
+         style={{backgroundColor: theme.mainAlt, color: theme.off}}
       >
          <div className="logoBtn" 
-            style={{backgroundColor: isLight ? "transparent" : theme.offAlt}}
+            style={{backgroundColor: isLight ? "transparent" : theme.off}}
          >
             <NavLink className="nav-link" exact to="/">
                <img className="logo" src={logo} alt="logo"/>
@@ -87,7 +86,7 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
          </div>
          
          <div ref={menuRef} className="nav-menu">
-            <div ref={ref} className={"nav-list".concat(hide ? " hide" : "")}
+            <div ref={ref} className={`nav-list ${hide ? "hide" : ""}`}
                style={{backgroundColor: theme.mainAlt, color: theme.off}}
             >
                {linkInfos.map(([path, name], i) => (

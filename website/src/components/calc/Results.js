@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 import ReactTooltip from 'react-tooltip';
+import ThemeContext from '../../contexts/ThemeContext';
 import '../../App.css';
 
 
@@ -15,6 +16,8 @@ export default function Results (props) {
    // Units default to kg
    const [selected, setSelected] = useState(0);
    const [hovered, setHovered] = useState(null);
+
+   const theme = useContext(ThemeContext);
 
    const getColor = (index) => {
       return colors[index];
@@ -64,7 +67,9 @@ export default function Results (props) {
 
                <tbody>
                   {Object.entries(values).map(([name, value], i) => (
-                     <tr key={name+i}>
+                     <tr key={name+i} 
+                        style={{backgroundColor: i%2===0 ? theme.mainAlt : theme.main}}
+                     >
                         <td className="output">{name} </td>
                         <td className="output-value">{(value * unit.convert).toFixed(4)} {unit.name} </td>
                      </tr>

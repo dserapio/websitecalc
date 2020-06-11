@@ -26,8 +26,6 @@ const Pages = ({location}) => {
    const path = valid ? valid.path : "/error";
    const matchComp = paths[path].Comp;
 
-   const divClass = (rel) => rel ? "rel" : "";
-
    useEffect(() => {
       document.title = `e-Stewards - ${linkNames[path]}`;
    }, [linkNames, path]);
@@ -38,7 +36,7 @@ const Pages = ({location}) => {
             {() => ( //will always render
                <TransWrap 
                   active={Comp===matchComp} trans={trans} 
-                  divClass={divClass(rel)}
+                  divClass={rel ? "rel" : ""}
                >
                   <Comp />
                </TransWrap>

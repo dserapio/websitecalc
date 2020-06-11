@@ -70,6 +70,7 @@
   top: 0;
   right: 0;
   opacity: 0.75;
+  box-shadow: 0 0 15px rgb(0, 0, 0, 0.4);
 }
 
 .nav.mobile,
@@ -92,7 +93,7 @@
   height: 100vh;
   display: block;
   position: absolute;
-  padding-top: 10.25vh;
+  padding-top: 10vh;
   right: 0;
   top: 0;
   transition: transform 200ms ease;
@@ -105,10 +106,10 @@
 .nav-link {
   display: block;
   color: inherit;
-  padding: 6px 1.6vw;
+  padding: 6px calc(10px + 0.6vw);
   text-decoration: none;
   transition: all 0.4s ease;
-  font-size: calc(14px + 0.6vw);
+  font-size: calc(16px + 0.2vw);
 }
 
 .theme-link {
@@ -117,15 +118,15 @@
   /*font-size: calc(10px + 0.4vw);*/
 }
 
+.mobile .nav-list .nav-link {
+  font-size: calc(20px + 0.4vw);
+  padding: 2vh 10vw 2vh 6vw;
+  overflow-y: scroll;
+}
+
 .mobile .theme-link {
   width: 80%;
   font-size: calc(14px + 0.6vw);
-}
-
-.mobile .nav-list .nav-link {
-  font-size: calc(16px + 2vw);
-  padding: 2vh 10vw 2vh 6vw;
-  overflow-y: scroll;
 }
 
 .nav-link:hover {
@@ -141,12 +142,12 @@
 }
 
 .logo {
-  height: calc(25px + 1.5vw + 2.5vh);
+  height: calc(25px + 0.25vw + 2.5vh);
   margin: 1px;
 }
 
 .smaller .logo {
-  height: calc(15px + 1vw + 2vh);
+  height: calc(15px + 0.15vw + 2.5vh);
 }
 
 .logoBtn {
@@ -241,7 +242,7 @@
 
 .content {
   position: relative;
-  padding-top: calc(60px + 2.5vw + 4.5vh);
+  padding-top: calc(60px + 5vh);
   padding-left: 7vw;
   padding-bottom: 5vh;
   width: 80vw;
@@ -460,7 +461,7 @@ table {
 
 thead tr {
   background-color: #41911f;
-  color: #fff;
+  color: white;
   text-align: left;
   font-weight: bolder;
 }
@@ -469,13 +470,6 @@ th, td {
   padding: 12px 15px;
 }
 
-tr {
-  border-bottom: 1px solid #EBEBEB;
-}
-
-tr:nth-last-of-type(even) {
-  background-color: #F1F1F1;
-}
 
 /* calculator results */
 
@@ -487,7 +481,7 @@ tr:nth-last-of-type(even) {
 .outputs {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between; 
+  justify-content: space-between;
 }
 
 .mobile .outputs {
