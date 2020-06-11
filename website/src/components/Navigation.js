@@ -4,9 +4,10 @@ import { isMobile } from 'react-device-detect';
 
 import ThemeContext from '../contexts/ThemeContext';
 import Burger from './buttons/Burger';
-import Toggle from './buttons/Toggle';
 import { paths, pathNames } from './Pages';
 
+import sunLogo from '../img/sun-solid.svg'
+import moonLogo from '../img/moon-regular.svg'
 import logo from '../img/e-stewards.png'
 import '../App.css';
 
@@ -94,11 +95,9 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
                ))}
 
                <div className="nav-link theme-link" onClick={swapTheme}>
-                  {!isMobile && (isDark ? "Light Mode" : "Dark Mode")}
+                  {!isMobile && (isDark ? <img className="theme-logo" src={sunLogo} alt="Light Mode"/> : <img className="theme-logo" src={moonLogo} alt="Dark Mode"/>)}
                   {isMobile && <>
-                     Dark Mode
-                     <Toggle checked={isDark}
-                        onChange={() => { setNav('close'); swapTheme(); }}/>
+                     <img className="theme-logo" src={moonLogo} alt="Dark Mode"/>
                   </>}
                </div>
             </div>

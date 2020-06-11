@@ -118,6 +118,17 @@
   /*font-size: calc(10px + 0.4vw);*/
 }
 
+.theme-logo {
+  width: 1.5rem;
+  min-width: 1.5rem;
+}
+
+.mobile .theme-link {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 3rem;
+}
+
 .mobile .nav-list .nav-link {
   font-size: calc(20px + 0.4vw);
   padding: 2vh 10vw 2vh 6vw;
