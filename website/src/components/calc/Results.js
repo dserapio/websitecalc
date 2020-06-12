@@ -19,21 +19,13 @@ export default function Results (props) {
 
    const theme = useContext(ThemeContext);
 
-   const getColor = (index) => {
-      return colors[index];
-   }
+   const pieData = Object.entries(values)
+      .filter(([name, _]) => name !== "GHG Emissions")
+      .map(([name, value], index) => 
+         ({'title': name, value, 'color': colors[index]}) );
 
-   const pieData = Object.entries(values).map(([name, value], index) => (
-      { 'title': name, 'value': value, 'color': getColor(index) }
-   ));
-
-   const getTotal = () => {
-      var total = 0;
-      for (var i in pieData) {
-         total += parseFloat(pieData[i].value);
-      }
-      return total;
-   };
+   const getTotal = () =>
+      pieData.reduce((sum, data) => sum + data.value, 0);
 
    const infoBoxContent = (pieData) => (
       pieData.title + ' : ' + Math.round((pieData.value/getTotal())*100) + '%'
@@ -66,14 +58,14 @@ export default function Results (props) {
                </thead>
 
                <tbody>
-                  {Object.entries(values).map(([name, value], i) => (
+                  {Object.entries(values).map(([name, value], i) =>
                      <tr key={name+i} 
                         style={{backgroundColor: i%2===0 ? theme.mainAlt : theme.main}}
                      >
                         <td className="output">{name} </td>
                         <td className="output-value">{(value * unit.convert).toFixed(4)} {unit.name} </td>
                      </tr>
-                  ))}
+                  )}
                </tbody>
             </table>
 

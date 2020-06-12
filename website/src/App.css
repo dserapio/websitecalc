@@ -129,7 +129,7 @@
 .theme-link {
   display: flex;
   justify-content: space-between;
-  opacity: 0.75;
+  opacity: 0.5;
 }
 
 .theme-logo {

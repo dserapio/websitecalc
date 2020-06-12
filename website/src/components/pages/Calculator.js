@@ -5,6 +5,7 @@ import { FadeWrap } from '../utils/Transitions';
 import { ContentWrap } from '../utils/Styles';
 import { convertObj } from '../utils/UnitConvert';
 import recycleData from '../../data/recycle-info.json';
+import emissionData from '../../data/ghg-info.json';
 import '../../App.css';
 
 import Input from '../calc/Input';
@@ -145,13 +146,14 @@ const setField = (inputs, action) => {
 
 
 const findTotals = (inputs, convert, weightAmount=false) => {
-   
+   const ghg = "GHG Emissions";
    const materialNames = Object.keys(recycleData[0]).filter((material) => (
-      !(material==="id" || material==="title" || material==="weight")
+      !( material==="id" || material==="title" 
+      || material==="weight" || material===ghg )
    ));
    
-   const totals = materialNames.reduce((obj, material) => (
-      {...obj, [material] : 0}
+   const totals = [ghg, ...materialNames].reduce((obj, material) => (
+      {...obj, [material]: 0}
    ), {});
 
    recycleData.forEach(data => {
@@ -164,12 +166,19 @@ const findTotals = (inputs, convert, weightAmount=false) => {
       const unitRatio = data.weight //temporary
          ? weight / (convert*data.weight)
          : 1;
-      const materialAmnt= amount * unitRatio * obj.boxes.value;
+      const materialAmnt = amount * unitRatio * obj.boxes.value;
 
       materialNames.forEach(material => {
          totals[material] += data[material] * materialAmnt;
-      })
+      });
+
+      totals[ghg] += data[ghg] * obj.boxes.value;
    });
+
+   Object.entries(emissionData.materials).forEach(([material, emission]) => {
+      totals[ghg] += totals[material] * emission * 1000; //convert ton to kg
+   });
+   totals[ghg] *= emissionData.distance; //make from input
 
    return totals;
 };
