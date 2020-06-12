@@ -479,8 +479,9 @@ label .error {
 
 .outputs {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .outputs table {
