@@ -286,6 +286,13 @@ section.main h2 {
   margin-bottom: 10px;
 }
 
+section.main h3 {
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 2px;
+}
+
 section.main p {
   padding-left: 6px;
   margin-top: 10px;

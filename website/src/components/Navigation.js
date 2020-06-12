@@ -49,7 +49,7 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
    }, []);
 
 
-   //remove dependency for the another effect, so don't have
+   //remove dependency for another effect, so don't have
    //to add and remove event listener
    useEffect(() => {
       closeRef.current = () => setNav('close');

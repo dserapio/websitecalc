@@ -11,7 +11,7 @@ export default function Results (props) {
       toAbout, toBack, values} = props;
 
    const colors = ['#444444', '#FFC300', '#FF5733', '#C70039', '#900C3F',
-   '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
+      '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
 
    // Units default to kg
    const [selected, setSelected] = useState(0);
@@ -19,8 +19,10 @@ export default function Results (props) {
 
    const theme = useContext(ThemeContext);
 
+   const nonMaterials = ["GHG Emissions", "Total Input", "Total Output"];
+
    const pieData = Object.entries(values)
-      .filter(([name, _]) => name !== "GHG Emissions")
+      .filter(([name, _]) => !nonMaterials.includes(name))
       .map(([name, value], index) => 
          ({'title': name, value, 'color': colors[index]}) );
 
@@ -63,7 +65,7 @@ export default function Results (props) {
                         style={{backgroundColor: i%2===0 ? theme.mainAlt : theme.main}}
                      >
                         <td className="output">{name} </td>
-                        <td className="output-value">{(value * unit.convert).toFixed(4)} {unit.name} </td>
+                        <td className="output-value">{(value * unit.convert).toLocaleString(undefined, {maximumFractionDigits:4})} {unit.name} </td>
                      </tr>
                   )}
                </tbody>

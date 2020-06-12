@@ -146,15 +146,17 @@ const setField = (inputs, action) => {
 
 
 const findTotals = (inputs, convert, weightAmount=false) => {
-   const ghg = "GHG Emissions";
+   const ghg = "GHG Emissions", inTotals = "Total Input", outTotals = "Total Output";
+   
    const materialNames = Object.keys(recycleData[0]).filter((material) => (
       !( material==="id" || material==="title" 
       || material==="weight" || material===ghg )
    ));
    
-   const totals = [ghg, ...materialNames].reduce((obj, material) => (
-      {...obj, [material]: 0}
-   ), {});
+   const totals = [ghg, ...materialNames, inTotals, outTotals]
+      .reduce((obj, material) => (
+         {...obj, [material]: 0}
+      ), {});
 
    recycleData.forEach(data => {
       const obj = inputs[data.title];
@@ -163,13 +165,18 @@ const findTotals = (inputs, convert, weightAmount=false) => {
       const amount = weightAmount && weight //temporary
          ? obj.amount / weight
          : obj.amount;
+
+      totals[inTotals] += amount * weight;
+
       const unitRatio = data.weight //temporary
          ? weight / (convert*data.weight)
          : 1;
       const materialAmnt = amount * unitRatio * obj.boxes.value;
 
       materialNames.forEach(material => {
-         totals[material] += data[material] * materialAmnt;
+         const weightYield = data[material] * materialAmnt
+         totals[material] += weightYield;
+         totals[outTotals] += weightYield;
       });
 
       totals[ghg] += data[ghg] * obj.boxes.value;
