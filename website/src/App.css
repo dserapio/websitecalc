@@ -129,7 +129,7 @@
 .theme-link {
   display: flex;
   justify-content: space-between;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .theme-logo {
@@ -487,11 +487,15 @@ label .error {
 .outputs table {
   border-collapse: collapse;
   margin: 25px 0;
+  width: 30vw;
   font-size: 1em;
-  min-width: 400px;
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.30);
+}
+
+.mobile .outputs table {
+  width: 85vw;
 }
 
 thead tr {
@@ -503,10 +507,6 @@ thead tr {
 
 th, td {
   padding: 12px 15px;
-}
-
-.piechart-container {
-  height: 500px;
 }
 
 .mobile .outputs {

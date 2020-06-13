@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Pie } from '@nivo/pie';
+import { isMobile } from 'react-device-detect';
 
 import ThemeContext from '../../contexts/ThemeContext';
 import emissionData from '../../data/ghg-info.json';
@@ -59,6 +60,9 @@ export default function Results (props) {
          });
    }, [values]);
 
+   const pieWidth = () => window.innerWidth * (isMobile ? 0.8 : 0.5);
+   const pieHeight = () => window.innerHeight * (isMobile ? 0.4 : 0.6);
+
    return <>
       <section className="sidebar">
          <div className="button-group">
@@ -106,52 +110,53 @@ export default function Results (props) {
                The output amount is currently worth around ${printNumber(goldPrice * values.Gold)}!
             </p>
 
-            <div className="piechart-container">
-               <Pie 
-                  data={pieData}
-                  margin={{ top:80, right: 120, bottom: 80, left: 120 }}
-                  width={600}
-                  height={600}
-                  innerRadius={0.5}
-                  padAngle={0.7}
-                  cornerRadius={5}
-                  radialLabelsSkipAngle={5}
-                  radialLabelsTextXOffset={6}
-                  radialLabelsLinkOffset={0}
-                  radialLabelsLinkDiagonalLength={16}
-                  radialLabelsLinkHorizontalLength={24}
-                  radialLabelsLinkStrokeWidth={1}
-                  slicesLabelsSkipAngle={360}
-                  animate={true}
-                  motionStiffness={90}
-                  motionDamping={15}
-                  legends={[
-                     {
-                        anchor: 'top',
-                        direction: 'row',
-                        translateY: 0,
-                        itemWidth: 100,
-                        itemHeight: 18,
-                        itemTextColor: '#000000',
-                        symbolSize: 18,
-                        symbolShape: 'circle',
-                     }
-                 ]}
-                 tooltip={({ id, value }) => (
-                    <strong>
-                       {id} : {value.toFixed(4)}
-                    </strong>
-                 )}
-                 theme={{
+            <Pie
+               data={pieData}
+               margin={{ top: 80, right: 120, bottom: 80, left: 20 }}
+               width={pieWidth()}
+               height={pieHeight()}
+               innerRadius={0.5}
+               padAngle={0.7}
+               cornerRadius={5}
+               radialLabelsSkipAngle={isMobile ? 15 : 5}
+               radialLabelsTextXOffset={6}
+               radialLabelsTextColor={theme.off}
+               radialLabelsLinkOffset={0}
+               radialLabelsLinkDiagonalLength={16}
+               radialLabelsLinkHorizontalLength={24}
+               radialLabelsLinkStrokeWidth={1}
+               slicesLabelsSkipAngle={360}
+               animate={true}
+               motionStiffness={90}
+               motionDamping={15}
+               legends={[
+                  {
+                     anchor: 'right',
+                     direction: 'column',
+                     translateX: 100,
+                     itemWidth: 60,
+                     itemHeight: 16,
+                     itemsSpacing: 2,
+                     itemTextColor: theme.off,
+                     symbolSize: 14,
+                     symbolShape: 'circle'
+                  }
+               ]}
+               tooltip={({ id, value }) => (
+                  <strong>
+                     {id} : {value.toFixed(4)}
+                  </strong>
+               )}
+               theme={{
                   tooltip: {
                      container: {
-                        background: '#333333',
-                        color: "#FF9933"
+                        background: theme.main,
+                        color: theme.off
                      },
+
                   },
-                 }}
-               />
-            </div>
+               }}
+            />
          </div>
 
          <div className="buttons">
