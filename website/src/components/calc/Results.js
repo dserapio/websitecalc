@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { PieChart, Pie, Legend, Tooltip } from 'recharts';
+import { Pie } from '@nivo/pie';
 
 import ThemeContext from '../../contexts/ThemeContext';
 import emissionData from '../../data/ghg-info.json';
@@ -28,7 +28,7 @@ export default function Results (props) {
    const pieData = Object.entries(values)
       .filter(([name, _]) => !nonMaterials.includes(name))
       .map(([name, value], index) => 
-         ({'name': name, 'value': value}) );
+         ({'id': name, 'label': name, 'value': value * unit.convert , 'color': colors[index]}) );
 
    const ghg = "GHG Emissions";
    const LaNyTrips = values[ghg] 
@@ -106,19 +106,51 @@ export default function Results (props) {
                The output amount is currently worth around ${printNumber(goldPrice * values.Gold)}!
             </p>
 
-            <div data-tip="" data-for="chart">
-               <PieChart width={400} height={400}>
-                  <Pie 
-                     dataKey="value" 
-                     isAnimationActive={false}
-                     data={pieData}
-                     cx={200}
-                     cy={200}
-                     outerRadius={80}
-                     fill="#8884d8"
-                     label
-                     />
-               </PieChart>
+            <div className="piechart-container">
+               <Pie 
+                  data={pieData}
+                  margin={{ top:80, right: 120, bottom: 80, left: 120 }}
+                  width={600}
+                  height={600}
+                  innerRadius={0.5}
+                  padAngle={0.7}
+                  cornerRadius={5}
+                  radialLabelsSkipAngle={5}
+                  radialLabelsTextXOffset={6}
+                  radialLabelsLinkOffset={0}
+                  radialLabelsLinkDiagonalLength={16}
+                  radialLabelsLinkHorizontalLength={24}
+                  radialLabelsLinkStrokeWidth={1}
+                  slicesLabelsSkipAngle={360}
+                  animate={true}
+                  motionStiffness={90}
+                  motionDamping={15}
+                  legends={[
+                     {
+                        anchor: 'top',
+                        direction: 'row',
+                        translateY: 0,
+                        itemWidth: 100,
+                        itemHeight: 18,
+                        itemTextColor: '#000000',
+                        symbolSize: 18,
+                        symbolShape: 'circle',
+                     }
+                 ]}
+                 tooltip={({ id, value }) => (
+                    <strong>
+                       {id} : {value.toFixed(4)}
+                    </strong>
+                 )}
+                 theme={{
+                  tooltip: {
+                     container: {
+                        background: '#333333',
+                        color: "#FF9933"
+                     },
+                  },
+                 }}
+               />
             </div>
          </div>
 

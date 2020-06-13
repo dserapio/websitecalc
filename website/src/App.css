@@ -505,9 +505,8 @@ th, td {
   padding: 12px 15px;
 }
 
-.piechart {
-  height: 400px;
-  margin: 10px;
+.piechart-container {
+  height: 500px;
 }
 
 .mobile .outputs {

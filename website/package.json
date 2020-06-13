@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
+    "@nivo/pie": "^0.62.0",
     "@react-google-maps/api": "^1.9.3",
     "@testing-library/jest-dom": "^5.9.0",
     "@testing-library/react": "^10.0.4",
