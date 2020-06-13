@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { PieChart } from 'react-minimal-pie-chart';
-import ReactTooltip from 'react-tooltip';
+import { PieChart, Pie, Legend, Tooltip } from 'recharts';
+
 import ThemeContext from '../../contexts/ThemeContext';
 import emissionData from '../../data/ghg-info.json';
 import '../../App.css';
@@ -19,8 +19,6 @@ export default function Results (props) {
       '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
 
    // Units default to kg
-   const [selected, setSelected] = useState(0);
-   const [hovered, setHovered] = useState(null);
    const [goldPrice, setPrice] = useState(55652.94); //usd per kilo, 6/12/2020
 
    const theme = useContext(ThemeContext);
@@ -30,13 +28,7 @@ export default function Results (props) {
    const pieData = Object.entries(values)
       .filter(([name, _]) => !nonMaterials.includes(name))
       .map(([name, value], index) => 
-         ({'title': name, value, 'color': colors[index]}) );
-
-   const total = pieData.reduce((sum, data) => sum + data.value, 0);
-
-   const infoBoxContent = (pieData) => (
-      pieData.title + ' : ' + Math.round((pieData.value/total)*100) + '%'
-   );
+         ({'name': name, 'value': value}) );
 
    const ghg = "GHG Emissions";
    const LaNyTrips = values[ghg] 
@@ -115,31 +107,18 @@ export default function Results (props) {
             </p>
 
             <div data-tip="" data-for="chart">
-               <PieChart 
-                  data={pieData}
-                  className="piechart"
-                  radius={PieChart.defaultProps.radius - 6}
-                  lineWidth={60}
-                  segmentsStyle={{ transition: 'stroke .10s', cursor: 'pointer' }}
-                  segmentsShift={ (index) => (index === selected ? 6 : 1) }
-                  animate                  
-                  onClick={(_, index) => {
-                     setSelected(index === selected ? undefined : index);
-                     setHovered(index === selected ? undefined : index);
-                  }}
-                  onMouseOver={(_, index) => {
-                     setHovered(index);
-                  }}
-                  onMouseOut={(_, index) => {
-                     setHovered(null);
-                  }}
-               />
-               <ReactTooltip
-                  id="chart"
-                  getContent={() => 
-                     hovered ? infoBoxContent(pieData[hovered]) : null
-                  }
-               />
+               <PieChart width={400} height={400}>
+                  <Pie 
+                     dataKey="value" 
+                     isAnimationActive={false}
+                     data={pieData}
+                     cx={200}
+                     cy={200}
+                     outerRadius={80}
+                     fill="#8884d8"
+                     label
+                     />
+               </PieChart>
             </div>
          </div>
 
