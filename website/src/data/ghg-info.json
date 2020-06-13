@@ -1,4 +1,6 @@
 {
+    "co2PerMile": 0.000403,
+    "LaToNyMiles": 2789,
     "distance": 10195.87,
     "materials": {
         "Aluminum": 0.00987,
