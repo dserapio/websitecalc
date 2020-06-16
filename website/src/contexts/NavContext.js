@@ -37,9 +37,12 @@ export const navChange = (navInfo, action) => {
          return { hide: true, area: closedArea() };
    
       case 'swap':
-         return { hide: !navInfo.hide, area: navInfo.hide 
-            ? closedArea()
-            : openedArea(action.menu) };
+         return {
+            hide: !navInfo.hide, 
+            area: navInfo.hide 
+               ? closedArea()
+               : openedArea(action.menu)
+         };
    
       default:
          throw new Error();

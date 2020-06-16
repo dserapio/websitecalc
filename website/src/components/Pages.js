@@ -35,7 +35,7 @@ const Pages = ({location}) => {
          <Route key={path} exact path={path}>
             {() => ( //will always render
                <TransWrap 
-                  active={Comp===matchComp} trans={trans} 
+                  in={Comp===matchComp} classNames={trans} 
                   divClass={rel ? "rel" : ""}
                >
                   <Comp />

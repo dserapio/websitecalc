@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import '../../App.css';
 
 /**
@@ -28,24 +28,37 @@ export const FadeWrap = ( {active, children} ) => {
 /**
  * Wrapper to add specified transition css animation to children
  * @param {Object} props
- * @param {boolean} props.active
- * @param {string} props.trans the transformation class to be used
  * @param {string} props.divClass the class of the div wrapper for the children
  * @param {JSX.Element} props.children
  */
-export const TransWrap = ({active, trans, divClass, children}) => {
+export const TransWrap = ({divClass, children, ...transProps}) => {
    const divRef = useRef(null);
    return (
       <CSSTransition
-         in={active}
          nodeRef={divRef}
-         timeout={350}
-         classNames={trans}
+         timeout={250}
          unmountOnExit
+         {...transProps}
       >
          <div ref={divRef} className={divClass}>
             {children}
          </div>
       </CSSTransition>
    );
+};
+
+export const TransSpan = ({children, ...transProps}) => {
+   const spanRef = useRef(null);
+   return (
+      <SwitchTransition>
+         <CSSTransition
+            key={children}
+            nodeRef={spanRef}
+            timeout={200}
+            {...transProps}
+         >
+            <span ref={spanRef}>{children}</span>
+         </CSSTransition>
+      </SwitchTransition>
+   )
 };

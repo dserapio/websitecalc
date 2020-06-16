@@ -1,6 +1,8 @@
 {
-    "co2PerMile": 0.000403,
-    "LaToNyMiles": 2789,
+    "avgMpg": 22.3,
+    "co2PerGal": 8.887,
+    "LaToNyMiles": 2790,
+    "co2LANY": 995.77,
     "distance": 10195.87,
     "materials": {
         "Aluminum": 0.00987,

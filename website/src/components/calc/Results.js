@@ -11,57 +11,68 @@ const printNumber = (num, fracDigits=4) =>
    num.toLocaleString(undefined, {maximumFractionDigits: fracDigits});
 
 
+const fetchGold = async () => {
+   const goldUrl = 'https://www.kitco.com/gold-price-today-usa/';
+
+   const data = await fetch("https://cors-anywhere.herokuapp.com/" + goldUrl)
+      .then(response => response.text());
+
+   const parse = new DOMParser();
+   const doc = parse.parseFromString(data, 'text/html');
+
+   const table = [...doc.getElementsByTagName('table')]
+      .filter(table => 
+         table.tBodies.item(0).innerText.includes('Gold Spot Price'))[0];
+
+   const price = [...table.tBodies.item(0).rows]
+      .filter(row => row.cells.item(0).innerText.includes('kilo'))[0]
+      .cells.item(1).innerText;
+
+   console.log(`got price ${price}`);
+   return parseFloat(price.replace(',', ''));
+}
+
+
 export default function Results (props) {
    const {
       unit, tolbs, tokg, 
-      toAbout, toBack, values} = props;
+      toAbout, toBack, values } = props;
 
    const colors = ['#444444', '#FFC300', '#FF5733', '#C70039', '#900C3F',
       '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
 
    // Units default to kg
-   const [goldPrice, setPrice] = useState(55652.94); //usd per kilo, 6/12/2020
-
+   const [goldState, setGold] = useState({price: 55006.71, default: true}); //usd per kilo, 6/15/2020
    const theme = useContext(ThemeContext);
 
-   const nonMaterials = ["GHG Emissions", "Total Input", "Total Output"];
+
+   useEffect(() => {
+      if (goldState.default)
+         fetchGold()
+            .then(price => setGold(state => ({...state, price})))
+            .catch(console.log)
+            .finally(() => setGold(state => ({...state, default: false}) ));
+
+   }, [goldState.default]);
+
+
+   const ghg = "GHG Emissions";
+   const nonMaterials = [ghg, "Total Input", "Total Output"];
 
    const pieData = Object.entries(values)
       .filter(([name, _]) => !nonMaterials.includes(name))
-      .map(([name, value], index) => 
-         ({'id': name, 'label': name, 'value': value * unit.convert , 'color': colors[index]}) );
+      .map(([name, value], index) => ({
+            id: name,
+            label: name, 
+            value: value * unit.convert, 
+            color: colors[index]
+      }));
 
-   const ghg = "GHG Emissions";
-   const LaNyTrips = values[ghg] 
-      / (emissionData.co2PerMile * 1000)
-      / emissionData.LaToNyMiles;
-
-   useEffect(() => {
-      const toText = (response => response.text());
-
-      const extractKiloPrice = (data) => {
-         const parse = new DOMParser();
-         const doc = parse.parseFromString(data, 'text/html');
-         const price = doc.getElementById("spotKilo").textContent;
-         
-         if (price)
-            setPrice(parseFloat(price));
-      };
-      const goldUrl = 'https://www.monex.com/gold-prices/';
-
-      fetch(goldUrl)
-         .then(toText)
-         .then(extractKiloPrice)
-         .catch(error => {
-            console.log(error);
-            fetch("https://cors-anywhere.herokuapp.com/" + goldUrl)
-               .then(toText)
-               .then(extractKiloPrice);
-         });
-   }, [values]);
+   const LaNyTrips = values[ghg]  / emissionData.co2LANY;
 
    const pieWidth = () => window.innerWidth * (isMobile ? 0.8 : 0.5);
    const pieHeight = () => window.innerHeight * (isMobile ? 0.4 : 0.6);
+   const goldPrice = goldState.price;
 
    return <>
       <section className="sidebar">
@@ -102,13 +113,14 @@ export default function Results (props) {
             </table>
 
             <p>
-               The {printNumber(values[ghg] * unit.convert)} {unit.name} of greenhouse gas emissions is as much gas used 
+               The {printNumber(values[ghg] * unit.convert, 0)} {unit.name} of greenhouse gas emissions is as much gas used 
                in {printNumber(LaNyTrips, 0)} car trips between New York and Los Angeles!
             </p>
 
             <p>
-               The output amount is currently worth around ${printNumber(goldPrice * values.Gold)}!
+               The total gold currently worth around ${printNumber(goldPrice * values.Gold, 2)}
             </p>
+
 
             <Pie
                data={pieData}

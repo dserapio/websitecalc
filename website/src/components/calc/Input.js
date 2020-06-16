@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { fieldNames } from '../pages/Calculator';
 import ThemeContext from '../../contexts/ThemeContext';
+import { TransWrap, TransSpan } from '../utils/Transitions';
+import { fieldNames } from '../pages/Calculator';
 import '../../App.css';
 
 
@@ -131,11 +132,11 @@ export default function Input (props) {
             <button 
                className={weight ? " active" : ""} type="button"
                onClick={swapWeight}>By Total Weight</button>
-            <button
+            <button disabled={!weight && !avg}
                className={unit.name==='kg' ? "active" : ""}
                type="button" 
                onClick={tokg}>kg</button>
-            <button
+            <button disabled={!weight && !avg}
                className={unit.name==='lbs' ? "active" : ""}
                type="button"
                onClick={tolbs}>lbs</button>
@@ -152,7 +153,7 @@ export default function Input (props) {
             {fieldNames.map((field, i) =>
                <MaterialField key={field+i}
                   name={field} value={inputs[field]}
-                  weight={weight} avg={avg}boxes={boxes}
+                  weight={weight} avg={avg} boxes={boxes}
                   theme={theme} unit={unit.name}
                   onChange={handleChange}
                   onFocus={fieldFocus} onBlur={fieldBlur}
@@ -177,41 +178,42 @@ export default function Input (props) {
 const MaterialField = (props) => {
    const {
       name, value, unit, weight, avg, boxes, ...textProps} = props;
+   const {
+      amount, weight: {value: weightVal}, boxes: {value: boxVal}} = value;
 
    return (
       <div className="fields">
-         <TextField
-            label={`Total ${pluralize(name)}${weight ? ` (${unit})` : ""}`}
-            name={`${name}-amount`}
-            value={value.amount}
-            {...textProps}
-         />
+
+         <TextField name={`${name}-amount`} value={amount} show={true} {...textProps}>
+            Total {pluralize(name)}
+            <TransSpan classNames="fade">{weight && ` (${unit})`}</TransSpan>
+         </TextField>
+
          <div className="subfields">
-            {avg && 
-               <TextField
-                  label={`Average Weight (${unit})`}
-                  name={`${name}-weight`} subfield
-                  value={value.weight.value}
-                  {...textProps}
-               />}
-            {boxes && 
-               <TextField
-                  label="Number Per Container"
-                  name={`${name}-boxes`} subfield
-                  value={value.boxes.value}
-                  {...textProps}
-               />}
+
+            <TextField name={`${name}-weight`} value={weightVal}
+               show={avg} subfield {...textProps}>
+               Average Weight <TransSpan classNames="fade">({unit})</TransSpan>
+            </TextField>
+
+            <TextField name={`${name}-boxes`} value={boxVal}
+               show={boxes} subfield {...textProps}>
+               Numbers Per Container
+            </TextField>
+            
          </div>
       </div>
    );
 };
 
 //border color not inheriting
-const TextField = ({label, subfield, theme, ...input}) => (
-   <div className={`text-container ${subfield ? "subfield" : ""}`}>
-      <label> 
-         {label}
-         <input className="textfield" {...input} style={{borderColor: theme.off}}/>
+const TextField = ({show, name, subfield, theme, children, ...input}) =>  (
+   <TransWrap key={name} in={show} classNames="fade"
+      divClass={`text-container ${subfield ? "subfield" : ""}`}>
+      <label>
+         {children}
+         <input className="textfield" name={name} {...input} 
+            style={{borderColor: theme.off}}/>
       </label>
-   </div>
+   </TransWrap>
 );
