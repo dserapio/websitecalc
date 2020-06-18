@@ -121,7 +121,7 @@ export default function Results (props) {
 
             {trucks > 0 && <section className="info-stat">
                <img alt="truck-gif"src={truck}/>
-               <p>
+               <p className="stat-paragraph">
                   <span className="show-num">{prettyNum(values[inTotal])} {unit.name}</span> is enough e-waste to fill 
                   <span className="show-num"> {prettyNum(trucks, 2)} semi-trucks!</span>
                </p>
@@ -129,7 +129,7 @@ export default function Results (props) {
 
             <section className="info-stat">
                <img alt="factory" src={trash}/>
-               <p>
+               <p className="stat-paragraph">
                   Diverts <span className="show-num">{prettyNum(diverts, 0)} {unit.name} </span>
                   of valuable and toxic materials from landfills!
                </p>
@@ -137,7 +137,7 @@ export default function Results (props) {
 
             <section className="info-stat">
                <img alt="driving" src="https://acegif.com/wp-content/gifs/car-driving-7.gif"/>
-               <p>
+               <p className="stat-paragraph">
                   The <span className="show-num">{prettyNum(values[ghg] * unit.convert, 0)} {unit.name}</span> of greenhouse
                   gas emissions is as much gas used in <span className="show-num">{prettyNum(LaNyTrips, 0)}</span> car trips
                   between New York and Los Angeles!
@@ -146,7 +146,7 @@ export default function Results (props) {
 
             <section className="info-stat">
                <img alt="gold" src={gold}/>
-               <p>
+               <p className="stat-paragraph">
                   The total gold currently worth around <span className="show-num">${prettyNum(values.Gold * goldPrice, 2)}</span>
                </p>
             </section>

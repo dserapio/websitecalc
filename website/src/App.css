@@ -497,7 +497,13 @@ label .error {
 
 .info-stat {
   display: flex;
+  text-align: start;
   margin-top: 20px;
+  float: right;
+}
+
+.info-stat .stat-paragraph{
+  align-self: center;
 }
 
 .info-stat img {
