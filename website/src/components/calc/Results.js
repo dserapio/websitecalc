@@ -3,6 +3,7 @@ import { Pie } from '@nivo/pie';
 import { isMobile } from 'react-device-detect';
 
 import ThemeContext from '../../contexts/ThemeContext';
+import { aggregates } from '../pages/Calculator';
 import emissionData from '../../data/ghg-info.json';
 import '../../App.css';
 
@@ -38,13 +39,9 @@ export default function Results (props) {
       unit, tolbs, tokg, 
       toAbout, toBack, values } = props;
 
-   const colors = ['#444444', '#FFC300', '#FF5733', '#C70039', '#900C3F',
-      '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
-
    // Units default to kg
    const [goldState, setGold] = useState({price: 55006.71, default: true}); //usd per kilo, 6/15/2020
    const theme = useContext(ThemeContext);
-
 
    useEffect(() => {
       if (goldState.default)
@@ -55,12 +52,13 @@ export default function Results (props) {
 
    }, [goldState.default]);
 
+   const colors = ['#444444', '#FFC300', '#FF5733', '#C70039', '#900C3F',
+      '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
 
-   const ghg = "GHG Emissions", inTotal = "Total Input";
-   const nonMaterials = [ghg, inTotal, "Total Output"];
+   const [ghg, inTotal] = aggregates;
 
    const pieData = Object.entries(values)
-      .filter(([name, _]) => !nonMaterials.includes(name))
+      .filter(([name, _]) => !aggregates.includes(name))
       .map(([name, value], index) => ({
             id: name,
             label: name, 
@@ -93,7 +91,10 @@ export default function Results (props) {
 
       <section className="main">
          <h1>Total Material Yields</h1>
+
          <div className="outputs"> 
+
+            <h2>By the Numbers</h2>
             <table>
                <thead>
                   <tr>
@@ -114,77 +115,92 @@ export default function Results (props) {
                </tbody>
             </table>
 
-            {trucks > 1 && <>
-               <img width={200} alt="truck-gif"
+            {trucks > 0 && <section className="info-stat">
+               <img alt="truck-gif"
                   src="https://cdn.discordapp.com/attachments/692091032011276391/722594238553915392/realtruck.gif"/>
                <p>
                   <span className="show-num">{prettyNum(values[inTotal])} {unit.name}</span> is enough e-waste to fill 
                   <span className="show-num"> {prettyNum(trucks, 2)} semi-trucks!</span>
                </p>
-            </>}
+            </section>}
 
-            <p>
-               Diverts <span className="show-num">{prettyNum(diverts, 0)} {unit.name} </span>
-               of valuable and toxic materials from landfills!
-            </p>
+            <section className="info-stat">
+               <img alt="factory"
+                  src="https://jamdonut.net/wp-content/uploads/2015/08/JD_Icon_Factory01_264x176.gif"/>
+               <p>
+                  Diverts <span className="show-num">{prettyNum(diverts, 0)} {unit.name} </span>
+                  of valuable and toxic materials from landfills!
+               </p>
+            </section>
 
-            <p>
-               The <span className="show-num">{prettyNum(values[ghg] * unit.convert, 0)} {unit.name}</span> of greenhouse
-               gas emissions is as much gas used in <span className="show-num">{prettyNum(LaNyTrips, 0)}</span> car trips
-               between New York and Los Angeles!
-            </p>
+            <section className="info-stat">
+               <img alt="driving"
+                  src="https://acegif.com/wp-content/gifs/car-driving-7.gif"/>
+               <p>
+                  The <span className="show-num">{prettyNum(values[ghg] * unit.convert, 0)} {unit.name}</span> of greenhouse
+                  gas emissions is as much gas used in <span className="show-num">{prettyNum(LaNyTrips, 0)}</span> car trips
+                  between New York and Los Angeles!
+               </p>
+            </section>
 
-            <p>
-               The total gold currently worth around <span className="show-num">${prettyNum(values.Gold * goldPrice, 2)}</span>
-            </p>
+            <section className="info-stat">
+               <img alt="gold"
+                  src="https://acegif.com/wp-content/gifs/coin-flip-59.gif"/>
+               <p>
+                  The total gold currently worth around <span className="show-num">${prettyNum(values.Gold * goldPrice, 2)}</span>
+               </p>
+            </section>
 
-            <Pie
-               data={pieData}
-               margin={{ top: 80, right: 120, bottom: 80, left: 20 }}
-               width={pieWidth()}
-               height={pieHeight()}
-               innerRadius={0.5}
-               padAngle={0.7}
-               cornerRadius={5}
-               radialLabelsSkipAngle={isMobile ? 15 : 5}
-               radialLabelsTextXOffset={6}
-               radialLabelsTextColor={theme.off}
-               radialLabelsLinkOffset={0}
-               radialLabelsLinkDiagonalLength={16}
-               radialLabelsLinkHorizontalLength={24}
-               radialLabelsLinkStrokeWidth={1}
-               slicesLabelsSkipAngle={360}
-               animate={true}
-               motionStiffness={90}
-               motionDamping={15}
-               legends={[
-                  {
-                     anchor: 'right',
-                     direction: 'column',
-                     translateX: 100,
-                     itemWidth: 60,
-                     itemHeight: 16,
-                     itemsSpacing: 2,
-                     itemTextColor: theme.off,
-                     symbolSize: 14,
-                     symbolShape: 'circle'
-                  }
-               ]}
-               tooltip={({ id, value }) => (
-                  <strong>
-                     {id} : {value.toFixed(4)} {unit.name}
-                  </strong>
-               )}
-               theme={{
-                  tooltip: {
-                     container: {
-                        background: theme.main,
-                        color: theme.off
+            <section>
+               <h2>Output Material Breakdown</h2>
+               <Pie
+                  data={pieData}
+                  margin={{ top: 80, right: 120, bottom: 80, left: 20 }}
+                  width={pieWidth()}
+                  height={pieHeight()}
+                  innerRadius={0.5}
+                  padAngle={0.7}
+                  cornerRadius={5}
+                  radialLabelsSkipAngle={isMobile ? 15 : 5}
+                  radialLabelsTextXOffset={6}
+                  radialLabelsTextColor={theme.off}
+                  radialLabelsLinkOffset={0}
+                  radialLabelsLinkDiagonalLength={16}
+                  radialLabelsLinkHorizontalLength={24}
+                  radialLabelsLinkStrokeWidth={1}
+                  slicesLabelsSkipAngle={360}
+                  animate={true}
+                  motionStiffness={90}
+                  motionDamping={15}
+                  legends={[
+                     {
+                        anchor: 'right',
+                        direction: 'column',
+                        translateX: 100,
+                        itemWidth: 60,
+                        itemHeight: 16,
+                        itemsSpacing: 2,
+                        itemTextColor: theme.off,
+                        symbolSize: 14,
+                        symbolShape: 'circle'
+                     }
+                  ]}
+                  tooltip={({ id, value }) => (
+                     <strong>
+                        {id} : {value.toFixed(4)} {unit.name}
+                     </strong>
+                  )}
+                  theme={{
+                     tooltip: {
+                        container: {
+                           background: theme.main,
+                           color: theme.off
+                        },
+
                      },
-
-                  },
-               }}
-            />
+                  }}
+               />
+            </section>
          </div>
 
          <div className="buttons">

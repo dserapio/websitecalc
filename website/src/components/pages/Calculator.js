@@ -8,7 +8,7 @@ import Input from '../calc/Input';
 import Results from '../calc/Results';
 import About from '../calc/About';
 
-import recycleData from '../../data/recycle-info.json';
+import recycle from '../../data/recycle-info.json';
 import emissionData from '../../data/ghg-info.json';
 import '../../App.css';
 
@@ -52,7 +52,7 @@ export default function Calculator() {
    //update default weight values when unit changed
    useEffect(() => {
       const defaults = defCheck.current();
-      recycleData.forEach(data => {
+      recycle.data.forEach(data => {
          const field = data.title;
          const weight = defaults[field];
 
@@ -100,10 +100,11 @@ export default function Calculator() {
    );
 }
 
-export const fieldNames = recycleData.map(data => data.title);
+export const fieldNames = recycle.data.map(data => data.title);
+export const aggregates = ["GHG Emissions", "Total Input", "Total Output"];
 
 const fieldStarts = (convert=1) => (
-   recycleData.reduce((obj, data) => ({
+   recycle.data.reduce((obj, data) => ({
       ...obj, [data.title]: {
          amount: '',
          boxes: {
@@ -145,17 +146,12 @@ const setField = (inputs, action) => {
 
 
 const findTotals = (inputs, convert, weightAmount=false) => {
-   const nonMaterials = ["GHG Emissions", "Total Input", "Total Output", "title", "weight"];
-   const [ghg, inTotals, outTotals] = nonMaterials;
-
-   const materialNames = Object.keys(recycleData[0]).filter((material) => (
-      !( material==="id" || nonMaterials.includes(material) )
-   ));
+   const [ghg, inTotals, outTotals] = aggregates;
    
-   const totals = [ghg, ...materialNames, inTotals, outTotals]
+   const totals = [...recycle.materials, ...aggregates]
       .reduce((obj, material) => ({...obj, [material]: 0}), {});
 
-   recycleData.forEach(data => {
+   recycle.data.forEach(data => {
       const obj = inputs[data.title];
       const weight = obj.weight.value;
 
@@ -166,7 +162,7 @@ const findTotals = (inputs, convert, weightAmount=false) => {
       const unitRatio =  weight / (convert*data.weight);
       const materialAmnt = amount * unitRatio * obj.boxes.value;
 
-      materialNames.forEach(material => {
+      recycle.materials.forEach(material => {
          const weightYield = data[material] * materialAmnt
          totals[material] += weightYield;
          totals[outTotals] += weightYield;

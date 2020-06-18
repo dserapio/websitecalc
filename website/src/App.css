@@ -490,9 +490,24 @@ label .error {
 
 .outputs {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
   justify-content: space-evenly;
+}
+
+.info-stat {
+  display: flex;
+  margin-top: 20px;
+}
+
+.info-stat img {
+  flex: 1;
+  width: 125px;
+}
+
+.info-stat p {
+  flex: 3;
+  margin-left: 10px;
 }
 
 .outputs table {
