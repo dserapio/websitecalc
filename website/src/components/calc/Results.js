@@ -4,8 +4,12 @@ import { isMobile } from 'react-device-detect';
 
 import ThemeContext from '../../contexts/ThemeContext';
 import { aggregates } from '../pages/Calculator';
-import emissionData from '../../data/ghg-info.json';
 import '../../App.css';
+
+import emissionData from '../../data/ghg-info.json';
+import truck from '../../img/truck.gif';
+import trash from '../../img/trash.gif';
+import gold from '../../img/gold.gif';
 
 
 const prettyNum = (num, fracDigits=4) =>
@@ -116,8 +120,7 @@ export default function Results (props) {
             </table>
 
             {trucks > 0 && <section className="info-stat">
-               <img alt="truck-gif"
-                  src="https://cdn.discordapp.com/attachments/692091032011276391/722594238553915392/realtruck.gif"/>
+               <img alt="truck-gif"src={truck}/>
                <p>
                   <span className="show-num">{prettyNum(values[inTotal])} {unit.name}</span> is enough e-waste to fill 
                   <span className="show-num"> {prettyNum(trucks, 2)} semi-trucks!</span>
@@ -125,8 +128,7 @@ export default function Results (props) {
             </section>}
 
             <section className="info-stat">
-               <img alt="factory"
-                  src="https://jamdonut.net/wp-content/uploads/2015/08/JD_Icon_Factory01_264x176.gif"/>
+               <img alt="factory" src={trash}/>
                <p>
                   Diverts <span className="show-num">{prettyNum(diverts, 0)} {unit.name} </span>
                   of valuable and toxic materials from landfills!
@@ -134,8 +136,7 @@ export default function Results (props) {
             </section>
 
             <section className="info-stat">
-               <img alt="driving"
-                  src="https://acegif.com/wp-content/gifs/car-driving-7.gif"/>
+               <img alt="driving" src="https://acegif.com/wp-content/gifs/car-driving-7.gif"/>
                <p>
                   The <span className="show-num">{prettyNum(values[ghg] * unit.convert, 0)} {unit.name}</span> of greenhouse
                   gas emissions is as much gas used in <span className="show-num">{prettyNum(LaNyTrips, 0)}</span> car trips
@@ -144,8 +145,7 @@ export default function Results (props) {
             </section>
 
             <section className="info-stat">
-               <img alt="gold"
-                  src="https://acegif.com/wp-content/gifs/coin-flip-59.gif"/>
+               <img alt="gold" src={gold}/>
                <p>
                   The total gold currently worth around <span className="show-num">${prettyNum(values.Gold * goldPrice, 2)}</span>
                </p>

@@ -505,9 +505,9 @@ label .error {
   width: 125px;
 }
 
-.info-stat p {
+.outputs .info-stat p {
   flex: 3;
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .outputs table {

@@ -52,14 +52,14 @@ export default function Input (props) {
          return;
 
       setStore(fieldVal.value);
-      setInputs({type: attr, field: field, value: ''});
+      setInputs({type: attr, field, value: ''});
    };
 
    const fieldBlur = ({target}) => {
       if (store && !target.value) {
          const [field, attr] = parseTarget(target);
          setInputs({
-            type: attr, field: field, 
+            type: attr, field, 
             value: store, default: true
          });
       }
@@ -75,11 +75,7 @@ export default function Input (props) {
       if (attr!=='weight' && !checkInt(target.value))
          return; //extra check
 
-      setInputs({
-         type: attr,
-         field: field,
-         value: target.value
-      });
+      setInputs({type: attr, field, value: target.value});
    };
 
    const submitInput = (event) => {
