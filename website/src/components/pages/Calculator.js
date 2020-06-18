@@ -1,16 +1,16 @@
 import React, { useState, useReducer, useEffect, useRef } from 'react';
-import { TransitionGroup } from 'react-transition-group';
 
 import { FadeWrap } from '../utils/Transitions';
 import { ContentWrap } from '../utils/Styles';
 import { convertObj } from '../utils/UnitConvert';
-import recycleData from '../../data/recycle-info.json';
-import emissionData from '../../data/ghg-info.json';
-import '../../App.css';
 
 import Input from '../calc/Input';
 import Results from '../calc/Results';
 import About from '../calc/About';
+
+import recycleData from '../../data/recycle-info.json';
+import emissionData from '../../data/ghg-info.json';
+import '../../App.css';
 
 
 export default function Calculator() {
@@ -69,14 +69,14 @@ export default function Calculator() {
    const {about, enter, weight} = flags;
 
    return (
-      <TransitionGroup>
-         <FadeWrap active={about}>
+      <>
+         <FadeWrap in={about}>
             <ContentWrap>
                <About calc={onAbout}/>
             </ContentWrap>
          </FadeWrap>
 
-         <FadeWrap active={!about && !enter}>
+         <FadeWrap in={!about && !enter}>
             <ContentWrap>
                <Input inputs={inputs} setInputs={setInputs}
                   unit={unit} tolbs={tolbs} tokg={tokg} 
@@ -87,7 +87,7 @@ export default function Calculator() {
             </ContentWrap>
          </FadeWrap>
 
-         <FadeWrap active={!about && enter}>
+         <FadeWrap in={!about && enter}>
             <ContentWrap>
                <Results values={results} 
                   unit={unit} tolbs={tolbs} tokg={tokg} 
@@ -96,9 +96,8 @@ export default function Calculator() {
                />
             </ContentWrap>
          </FadeWrap>
-
-      </TransitionGroup>
-    );
+      </>
+   );
 }
 
 export const fieldNames = recycleData.map(data => data.title);
@@ -146,31 +145,25 @@ const setField = (inputs, action) => {
 
 
 const findTotals = (inputs, convert, weightAmount=false) => {
-   const ghg = "GHG Emissions", inTotals = "Total Input", outTotals = "Total Output";
-   
+   const nonMaterials = ["GHG Emissions", "Total Input", "Total Output", "title", "weight"];
+   const [ghg, inTotals, outTotals] = nonMaterials;
+
    const materialNames = Object.keys(recycleData[0]).filter((material) => (
-      !( material==="id" || material==="title" 
-      || material==="weight" || material===ghg )
+      !( material==="id" || nonMaterials.includes(material) )
    ));
    
    const totals = [ghg, ...materialNames, inTotals, outTotals]
-      .reduce((obj, material) => (
-         {...obj, [material]: 0}
-      ), {});
+      .reduce((obj, material) => ({...obj, [material]: 0}), {});
 
    recycleData.forEach(data => {
       const obj = inputs[data.title];
       const weight = obj.weight.value;
 
-      const amount = weightAmount && weight //temporary
+      const amount = weightAmount
          ? obj.amount / weight
          : obj.amount;
 
-      totals[inTotals] += amount * weight;
-
-      const unitRatio = data.weight //temporary
-         ? weight / (convert*data.weight)
-         : 1;
+      const unitRatio =  weight / (convert*data.weight);
       const materialAmnt = amount * unitRatio * obj.boxes.value;
 
       materialNames.forEach(material => {
@@ -179,6 +172,7 @@ const findTotals = (inputs, convert, weightAmount=false) => {
          totals[outTotals] += weightYield;
       });
 
+      totals[inTotals] += amount * weight;
       totals[ghg] += data[ghg] * obj.boxes.value;
    });
 

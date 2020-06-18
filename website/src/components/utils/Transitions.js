@@ -8,15 +8,15 @@ import '../../App.css';
  * @param {boolean} props.active
  * @param {JSX.Element} props.children
  */
-export const FadeWrap = ( {active, children} ) => {
+export const FadeWrap = ({children, ...transProps} ) => {
    const divRef = useRef(null);
    return ( 
       <CSSTransition
-         in={active}
          nodeRef={divRef}
          timeout={350}
          classNames="fade"
          unmountOnExit
+         {...transProps}
       >
          <div ref={divRef} className="rel">
             {children}

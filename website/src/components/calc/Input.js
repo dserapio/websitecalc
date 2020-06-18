@@ -94,7 +94,7 @@ export default function Input (props) {
          return res && Boolean(weight) && weight>0;
       }, true);
 
-      if (allBlank)// || !allWeights)
+      if (allBlank || !allWeights)
          setValid(false);
       else 
          toResults();
@@ -119,27 +119,24 @@ export default function Input (props) {
       <section className="sidebar">
 
          <div className="button-group">
-            <button type="button" onClick={toAbout}>About</button>
-            <button 
-               className={avg ? " active" : ""} type="button"
-               onClick={toggleAvg}>Set Avg. Weight</button>
-            <button 
-               className={boxes ? " active" : ""} type="button"
-               onClick={toggleBox}># of Containers</button>
+            <button type="button" onClick={toAbout}>
+               About</button>
+            <button className={avg ? " active" : ""} type="button" onClick={toggleAvg}>
+               Set Avg. Weight</button>
+            <button className={boxes ? " active" : ""} type="button" onClick={toggleBox}>
+               # of Containers</button>
          </div>
 
          <div className="button-group">
-            <button 
-               className={weight ? " active" : ""} type="button"
-               onClick={swapWeight}>By Total Weight</button>
-            <button disabled={!weight && !avg}
-               className={unit.name==='kg' ? "active" : ""}
-               type="button" 
-               onClick={tokg}>kg</button>
-            <button disabled={!weight && !avg}
-               className={unit.name==='lbs' ? "active" : ""}
-               type="button"
-               onClick={tolbs}>lbs</button>
+            <button className={weight ? " active" : ""}
+               type="button" onClick={swapWeight}>
+               By Total Weight</button>
+            <button className={unit.name==='kg' ? "active" : ""}
+               disabled={!weight && !avg} type="button" onClick={tokg}>
+               kg</button>
+            <button className={unit.name==='lbs' ? "active" : ""}
+               disabled={!weight && !avg} type="button" onClick={tolbs}>
+               lbs</button>
          </div>
          
       </section>

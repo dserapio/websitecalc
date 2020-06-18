@@ -521,6 +521,10 @@ th, td {
   padding: 12px 15px;
 }
 
+.show-num {
+  font-weight: 600;
+}
+
 .mobile .outputs {
   display: block;
 }

@@ -7,7 +7,7 @@ import emissionData from '../../data/ghg-info.json';
 import '../../App.css';
 
 
-const printNumber = (num, fracDigits=4) =>
+const prettyNum = (num, fracDigits=4) =>
    num.toLocaleString(undefined, {maximumFractionDigits: fracDigits});
 
 
@@ -56,8 +56,8 @@ export default function Results (props) {
    }, [goldState.default]);
 
 
-   const ghg = "GHG Emissions";
-   const nonMaterials = [ghg, "Total Input", "Total Output"];
+   const ghg = "GHG Emissions", inTotal = "Total Input";
+   const nonMaterials = [ghg, inTotal, "Total Output"];
 
    const pieData = Object.entries(values)
       .filter(([name, _]) => !nonMaterials.includes(name))
@@ -68,6 +68,8 @@ export default function Results (props) {
             color: colors[index]
       }));
 
+   const trucks = values[inTotal] / emissionData.trucks;
+   const diverts = values[inTotal] / emissionData.divert;
    const LaNyTrips = values[ghg]  / emissionData.co2LANY;
 
    const pieWidth = () => window.innerWidth * (isMobile ? 0.8 : 0.5);
@@ -106,21 +108,35 @@ export default function Results (props) {
                         style={{backgroundColor: i%2===0 ? theme.mainAlt : theme.main}}
                      >
                         <td className="output">{name} </td>
-                        <td className="output-value">{printNumber(value * unit.convert)} {unit.name} </td>
+                        <td className="output-value">{prettyNum(value * unit.convert)} {unit.name} </td>
                      </tr>
                   )}
                </tbody>
             </table>
 
+            {trucks > 1 && <>
+               <img width={200} alt="truck-gif"
+                  src="https://cdn.discordapp.com/attachments/692091032011276391/722594238553915392/realtruck.gif"/>
+               <p>
+                  <span className="show-num">{prettyNum(values[inTotal])} {unit.name}</span> is enough e-waste to fill 
+                  <span className="show-num"> {prettyNum(trucks, 2)} semi-trucks!</span>
+               </p>
+            </>}
+
             <p>
-               The {printNumber(values[ghg] * unit.convert, 0)} {unit.name} of greenhouse gas emissions is as much gas used 
-               in {printNumber(LaNyTrips, 0)} car trips between New York and Los Angeles!
+               Diverts <span className="show-num">{prettyNum(diverts, 0)} {unit.name} </span>
+               of valuable and toxic materials from landfills!
             </p>
 
             <p>
-               The total gold currently worth around ${printNumber(goldPrice * values.Gold, 2)}
+               The <span className="show-num">{prettyNum(values[ghg] * unit.convert, 0)} {unit.name}</span> of greenhouse
+               gas emissions is as much gas used in <span className="show-num">{prettyNum(LaNyTrips, 0)}</span> car trips
+               between New York and Los Angeles!
             </p>
 
+            <p>
+               The total gold currently worth around <span className="show-num">${prettyNum(values.Gold * goldPrice, 2)}</span>
+            </p>
 
             <Pie
                data={pieData}
@@ -156,7 +172,7 @@ export default function Results (props) {
                ]}
                tooltip={({ id, value }) => (
                   <strong>
-                     {id} : {value.toFixed(4)}
+                     {id} : {value.toFixed(4)} {unit.name}
                   </strong>
                )}
                theme={{
