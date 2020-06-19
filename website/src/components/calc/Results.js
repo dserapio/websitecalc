@@ -74,8 +74,8 @@ export default function Results (props) {
    const diverts = values[inTotal] / emissionData.divert;
    const LaNyTrips = values[ghg]  / emissionData.co2LANY;
 
-   const pieWidth = () => window.innerWidth * (isMobile ? 0.8 : 0.5);
-   const pieHeight = () => window.innerHeight * (isMobile ? 0.4 : 0.6);
+   const pieWidth = () => window.innerWidth * (isMobile ? 0.75 : 0.3);
+   const pieHeight = () => window.innerHeight * 0.4;
    const goldPrice = goldState.price;
 
    return <>
@@ -98,64 +98,70 @@ export default function Results (props) {
 
          <div className="outputs"> 
 
-            <h2>By the Numbers</h2>
-            <table>
-               <thead>
-                  <tr>
-                     <th className="output">Material</th>
-                     <th className="output">Amount Yield ({unit.name})</th>
-                  </tr>
-               </thead>
-
-               <tbody>
-                  {Object.entries(values).map(([name, value], i) =>
-                     <tr key={name+i} 
-                        style={{backgroundColor: i%2===0 ? theme.mainAlt : theme.main}}
-                     >
-                        <td className="output">{name} </td>
-                        <td className="output-value">{prettyNum(value * unit.convert)} {unit.name} </td>
+            <section>
+               <h2>By the Numbers</h2>
+               <table>
+                  <thead>
+                     <tr>
+                        <th className="output">Material</th>
+                        <th className="output">Amount Yield ({unit.name})</th>
                      </tr>
-                  )}
-               </tbody>
-            </table>
+                  </thead>
 
-            {trucks > 0 && <section className="info-stat">
-               <img alt="truck-gif"src={truck}/>
-               <p className="stat-paragraph">
-                  <span className="show-num">{prettyNum(values[inTotal])} {unit.name}</span> is enough e-waste to fill 
-                  <span className="show-num"> {prettyNum(trucks, 2)} semi-trucks!</span>
-               </p>
-            </section>}
-
-            <section className="info-stat">
-               <img alt="factory" src={trash}/>
-               <p className="stat-paragraph">
-                  Diverts <span className="show-num">{prettyNum(diverts, 0)} {unit.name} </span>
-                  of valuable and toxic materials from landfills!
-               </p>
+                  <tbody>
+                     {Object.entries(values).map(([name, value], i) =>
+                        <tr key={name+i} 
+                           style={{backgroundColor: i%2===0 ? theme.mainAlt : theme.main}}
+                        >
+                           <td className="output">{name} </td>
+                           <td className="output-value">{prettyNum(value * unit.convert)} {unit.name} </td>
+                        </tr>
+                     )}
+                  </tbody>
+               </table>
             </section>
 
-            <section className="info-stat">
-               <img alt="driving" src="https://acegif.com/wp-content/gifs/car-driving-7.gif"/>
-               <p className="stat-paragraph">
-                  The <span className="show-num">{prettyNum(values[ghg] * unit.convert, 0)} {unit.name}</span> of greenhouse
-                  gas emissions is as much gas used in <span className="show-num">{prettyNum(LaNyTrips, 0)}</span> car trips
-                  between New York and Los Angeles!
-               </p>
-            </section>
+            <div className="infos">
+               {trucks > 0 && <section className="info-stat">
+                  <img alt="truck-gif"src={truck}/>
+                  <p>
+                     <span className="show-num">{prettyNum(values[inTotal])} {unit.name}</span> is enough e-waste to fill 
+                     <span className="show-num"> {prettyNum(trucks, 2)} semi-trucks!</span>
+                  </p>
+               </section>}
 
-            <section className="info-stat">
-               <img alt="gold" src={gold}/>
-               <p className="stat-paragraph">
-                  The total gold currently worth around <span className="show-num">${prettyNum(values.Gold * goldPrice, 2)}</span>
-               </p>
-            </section>
+               <section className="info-stat">
+                  <img alt="factory" src={trash}/>
+                  <p>
+                     Diverts <span className="show-num">{prettyNum(diverts, 0)} {unit.name} </span>
+                     of valuable and toxic materials from landfills!
+                  </p>
+               </section>
+
+               <section className="info-stat">
+                  <img alt="driving" src="https://acegif.com/wp-content/gifs/car-driving-7.gif"/>
+                  <p>
+                     The greenhouse gas emissions is as much gas used in 
+                     <span className="show-num"> {prettyNum(LaNyTrips, 0)}</span> car trips between 
+                     New York and Los Angeles!
+                  </p>
+               </section>
+
+               <section className="info-stat">
+                  <img alt="gold" src={gold}/>
+                  <p>
+                     The total gold currently worth around <span className="show-num">${prettyNum(values.Gold * goldPrice, 2)}</span>
+                  </p>
+               </section>
+            </div>
 
             <section>
                <h2>Output Material Breakdown</h2>
                <Pie
                   data={pieData}
-                  margin={{ top: 80, right: 120, bottom: 80, left: 20 }}
+                  margin={isMobile
+                     ? { top: 15, right: 20, bottom: 40, left: 60 }
+                     : { top: 25, right: 20, bottom: 40, left: 60 }}
                   width={pieWidth()}
                   height={pieHeight()}
                   innerRadius={0.5}

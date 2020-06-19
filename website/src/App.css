@@ -268,7 +268,7 @@
 }
 
 section.main {
-  width: 75%
+  width: 90%
 }
 
 .mobile section.main {
@@ -398,7 +398,7 @@ button:hover, button:focus,
 /* calculator input */
 
 form {
-  width: 90%;
+  width: 65%;
   margin-bottom: -0.5vh;
 }
 
@@ -411,7 +411,7 @@ form {
 }
 
 .text-container {
-  width: 85%;
+  width: 90%;
 }
 
 .text-container.subfield {
@@ -490,36 +490,54 @@ label .error {
 
 .outputs {
   display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.outputs section h2 {
+  margin-top: 10px;
+  margin-bottom: -5px;
+}
+
+.outputs .infos {
+  display: block;
+  width: 55%;
+  min-width: 350px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.mobile .outputs .infos {
+  width: 100%;
+  margin-top: 0;
+  margin-left: -5px;
 }
 
 .info-stat {
   display: flex;
   text-align: start;
-  margin-top: 20px;
-  float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.info-stat .stat-paragraph{
-  align-self: center;
-}
 
 .info-stat img {
   flex: 1;
-  width: 125px;
+  width: 115px;
 }
 
 .outputs .info-stat p {
   flex: 3;
   margin-left: 8px;
+  align-self: center;
 }
 
 .outputs table {
   border-collapse: collapse;
-  margin: 25px 0;
-  width: 80%;
+  margin: 20px 0;
+  margin-right: 20px;
+  min-width: 400px;
   max-width: 600px;
   font-size: 1em;
   border-radius: 5px;
