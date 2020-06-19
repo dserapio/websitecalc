@@ -9,7 +9,7 @@ import '../../App.css';
 import emissionData from '../../data/ghg-info.json';
 import truck from '../../img/truck.gif';
 import trash from '../../img/trash.gif';
-import gold from '../../img/gold.gif';
+import goldBars from '../../img/gold.gif';
 
 
 const prettyNum = (num, fracDigits=4) =>
@@ -37,6 +37,11 @@ const fetchGold = async () => {
    return parseFloat(price.replace(',', ''));
 }
 
+const currPieSize = () => ({
+   width: isMobile ? window.innerWidth*0.85 : window.innerWidth*0.2 + 200,
+   height: window.innerHeight * 0.4
+});
+
 
 export default function Results (props) {
    const {
@@ -44,22 +49,32 @@ export default function Results (props) {
       toAbout, toBack, values } = props;
 
    // Units default to kg
-   const [goldState, setGold] = useState({price: 55006.71, default: true}); //usd per kilo, 6/15/2020
+   const [gold, setGold] = useState({price: 55006.71, default: true}); //usd per kilo, 6/15/2020
+   const [pieSize, setSize] = useState(currPieSize);
+
    const theme = useContext(ThemeContext);
 
    useEffect(() => {
-      if (goldState.default)
+      if (gold.default)
          fetchGold()
             .then(price => setGold(state => ({...state, price})))
             .catch(console.log)
             .finally(() => setGold(state => ({...state, default: false}) ));
 
-   }, [goldState.default]);
+   }, [gold.default]);
+
+   useEffect(() => {
+      const resizePie = () => setSize(currPieSize);
+      window.addEventListener('resize', resizePie);
+
+      return () => {
+         window.removeEventListener('resize', resizePie);
+      }
+   }, [setSize]);
+   
 
    const colors = ['#444444', '#FFC300', '#FF5733', '#C70039', '#900C3F',
       '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
-
-   const [ghg, inTotal] = aggregates;
 
    const pieData = Object.entries(values)
       .filter(([name, _]) => !aggregates.includes(name))
@@ -70,26 +85,23 @@ export default function Results (props) {
             color: colors[index]
       }));
 
+   const [ghg, inTotal] = aggregates;
+
    const trucks = values[inTotal] / emissionData.trucks;
    const diverts = values[inTotal] / emissionData.divert;
    const LaNyTrips = values[ghg]  / emissionData.co2LANY;
 
-   const pieWidth = () => window.innerWidth * (isMobile ? 0.75 : 0.3);
-   const pieHeight = () => window.innerHeight * 0.4;
-   const goldPrice = goldState.price;
-
    return <>
       <section className="sidebar">
          <div className="button-group">
-            <button type="button" onClick={toAbout}>About</button>
-            <button
-               className={unit.name==='kg' ? "active" : ""}
-               type="button" 
-               onClick={tokg}>kg</button>
-            <button
-               className={unit.name==='lbs' ? "active" : ""}
-               type="button"
-               onClick={tolbs}>lbs</button>
+            <button type="button" onClick={toAbout}>
+               About</button>
+            <button className={unit.name==='kg' ? "active" : ""}
+               type="button" onClick={tokg}>
+               kg</button>
+            <button className={unit.name==='lbs' ? "active" : ""}
+               type="button" onClick={tolbs}>
+               lbs</button>
          </div>
       </section>
 
@@ -122,7 +134,7 @@ export default function Results (props) {
             </section>
 
             <div className="infos">
-               {trucks > 0 && <section className="info-stat">
+               {trucks > 1 && <section className="info-stat">
                   <img alt="truck-gif"src={truck}/>
                   <p>
                      <span className="show-num">{prettyNum(values[inTotal])} {unit.name}</span> is enough e-waste to fill 
@@ -148,9 +160,9 @@ export default function Results (props) {
                </section>
 
                <section className="info-stat">
-                  <img alt="gold" src={gold}/>
+                  <img alt="gold-bars" src={goldBars}/>
                   <p>
-                     The total gold currently worth around <span className="show-num">${prettyNum(values.Gold * goldPrice, 2)}</span>
+                     The total gold currently worth around <span className="show-num">${prettyNum(values.Gold * gold.price, 2)}</span>
                   </p>
                </section>
             </div>
@@ -160,14 +172,14 @@ export default function Results (props) {
                <Pie
                   data={pieData}
                   margin={isMobile
-                     ? { top: 15, right: 20, bottom: 40, left: 60 }
-                     : { top: 25, right: 20, bottom: 40, left: 60 }}
-                  width={pieWidth()}
-                  height={pieHeight()}
+                     ? { top: 15, right: 80, bottom: 30, left: 70 }
+                     : { top: 25, right: 150, bottom: 30, left: 80 }}
+                  width={pieSize.width}
+                  height={pieSize.height}
                   innerRadius={0.5}
                   padAngle={0.7}
                   cornerRadius={5}
-                  radialLabelsSkipAngle={isMobile ? 15 : 5}
+                  radialLabelsSkipAngle={isMobile ? 10 : 5}
                   radialLabelsTextXOffset={6}
                   radialLabelsTextColor={theme.off}
                   radialLabelsLinkOffset={0}
@@ -178,11 +190,11 @@ export default function Results (props) {
                   animate={true}
                   motionStiffness={90}
                   motionDamping={15}
-                  legends={[
+                  legends={isMobile ? undefined : [
                      {
                         anchor: 'right',
                         direction: 'column',
-                        translateX: 100,
+                        translateX: 110,
                         itemWidth: 60,
                         itemHeight: 16,
                         itemsSpacing: 2,
@@ -214,4 +226,4 @@ export default function Results (props) {
          </div>
       </section>
    </>;
- };
+};

@@ -268,7 +268,7 @@
 }
 
 section.main {
-  width: 90%
+  width: 80%
 }
 
 .mobile section.main {
@@ -398,7 +398,7 @@ button:hover, button:focus,
 /* calculator input */
 
 form {
-  width: 65%;
+  width: 70%;
   margin-bottom: -0.5vh;
 }
 
@@ -501,7 +501,7 @@ label .error {
 
 .outputs .infos {
   display: block;
-  width: 55%;
+  width: 50%;
   min-width: 350px;
   margin-top: 25px;
   margin-bottom: 20px;
