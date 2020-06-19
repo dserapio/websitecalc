@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d406ed74.chunk.css",
+    "main.js": "/static/js/main.64379f88.chunk.js",
+    "main.js.map": "/static/js/main.64379f88.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.d1594a52.js",
+    "runtime-main.js.map": "/static/js/runtime-main.d1594a52.js.map",
+    "static/js/2.8d42089e.chunk.js": "/static/js/2.8d42089e.chunk.js",
+    "static/js/2.8d42089e.chunk.js.map": "/static/js/2.8d42089e.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.5e59edf7c651ed6636e7fb9bcb609385.js": "/precache-manifest.5e59edf7c651ed6636e7fb9bcb609385.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.d406ed74.chunk.css.map": "/static/css/main.d406ed74.chunk.css.map",
+    "static/js/2.8d42089e.chunk.js.LICENSE.txt": "/static/js/2.8d42089e.chunk.js.LICENSE.txt",
+    "static/media/e-stewards.png": "/static/media/e-stewards.dfd5258e.png",
+    "static/media/gold.gif": "/static/media/gold.7fdab98e.gif",
+    "static/media/left-arrow.svg": "/static/media/left-arrow.34a4f31c.svg",
+    "static/media/moon-regular.svg": "/static/media/moon-regular.2eae935f.svg",
+    "static/media/right-arrow.svg": "/static/media/right-arrow.5e5b72cc.svg",
+    "static/media/sun-solid.svg": "/static/media/sun-solid.6e1d81ac.svg",
+    "static/media/trash.gif": "/static/media/trash.8e52305f.gif",
+    "static/media/truck.gif": "/static/media/truck.dc7c3322.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d1594a52.js",
+    "static/js/2.8d42089e.chunk.js",
+    "static/css/main.d406ed74.chunk.css",
+    "static/js/main.64379f88.chunk.js"
+  ]
+}
