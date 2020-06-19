@@ -176,11 +176,14 @@ export default function Results (props) {
                      : { top: 25, right: 150, bottom: 30, left: 80 }}
                   width={pieSize.width}
                   height={pieSize.height}
+                  colors={{ scheme: 'paired'}}
+                  startAngle={-180}
+                  endAngle={360}
                   innerRadius={0.5}
                   padAngle={0.7}
                   cornerRadius={5}
                   radialLabelsSkipAngle={isMobile ? 10 : 5}
-                  radialLabelsTextXOffset={6}
+                  radialLabelsTextXOffset={0}
                   radialLabelsTextColor={theme.off}
                   radialLabelsLinkOffset={0}
                   radialLabelsLinkDiagonalLength={16}
@@ -190,6 +193,7 @@ export default function Results (props) {
                   animate={true}
                   motionStiffness={90}
                   motionDamping={15}
+                  sortByValue={true}
                   legends={isMobile ? undefined : [
                      {
                         anchor: 'right',
