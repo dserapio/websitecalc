@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/websitecalc/static/css/main.c73d82bc.chunk.css",
+    "main.css": "/websitecalc/static/css/main.98f694eb.chunk.css",
     "main.js": "/websitecalc/static/js/main.4bcd2e84.chunk.js",
     "main.js.map": "/websitecalc/static/js/main.4bcd2e84.chunk.js.map",
     "runtime-main.js": "/websitecalc/static/js/runtime-main.e2114aa8.js",
@@ -8,9 +8,9 @@
     "static/js/2.a8e3a5d4.chunk.js": "/websitecalc/static/js/2.a8e3a5d4.chunk.js",
     "static/js/2.a8e3a5d4.chunk.js.map": "/websitecalc/static/js/2.a8e3a5d4.chunk.js.map",
     "index.html": "/websitecalc/index.html",
-    "precache-manifest.5fd2d759b9d97962b973302d31c353f4.js": "/websitecalc/precache-manifest.5fd2d759b9d97962b973302d31c353f4.js",
+    "precache-manifest.8aadd57d9844aab957bb02bc9a0b4344.js": "/websitecalc/precache-manifest.8aadd57d9844aab957bb02bc9a0b4344.js",
     "service-worker.js": "/websitecalc/service-worker.js",
-    "static/css/main.c73d82bc.chunk.css.map": "/websitecalc/static/css/main.c73d82bc.chunk.css.map",
+    "static/css/main.98f694eb.chunk.css.map": "/websitecalc/static/css/main.98f694eb.chunk.css.map",
     "static/js/2.a8e3a5d4.chunk.js.LICENSE.txt": "/websitecalc/static/js/2.a8e3a5d4.chunk.js.LICENSE.txt",
     "static/media/e-stewards.png": "/websitecalc/static/media/e-stewards.dfd5258e.png",
     "static/media/gold.gif": "/websitecalc/static/media/gold.7fdab98e.gif",
@@ -24,7 +24,7 @@
   "entrypoints": [
     "static/js/runtime-main.e2114aa8.js",
     "static/js/2.a8e3a5d4.chunk.js",
-    "static/css/main.c73d82bc.chunk.css",
+    "static/css/main.98f694eb.chunk.css",
     "static/js/main.4bcd2e84.chunk.js"
   ]
 }
