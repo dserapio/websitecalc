@@ -1,30 +1,30 @@
 {
   "files": {
-    "main.css": "/static/css/main.cc34c470.chunk.css",
-    "main.js": "/static/js/main.0b1b5b7f.chunk.js",
-    "main.js.map": "/static/js/main.0b1b5b7f.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.d1594a52.js",
-    "runtime-main.js.map": "/static/js/runtime-main.d1594a52.js.map",
-    "static/js/2.8810da51.chunk.js": "/static/js/2.8810da51.chunk.js",
-    "static/js/2.8810da51.chunk.js.map": "/static/js/2.8810da51.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.4b5d47607bc0c8ee110ab3cc7387275b.js": "/precache-manifest.4b5d47607bc0c8ee110ab3cc7387275b.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.cc34c470.chunk.css.map": "/static/css/main.cc34c470.chunk.css.map",
-    "static/js/2.8810da51.chunk.js.LICENSE.txt": "/static/js/2.8810da51.chunk.js.LICENSE.txt",
-    "static/media/e-stewards.png": "/static/media/e-stewards.dfd5258e.png",
-    "static/media/gold.gif": "/static/media/gold.7fdab98e.gif",
-    "static/media/left-arrow.svg": "/static/media/left-arrow.aaf34fe7.svg",
-    "static/media/moon-regular.svg": "/static/media/moon-regular.2eae935f.svg",
-    "static/media/right-arrow.svg": "/static/media/right-arrow.1d292928.svg",
-    "static/media/sun-solid.svg": "/static/media/sun-solid.6e1d81ac.svg",
-    "static/media/trash.gif": "/static/media/trash.8e52305f.gif",
-    "static/media/truck.gif": "/static/media/truck.dc7c3322.gif"
+    "main.css": "/websitecalc/static/css/main.cc34c470.chunk.css",
+    "main.js": "/websitecalc/static/js/main.5a525dcc.chunk.js",
+    "main.js.map": "/websitecalc/static/js/main.5a525dcc.chunk.js.map",
+    "runtime-main.js": "/websitecalc/static/js/runtime-main.e2114aa8.js",
+    "runtime-main.js.map": "/websitecalc/static/js/runtime-main.e2114aa8.js.map",
+    "static/js/2.8810da51.chunk.js": "/websitecalc/static/js/2.8810da51.chunk.js",
+    "static/js/2.8810da51.chunk.js.map": "/websitecalc/static/js/2.8810da51.chunk.js.map",
+    "index.html": "/websitecalc/index.html",
+    "precache-manifest.a5c1413199c670501501da8588328080.js": "/websitecalc/precache-manifest.a5c1413199c670501501da8588328080.js",
+    "service-worker.js": "/websitecalc/service-worker.js",
+    "static/css/main.cc34c470.chunk.css.map": "/websitecalc/static/css/main.cc34c470.chunk.css.map",
+    "static/js/2.8810da51.chunk.js.LICENSE.txt": "/websitecalc/static/js/2.8810da51.chunk.js.LICENSE.txt",
+    "static/media/e-stewards.png": "/websitecalc/static/media/e-stewards.dfd5258e.png",
+    "static/media/gold.gif": "/websitecalc/static/media/gold.7fdab98e.gif",
+    "static/media/left-arrow.svg": "/websitecalc/static/media/left-arrow.aaf34fe7.svg",
+    "static/media/moon-regular.svg": "/websitecalc/static/media/moon-regular.2eae935f.svg",
+    "static/media/right-arrow.svg": "/websitecalc/static/media/right-arrow.1d292928.svg",
+    "static/media/sun-solid.svg": "/websitecalc/static/media/sun-solid.6e1d81ac.svg",
+    "static/media/trash.gif": "/websitecalc/static/media/trash.8e52305f.gif",
+    "static/media/truck.gif": "/websitecalc/static/media/truck.dc7c3322.gif"
   },
   "entrypoints": [
-    "static/js/runtime-main.d1594a52.js",
+    "static/js/runtime-main.e2114aa8.js",
     "static/js/2.8810da51.chunk.js",
     "static/css/main.cc34c470.chunk.css",
-    "static/js/main.0b1b5b7f.chunk.js"
+    "static/js/main.5a525dcc.chunk.js"
   ]
 }
