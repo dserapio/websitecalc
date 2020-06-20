@@ -4,7 +4,7 @@ import { isMobile } from 'react-device-detect';
 
 import ThemeContext from '../contexts/ThemeContext';
 import Burger from './buttons/Burger';
-import { paths, pathNames } from './Pages';
+import { pathNames, urls } from './Pages';
 
 import sunLogo from '../img/sun-solid.svg'
 import moonLogo from '../img/moon-regular.svg'
@@ -15,8 +15,10 @@ import '../App.css';
 const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
 
    const linkInfos = useMemo(() => {
-      const links = Object.keys(paths);
-      return pathNames().map((name, i) => [links[i], name]);
+      const names = pathNames();
+      return Object.entries(urls())
+         .filter( ([_, name]) => name!=="/error")
+         .map( ([url, _], i) => [url, names[i]]);
    }, []);
 
    const navRef = useRef();
@@ -35,7 +37,7 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
          const distanceY = window.pageYOffset || document.documentElement.scrollTop;
          const shrinkOn = window.innerHeight * 0.02;
          
-         if (distanceY > shrinkOn)
+         if (distanceY > shrinkOn || isMobile)
             navRef.current.classList.add("smaller");
          else
             navRef.current.classList.remove("smaller");

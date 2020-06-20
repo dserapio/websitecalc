@@ -60,7 +60,6 @@ export default function Results (props) {
             .then(price => setGold(state => ({...state, price})))
             .catch(console.log)
             .finally(() => setGold(state => ({...state, default: false}) ));
-
    }, [gold.default]);
 
    useEffect(() => {

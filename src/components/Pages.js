@@ -8,6 +8,7 @@ import FindRecycler from './pages/FindRecycler';
 import Error from './pages/Error';
 
 import { TransWrap } from './utils/Transitions';
+import { siteName } from '../App';
 import '../App.css';
 
 
@@ -18,12 +19,14 @@ const Pages = ({location}) => {
          .reduce((obj, name, i) => ({...obj, [links[i]]: name}), {});
    }, []);
    
+   const urlPaths = urls();
+
    //find valid route before for name for title
-   const valid = Object.keys(paths).reduce((match, path) => (
-      match || matchPath(location.pathname, {path: path, exact: true})
+   const valid = Object.keys(urlPaths).reduce((match, path) => (
+      match || matchPath(location.pathname, {path, exact: true})
    ), false);
 
-   const path = valid ? valid.path : "/error";
+   const path = valid ? urlPaths[valid.path] : "/error";
    const matchComp = paths[path].Comp;
 
    useEffect(() => {
@@ -47,7 +50,7 @@ const Pages = ({location}) => {
 };
 
 
-export const paths = {
+const paths = {
    "/": {
       Comp: Home, trans: "zoom", rel: true },
    "/information": {
@@ -60,9 +63,14 @@ export const paths = {
       Comp: Error, trans: "fade", rel: true }
 };
 
+export const urls = () => (
+   Object.keys(paths)
+      .map(path => [`${siteName}${path}`, path])
+      .reduce((obj, [url, name]) => ({...obj, [url]: name}), {})
+);
+
 export const pathNames = () => (
    Object.keys(paths)
-      .filter(path => path!=="/error")
       .map(name => name.replace('/', ''))
       .map(name => name==="" ? "home" : name)
       .map(name => name.replace('-', ' '))

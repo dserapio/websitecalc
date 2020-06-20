@@ -8,6 +8,7 @@ import NavContext, { navChange, navStart }from './contexts/NavContext';
 import Navigation from './components/Navigation';
 import Pages from './components/Pages';
 
+import mainInfo from '../package.json';
 import './App.css';
 
 
@@ -50,7 +51,6 @@ export default function App() {
     const body = document.body;
     body.style.backgroundColor = theme.main;
     body.style.color = theme.off;
-    
   }, [theme]);
 
 
@@ -71,3 +71,6 @@ export default function App() {
   );
 };
 
+export const siteName = mainInfo.homepage
+  .replace('https://github.com', '')
+  .slice(0, -1);
