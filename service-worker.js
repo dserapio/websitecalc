@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/dserapio/websitecalc/precache-manifest.8377395f75a5db164c28709b8bc627dd.js"
+  "/dserapio/websitecalc/precache-manifest.f8ba67f5d87cd81a5e388c644fb6f38a.js"
 );
 
 self.addEventListener('message', (event) => {
