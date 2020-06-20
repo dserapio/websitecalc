@@ -364,24 +364,24 @@ button, .button {
   margin: 10px;
   outline: none;
   overflow: hidden;
-  background-color: #41911f;
+  background-color: #46B517;
   color: white;
   border-radius: 4px;
-  border: 2px solid #41911f;
+  border: 2px solid #46B517;
   transition: all 0.3s ease;
   cursor: pointer;
-  opacity: 65%;
+  opacity: 1;
 }
 
 button:active, button.active, 
 .button:active {
-  opacity: 1;
+  background-color: #41911f;
 }
 
 button:disabled,
 .button:disabled {
   border: none;
-  opacity: 30%;
+  opacity: 0;
 }
 
 button:disabled:hover,
