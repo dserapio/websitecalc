@@ -72,5 +72,4 @@ export default function App() {
 };
 
 export const siteName = mainInfo.homepage
-  .replace('https://github.com', '')
-  .slice(0, -1);
+  .replace('https://dserapio.github.io/', '')
