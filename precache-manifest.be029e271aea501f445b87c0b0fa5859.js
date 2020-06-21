@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d9e2391092e942cb576ec367e6168a00",
+    "revision": "fdf88c6214f463a2410138f30154210a",
     "url": "/websitecalc/index.html"
   },
   {
-    "revision": "45e9b63eec202f7fd492",
-    "url": "/websitecalc/static/css/main.cc34c470.chunk.css"
+    "revision": "efa1ddfa6f1c2ce47cda",
+    "url": "/websitecalc/static/css/main.1b60a94c.chunk.css"
   },
   {
-    "revision": "9c7bce091110f348cee3",
-    "url": "/websitecalc/static/js/2.8810da51.chunk.js"
+    "revision": "70ef21a100ce71ad40bb",
+    "url": "/websitecalc/static/js/2.159a6d87.chunk.js"
   },
   {
     "revision": "702e06c21f4db63e7e05a8a0eda9baf1",
-    "url": "/websitecalc/static/js/2.8810da51.chunk.js.LICENSE.txt"
+    "url": "/websitecalc/static/js/2.159a6d87.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "45e9b63eec202f7fd492",
-    "url": "/websitecalc/static/js/main.5a525dcc.chunk.js"
+    "revision": "efa1ddfa6f1c2ce47cda",
+    "url": "/websitecalc/static/js/main.62c2b6f7.chunk.js"
   },
   {
     "revision": "20bd484c17fc85e0da55",
@@ -32,16 +32,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/websitecalc/static/media/gold.7fdab98e.gif"
   },
   {
-    "revision": "aaf34fe7f3ccc1b20db07331e8795525",
-    "url": "/websitecalc/static/media/left-arrow.aaf34fe7.svg"
+    "revision": "34a4f31c87f0e3f9e7c682ebf7eb3664",
+    "url": "/websitecalc/static/media/left-arrow.34a4f31c.svg"
   },
   {
     "revision": "2eae935f76240c6b5070c19c18d7047e",
     "url": "/websitecalc/static/media/moon-regular.2eae935f.svg"
   },
   {
-    "revision": "1d292928e8fb1296e074fb9eb060de23",
-    "url": "/websitecalc/static/media/right-arrow.1d292928.svg"
+    "revision": "5e5b72cc72ffd2c9ea04f8a4742dd6b1",
+    "url": "/websitecalc/static/media/right-arrow.5e5b72cc.svg"
   },
   {
     "revision": "6e1d81ac3976e7293d7a94967b22643b",
