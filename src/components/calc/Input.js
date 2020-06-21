@@ -205,7 +205,7 @@ const TextField = ({show, name, subfield, theme, children, ...input}) =>  (
       divClass={`text-container ${subfield ? "subfield" : ""}`}>
       <label>
          {children}
-         <input className="textfield" name={name} {...input} 
+         <input type="tel" className="textfield" name={name} {...input} 
             style={{borderColor: theme.off}}/>
       </label>
    </TransWrap>
