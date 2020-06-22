@@ -1,4 +1,6 @@
-import React, { useRef, useEffect, useMemo, forwardRef, useContext } from 'react';
+import React, { 
+   useState, useRef, useEffect, useMemo, useContext 
+} from 'react';
 import { NavLink } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 
@@ -12,7 +14,8 @@ import logo from '../img/e-stewards.png'
 import '../App.css';
 
 
-const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
+const Navigation = React.forwardRef(
+   ({hide, setNav, swapTheme}, ref) => {
 
    const linkInfos = useMemo(() => {
       const names = pathNames();
@@ -21,28 +24,44 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
          .map( ([url, _], i) => [url, names[i]]);
    }, []);
 
+   const [yPos, setYPos] = useState(0);
+
    const navRef = useRef();
    const menuRef = useRef(); //sliding ref and the burger button group
    const closeRef = useRef(); //for dependency
+   const scrollRef = useRef(); //for dependency
 
    const theme = useContext(ThemeContext);
    
+
+   useEffect(() => { //remove dependency for bar effect
+      scrollRef.current = () => {
+         const distanceY = window.pageYOffset || document.documentElement.scrollTop;
+         const shrinkOn = window.innerHeight * (isMobile ? 0.1 : 0.02);
+         const addClass = isMobile ? "hidden" : "smaller";
+
+         const down = distanceY > yPos;
+         setYPos(distanceY);
+
+         if (distanceY > shrinkOn && down)
+            navRef.current.classList.add(addClass);
+         else if (!down)
+            navRef.current.classList.remove(addClass);
+      };
+   }, [yPos]);
+
    useEffect(() => {
-      if (isMobile) //only check once
+      if (isMobile && !hide)
+         navRef.current.classList.remove("hidden");
+   }, [hide]);
+
+   useEffect(() => {
+      if (isMobile)
          navRef.current.classList.add('mobile');
       else
          navRef.current.classList.remove('mobile');
 
-      const scrollCheck = () => {
-         const distanceY = window.pageYOffset || document.documentElement.scrollTop;
-         const shrinkOn = window.innerHeight * 0.02;
-         
-         if (distanceY > shrinkOn || isMobile)
-            navRef.current.classList.add("smaller");
-         else
-            navRef.current.classList.remove("smaller");
-      }
-
+      const scrollCheck = () => scrollRef.current();
       window.addEventListener('scroll', scrollCheck);
 
       return () => {
@@ -50,9 +69,7 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
       }
    }, []);
 
-
-   //remove dependency for another effect, so don't have
-   //to add and remove event listener
+   //remove dependency for click effect
    useEffect(() => {
       closeRef.current = () => setNav('close');
    });
@@ -100,7 +117,8 @@ const Navigation = forwardRef(({hide, setNav, swapTheme}, ref) => {
                </div>
             </div>
 
-            {isMobile && <Burger onClick={() => setNav('swap')} active={!hide} color={theme.offAlt}/>}
+            {isMobile &&
+               <Burger onClick={() => setNav('swap')} active={!hide} color={theme.offAlt}/>}
          </div>
       </div>
    );

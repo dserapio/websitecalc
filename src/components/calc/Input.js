@@ -28,6 +28,11 @@ const pluralize = (str) => {
    return str.concat(last==='s' || last===')' ? '' : 's');
 };
 
+const prevent = (event) => {
+   if (event.cancelable)
+      event.preventDefault();
+}
+
 
 export default function Input (props) {
    const {
@@ -44,6 +49,9 @@ export default function Input (props) {
 
 
    const fieldFocus = ({target}) => { //clear default
+      //prevent resize from virt keys
+      window.addEventListener('resize', prevent);
+
       setValid(true);
       const [field, attr] = parseTarget(target);
       const fieldVal = inputs[field][attr];
@@ -56,6 +64,8 @@ export default function Input (props) {
    };
 
    const fieldBlur = ({target}) => {
+      window.removeEventListener('resize', prevent);
+
       if (store && !target.value) {
          const [field, attr] = parseTarget(target);
          setInputs({
@@ -178,8 +188,8 @@ const MaterialField = (props) => {
       <div className="fields">
 
          <TextField name={`${name}-amount`} value={amount} show={true} {...textProps}>
-            Total {pluralize(name)}
-            <TransSpan classNames="fade">{weight && ` (${unit})`}</TransSpan>
+            Total {pluralize(name)} {' '}
+            <TransSpan classNames="fade">{weight && `(${unit})`}</TransSpan>
          </TextField>
 
          <div className="subfields">

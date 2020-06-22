@@ -77,6 +77,10 @@
   opacity: 1;
 }
 
+.nav.hidden {
+  transform: translateY(-100%);
+}
+
 .nav-menu {
   padding-right: calc(10px + 1vw);
 }
@@ -100,7 +104,7 @@
 }
 
 .mobile .nav-list.hide {
-  transform: translateX(999px);
+  transform: translateX(100%);
 }
 
 .nav-link {
@@ -121,7 +125,7 @@
 }
 
 .mobile .nav-list .nav-link {
-  font-size: calc(20px + 0.6vw);
+  font-size: calc(23px + 1vw);
   padding: 2vh 10vw 2vh 6vw;
   overflow-y: scroll;
 }
@@ -373,17 +377,6 @@ button, .button {
   opacity: 1;
 }
 
-button:disabled,
-.button:disabled {
-  border: none;
-  background-color: #bfbfbf;
-}
-
-button:disabled:hover,
-.button:disabled:hover {
-  cursor: default;
-}
-
 button:hover, button:focus,
 .button:hover, .button:focus {
   border-color: white;
@@ -393,6 +386,18 @@ button:active, button.active,
 .button:active {
   background-color: #439321;
   border-color: white;
+}
+
+
+button:disabled,
+.button:disabled {
+  border: none;
+  background-color: #bfbfbf;
+}
+
+button:disabled:hover,
+.button:disabled:hover {
+  cursor: default;
 }
 
 
@@ -502,8 +507,7 @@ label .error {
 
 .outputs .infos {
   display: block;
-  width: 50%;
-  min-width: 350px;
+  width: 40%;
   margin-top: 25px;
   margin-bottom: 20px;
   margin-right: 20px;
@@ -516,22 +520,23 @@ label .error {
 }
 
 .info-stat {
+  width: 95%;
   display: flex;
-  text-align: start;
+  flex-wrap: wrap;
+  align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 
 .info-stat img {
-  flex: 1;
-  width: 115px;
+  flex: 0 0;
+  max-width: 115px;
 }
 
 .outputs .info-stat p {
-  flex: 3;
   margin-left: 8px;
-  align-self: center;
+  flex: 3 3;
 }
 
 .outputs table {
@@ -540,6 +545,7 @@ label .error {
   margin-right: 20px;
   width: 25vw;
   min-width: 200px;
+  max-width: 400px;
   font-size: 1em;
   border-radius: 5px;
   overflow: scroll;
@@ -548,7 +554,7 @@ label .error {
 
 .mobile .outputs table {
   width: 85vw;
-  min-width: 50px;
+  min-width: 100px;
 }
 
 thead tr {

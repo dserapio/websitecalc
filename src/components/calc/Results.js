@@ -144,7 +144,7 @@ export default function Results (props) {
                <section className="info-stat">
                   <img alt="factory" src={trash}/>
                   <p>
-                     Diverts <span className="show-num">{prettyNum(diverts, 0)} {unit.name} </span>
+                     Diverts <span className="show-num">{prettyNum(diverts, 0)} {unit.name}</span> {' '}
                      of valuable and toxic materials from landfills!
                   </p>
                </section>
@@ -152,8 +152,8 @@ export default function Results (props) {
                <section className="info-stat">
                   <img alt="driving" src="https://acegif.com/wp-content/gifs/car-driving-7.gif"/>
                   <p>
-                     The greenhouse gas emissions is as much gas used in 
-                     <span className="show-num"> {prettyNum(LaNyTrips, 0)}</span> car trips between 
+                     The greenhouse gas emissions is as much gas used in {' '}
+                     <span className="show-num">{prettyNum(LaNyTrips, 0)}</span> car trips between 
                      New York and Los Angeles!
                   </p>
                </section>
@@ -161,7 +161,8 @@ export default function Results (props) {
                <section className="info-stat">
                   <img alt="gold-bars" src={goldBars}/>
                   <p>
-                     The total gold currently worth around <span className="show-num">${prettyNum(values.Gold * gold.price, 2)}</span>
+                     The total gold currently worth around {' '}
+                     <span className="show-num">${prettyNum(values.Gold * gold.price, 2)}</span>
                   </p>
                </section>
             </div>
