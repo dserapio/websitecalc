@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Pie } from '@nivo/pie';
+import { Redirect } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 
 import ThemeContext from '../../contexts/ThemeContext';
+import { toUrl } from '../Pages';
 import { aggregates } from '../pages/Calculator';
 import '../../App.css';
 
@@ -42,8 +44,13 @@ const currPieSize = () => ({
    height: window.innerHeight * 0.4
 });
 
+export default function Results ({values, ...restProps}) {
+   return Object.keys(values).length === 0
+      ? <Redirect to={toUrl('/calculator')}/>
+      : <ResultsFull {...{...restProps, values}}/>
+}
 
-export default function Results (props) {
+function ResultsFull (props) {
    const {
       unit, tolbs, tokg, 
       toAbout, toBack, values } = props;

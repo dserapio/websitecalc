@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { Route, matchPath, withRouter } from 'react-router-dom';
+import { Route, matchPath, useLocation } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Information from './pages/Info';
@@ -7,26 +7,27 @@ import Calculator from './pages/Calculator';
 import FindRecycler from './pages/FindRecycler';
 import Error from './pages/Error';
 
-import { TransWrap } from './utils/Transitions';
+import { TransDiv } from './utils/Transitions';
 import { siteName } from '../App';
 import '../App.css';
 
 
-const Pages = ({location}) => {
+export default function Pages() {
    const linkNames = useMemo(() => {
       const links = Object.keys(paths);
       return pathNames()
          .reduce((obj, name, i) => ({...obj, [links[i]]: name}), {});
    }, []);
    
-   const urlPaths = urls();
+   const urlPaths = useMemo(urls, []);
+   const location = useLocation();
 
    //find valid route before for name for title
-   const valid = Object.keys(urlPaths).reduce((match, path) => (
-      match || matchPath(location.pathname, {path, exact: true})
+   const valid = Object.entries(urlPaths).reduce((match, [path, {exact}]) => (
+      match || matchPath(location.pathname, {path, exact})
    ), false);
 
-   const path = valid ? urlPaths[valid.path] : "/error";
+   const path = valid ? urlPaths[valid.path].name : "/error";
    const matchComp = paths[path].Comp;
 
    useEffect(() => {
@@ -37,12 +38,12 @@ const Pages = ({location}) => {
       {Object.entries(paths).map(( [path, {Comp, trans, rel}] ) => (
          <Route key={path} exact path={path}>
             {() => ( //will always render
-               <TransWrap 
+               <TransDiv 
                   in={Comp===matchComp} classNames={trans} 
                   divClass={rel ? "rel" : ""}
                >
                   <Comp />
-               </TransWrap>
+               </TransDiv>
             )}
          </Route>
       ))}
@@ -52,21 +53,25 @@ const Pages = ({location}) => {
 
 const paths = {
    "/": {
-      Comp: Home, trans: "zoom", rel: true },
+      Comp: Home, trans: "zoom", rel: true, exact: true },
    "/information": {
-      Comp: Information, trans: "fade", rel: true },
+      Comp: Information, trans: "fade", rel: true, exact: false },
    "/calculator": {
-      Comp: Calculator, trans: "fade", rel: true },
+      Comp: Calculator, trans: "fade", rel: true, exact: false },
    "/find-recycler": {
-      Comp: FindRecycler, trans: "fade", rel: false },
+      Comp: FindRecycler, trans: "fade", rel: false, exact: false },
    "/error": {
-      Comp: Error, trans: "fade", rel: true }
+      Comp: Error, trans: "fade", rel: true, exact: false }
 };
 
+export const toUrl = (path) => `${siteName}${path}`;
+
 export const urls = () => (
-   Object.keys(paths)
-      .map(path => [`${siteName}${path}`, path])
-      .reduce((obj, [url, name]) => ({...obj, [url]: name}), {})
+   Object.entries(paths)
+      .map(([path, {exact}]) => [toUrl(path), path, exact])
+      .reduce((obj, [url, name, exact]) => (
+         {...obj, [url]: {name, exact}}
+      ), {})
 );
 
 export const pathNames = () => (
@@ -77,5 +82,3 @@ export const pathNames = () => (
       .map(name => name.replace(/ ([a-z])/, r => r.toUpperCase()))
       .map(name => name.replace(/^./, f => f.toUpperCase()))
 );
-
-export default withRouter(Pages);

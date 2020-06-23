@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import ThemeContext from '../../contexts/ThemeContext';
-import { TransWrap, TransSpan } from '../utils/Transitions';
+import { TransDiv, TransSpan } from '../utils/Transitions';
 import { fieldNames } from '../pages/Calculator';
 import '../../App.css';
 
@@ -196,7 +196,7 @@ const MaterialField = (props) => {
 
             <TextField name={`${name}-weight`} value={weightVal}
                show={avg} subfield {...textProps}>
-               Average Weight <TransSpan classNames="fade">({unit})</TransSpan>
+               Average Weight <TransSpan classNames="fade" timeout={150}>({unit})</TransSpan>
             </TextField>
 
             <TextField name={`${name}-boxes`} value={boxVal}
@@ -211,12 +211,12 @@ const MaterialField = (props) => {
 
 //border color not inheriting
 const TextField = ({show, name, subfield, theme, children, ...input}) =>  (
-   <TransWrap key={name} in={show} classNames="fade"
+   <TransDiv key={name} in={show} classNames="fade"
       divClass={`text-container ${subfield ? "subfield" : ""}`}>
       <label>
          {children}
          <input type="tel" className="textfield" name={name} {...input} 
             style={{borderColor: theme.off}}/>
       </label>
-   </TransWrap>
+   </TransDiv>
 );

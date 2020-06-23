@@ -1,5 +1,7 @@
 import React from 'react';
-import { MobileView, BrowserView } from 'react-device-detect';
+import {
+    CustomView, MobileView, isMobile, isBrowser 
+} from 'react-device-detect';
 import '../../App.css';
 
 /**
@@ -9,14 +11,10 @@ import '../../App.css';
  * @param {JSX.Element} props.children
  */
 export const ContentWrap = ({children}) => <>
-    <BrowserView>
-        <div className='content'>
-            {children}
-        </div>
-    </BrowserView>
-    <MobileView>
-        <div className='content mobile'>
-            {children}
-        </div>
+    <CustomView condition={!isMobile && isBrowser} viewClassName='content'>
+        {children}
+    </CustomView>
+    <MobileView viewClassName='content mobile'>
+        {children}
     </MobileView>
 </>;

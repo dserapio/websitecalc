@@ -8,7 +8,7 @@ import '../../App.css';
  * @param {boolean} props.active
  * @param {JSX.Element} props.children
  */
-export const FadeWrap = ({children, ...transProps} ) => {
+export function FadeWrap({divClass, children, ...transProps} ) {
    const divRef = useRef(null);
    return ( 
       <CSSTransition
@@ -18,7 +18,7 @@ export const FadeWrap = ({children, ...transProps} ) => {
          unmountOnExit
          {...transProps}
       >
-         <div ref={divRef} className="rel">
+         <div ref={divRef} className={divClass || "rel"}>
             {children}
          </div>
       </CSSTransition>
@@ -31,7 +31,7 @@ export const FadeWrap = ({children, ...transProps} ) => {
  * @param {string} props.divClass the class of the div wrapper for the children
  * @param {JSX.Element} props.children
  */
-export const TransWrap = ({divClass, children, ...transProps}) => {
+export function TransDiv({divClass, children, ...transProps}) {
    const divRef = useRef(null);
    return (
       <CSSTransition
@@ -47,7 +47,7 @@ export const TransWrap = ({divClass, children, ...transProps}) => {
    );
 };
 
-export const TransSpan = ({children, ...transProps}) => {
+export function TransSpan({spanClass, children, ...transProps}) {
    const spanRef = useRef(null);
    return (
       <SwitchTransition>
@@ -57,7 +57,7 @@ export const TransSpan = ({children, ...transProps}) => {
             timeout={200}
             {...transProps}
          >
-            <span ref={spanRef}>{children}</span>
+            <span ref={spanRef} className={spanClass}>{children}</span>
          </CSSTransition>
       </SwitchTransition>
    )

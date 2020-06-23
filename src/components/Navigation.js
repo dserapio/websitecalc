@@ -20,8 +20,8 @@ const Navigation = React.forwardRef(
    const linkInfos = useMemo(() => {
       const names = pathNames();
       return Object.entries(urls())
-         .filter( ([_, name]) => name!=="/error")
-         .map( ([url, _], i) => [url, names[i]]);
+         .filter( ([_, {name}]) => name!=="/error")
+         .map( ([url, {exact}], i) => [url, names[i], exact]);
    }, []);
 
    const [yPos, setYPos] = useState(0);
@@ -40,12 +40,13 @@ const Navigation = React.forwardRef(
          const shrinkOn = window.innerHeight * (isMobile ? 0.1 : 0.02);
          const addClass = isMobile ? "hidden" : "smaller";
 
-         const down = distanceY > yPos;
+         const downDir = distanceY > yPos;
+         const downThresh = distanceY > shrinkOn;
          setYPos(distanceY);
 
-         if (distanceY > shrinkOn && down)
+         if (downThresh && downDir)
             navRef.current.classList.add(addClass);
-         else if (!down)
+         else if (!downDir && (isMobile || !downThresh))
             navRef.current.classList.remove(addClass);
       };
    }, [yPos]);
@@ -107,8 +108,8 @@ const Navigation = React.forwardRef(
             <div ref={ref} className={`nav-list ${hide ? "hide" : ""}`}
                style={{backgroundColor: theme.mainAlt}}
             >
-               {linkInfos.map(([path, name], i) => (
-                  <NavLink key={path+i} className="nav-link" exact to={path}>{name}</NavLink>
+               {linkInfos.map(([path, name, exact], i) => (
+                  <NavLink key={path+i} className="nav-link" exact={exact} to={path}>{name}</NavLink>
                ))}
 
                <div className="nav-link theme-link" onClick={swapTheme}>
