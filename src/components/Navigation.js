@@ -24,6 +24,11 @@ const Navigation = React.forwardRef(
          .map( ([url, {exact}], i) => [url, names[i], exact]);
    }, []);
 
+   const homeLink = useMemo(() => {
+      const homeInfo = linkInfos.filter(([_, name]) => name==="Home")[0]; //should only be one
+      return {to: homeInfo[0], exact: homeInfo[2]};
+   }, [linkInfos]);
+
    const [yPos, setYPos] = useState(0);
 
    const navRef = useRef();
@@ -99,7 +104,7 @@ const Navigation = React.forwardRef(
          <div className="logoBtn" 
             style={{backgroundColor: isLight ? "transparent" : theme.offAlt}}
          >
-            <NavLink className="nav-link" exact to="/">
+            <NavLink className="nav-link" {...homeLink}>
                <img className="logo" src={logo} alt="logo"/>
             </NavLink>
          </div>

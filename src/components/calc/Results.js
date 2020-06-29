@@ -44,10 +44,11 @@ const currPieSize = () => ({
    height: window.innerHeight * 0.4
 });
 
+
 export default function Results ({values, ...restProps}) {
    return Object.keys(values).length === 0
       ? <Redirect to={toUrl('/calculator')}/>
-      : <ResultsFull {...{...restProps, values}}/>
+      : <ResultsFull {...{values, ...restProps}}/>
 }
 
 function ResultsFull (props) {
@@ -85,10 +86,10 @@ function ResultsFull (props) {
    const pieData = Object.entries(values)
       .filter(([name, _]) => !aggregates.includes(name))
       .map(([name, value], index) => ({
-            id: name,
-            label: name, 
-            value: value * unit.convert, 
-            color: colors[index]
+         id: name,
+         label: name, 
+         value: value * unit.convert, 
+         color: colors[index]
       }));
 
    const [ghg, inTotal] = aggregates;
