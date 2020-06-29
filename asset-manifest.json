@@ -1,30 +1,30 @@
 {
   "files": {
-    "main.css": "/websitecalc/static/css/main.d68a158e.chunk.css",
-    "main.js": "/websitecalc/static/js/main.a7c120f1.chunk.js",
-    "main.js.map": "/websitecalc/static/js/main.a7c120f1.chunk.js.map",
+    "main.css": "/websitecalc/static/css/main.c6cb00a7.chunk.css",
+    "main.js": "/websitecalc/static/js/main.3c3cf83e.chunk.js",
+    "main.js.map": "/websitecalc/static/js/main.3c3cf83e.chunk.js.map",
     "runtime-main.js": "/websitecalc/static/js/runtime-main.e2114aa8.js",
     "runtime-main.js.map": "/websitecalc/static/js/runtime-main.e2114aa8.js.map",
-    "static/js/2.070adccb.chunk.js": "/websitecalc/static/js/2.070adccb.chunk.js",
-    "static/js/2.070adccb.chunk.js.map": "/websitecalc/static/js/2.070adccb.chunk.js.map",
+    "static/js/2.7d5f86ad.chunk.js": "/websitecalc/static/js/2.7d5f86ad.chunk.js",
+    "static/js/2.7d5f86ad.chunk.js.map": "/websitecalc/static/js/2.7d5f86ad.chunk.js.map",
     "index.html": "/websitecalc/index.html",
-    "precache-manifest.a2b82fed8704c9cc308361c6d39e9401.js": "/websitecalc/precache-manifest.a2b82fed8704c9cc308361c6d39e9401.js",
+    "precache-manifest.ed26a5c038ab8b18313e06a708c8edec.js": "/websitecalc/precache-manifest.ed26a5c038ab8b18313e06a708c8edec.js",
     "service-worker.js": "/websitecalc/service-worker.js",
-    "static/css/main.d68a158e.chunk.css.map": "/websitecalc/static/css/main.d68a158e.chunk.css.map",
-    "static/js/2.070adccb.chunk.js.LICENSE.txt": "/websitecalc/static/js/2.070adccb.chunk.js.LICENSE.txt",
+    "static/css/main.c6cb00a7.chunk.css.map": "/websitecalc/static/css/main.c6cb00a7.chunk.css.map",
+    "static/js/2.7d5f86ad.chunk.js.LICENSE.txt": "/websitecalc/static/js/2.7d5f86ad.chunk.js.LICENSE.txt",
     "static/media/e-stewards.png": "/websitecalc/static/media/e-stewards.dfd5258e.png",
     "static/media/gold.gif": "/websitecalc/static/media/gold.6b018cdc.gif",
-    "static/media/left-arrow.svg": "/websitecalc/static/media/left-arrow.34a4f31c.svg",
+    "static/media/left-arrow.svg": "/websitecalc/static/media/left-arrow.aaf34fe7.svg",
     "static/media/moon-regular.svg": "/websitecalc/static/media/moon-regular.2eae935f.svg",
-    "static/media/right-arrow.svg": "/websitecalc/static/media/right-arrow.5e5b72cc.svg",
+    "static/media/right-arrow.svg": "/websitecalc/static/media/right-arrow.1d292928.svg",
     "static/media/sun-solid.svg": "/websitecalc/static/media/sun-solid.6e1d81ac.svg",
     "static/media/trash.gif": "/websitecalc/static/media/trash.8e52305f.gif",
     "static/media/truck.gif": "/websitecalc/static/media/truck.dc7c3322.gif"
   },
   "entrypoints": [
     "static/js/runtime-main.e2114aa8.js",
-    "static/js/2.070adccb.chunk.js",
-    "static/css/main.d68a158e.chunk.css",
-    "static/js/main.a7c120f1.chunk.js"
+    "static/js/2.7d5f86ad.chunk.js",
+    "static/css/main.c6cb00a7.chunk.css",
+    "static/js/main.3c3cf83e.chunk.js"
   ]
 }
