@@ -55,7 +55,7 @@ export default function App() {
 
 
   return (
-    <div {...swipes}>
+    <div {...swipes} style={{minHeight: '100vh'}}>
       <BrowserRouter>
         <ThemeContext.Provider value={theme}>
           <Navigation ref={listRef} 

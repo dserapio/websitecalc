@@ -28,30 +28,25 @@ const pluralize = (str) => {
    return str.concat(last==='s' || last===')' ? '' : 's');
 };
 
-const prevent = (event) => {
-   if (event.cancelable)
-      event.preventDefault();
-}
-
 
 export default function Input (props) {
    const {
-      inputs, setInputs, toResults,
+      inputs, setInputs,  toResults,
       weight, swapWeight, toAbout,
-      unit, tolbs, tokg } = props;
+      unit,   tolbs,      tokg } = props;
 
    const [valid, setValid] = useState(true);
-   const [avg, setAvg] = useState(true);
+   const [avg, setAvg]     = useState(true);
    const [boxes, setBoxes] = useState(false);
    const [store, setStore] = useState('');
 
    const theme = useContext(ThemeContext);
 
 
-   const fieldFocus = ({target}) => { //clear default
-      //prevent resize from virt keys
-      window.addEventListener('resize', prevent);
+   const fieldFocus = (event) => { //clear default
+      event.stopPropagation();
 
+      const {target} = event;
       setValid(true);
       const [field, attr] = parseTarget(target);
       const fieldVal = inputs[field][attr];
@@ -64,8 +59,6 @@ export default function Input (props) {
    };
 
    const fieldBlur = ({target}) => {
-      window.removeEventListener('resize', prevent);
-
       if (store && !target.value) {
          const [field, attr] = parseTarget(target);
          setInputs({
@@ -180,27 +173,29 @@ export default function Input (props) {
 
 const MaterialField = (props) => {
    const {
-      name, value, unit, weight, avg, boxes, ...textProps} = props;
+      name, value, unit, weight, avg, boxes, theme, ...textProps} = props;
    const {
-      amount, weight: {value: weightVal}, boxes: {value: boxVal}} = value;
+      amount, weight: {value: weightVal, default: weightDef}, 
+      boxes: {value: boxVal} } = value;
 
    return (
-      <div className="fields">
+      <div className="fields" style={{backgroundColor: theme.mainAlt}}>
 
-         <TextField name={`${name}-amount`} value={amount} show={true} {...textProps}>
+         <TextField name={`${name}-amount`} value={amount} show {...{theme, ...textProps}}>
             Total {pluralize(name)} {' '}
             <TransSpan classNames="fade">{weight && `(${unit})`}</TransSpan>
          </TextField>
 
          <div className="subfields">
 
-            <TextField name={`${name}-weight`} value={weightVal}
-               show={avg} subfield {...textProps}>
+            <TextField name={`${name}-weight`}
+               value={weightDef ? weightVal.toFixed(2) : weightVal}
+               show={avg} subfield {...{theme, ...textProps}}>
                Average Weight <TransSpan classNames="fade" timeout={150}>({unit})</TransSpan>
             </TextField>
 
             <TextField name={`${name}-boxes`} value={boxVal}
-               show={boxes} subfield {...textProps}>
+               show={boxes} subfield {...{theme, ...textProps}}>
                Numbers Per Container
             </TextField>
             

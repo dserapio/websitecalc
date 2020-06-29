@@ -29,24 +29,24 @@ const getPaths = () => innerPages.reduce((dict, page) => (
 export default function Calculator() {
   const paths = useMemo(getPaths, []);
 
-  const [weight, setWeight] = useState(false);
-  const [unit, setUnit] = useState( convertObj('kg') );
-  const [inputs, setInputs] = useReducer(setField, undefined, fieldStarts);
+  const [weight, setWeight]   = useState(false);
+  const [unit, setUnit]       = useState( convertObj('kg') );
+  const [inputs, setInputs]   = useReducer(setField, undefined, fieldStarts);
   const [results, setResults] = useState( {} );
 
   const location = useLocation();
-  const history = useHistory();
-  const defsRef = useRef();
+  const history  = useHistory();
+  const defsRef  = useRef();
 
   const tolbs = () => setUnit(convertObj('lbs'));
-  const tokg = () => setUnit(convertObj('kg'));
+  const tokg  = () => setUnit(convertObj('kg'));
 
   const toResults = () => {
     setResults(findTotals(inputs, unit.convert, weight));
     history.push(paths.result);
   };
-  const toBack = () => history.replace(paths.input)
-  const toAbout = () => history.push(paths.about);
+  const toBack    = () => history.replace(paths.input)
+  const toAbout   = () => history.push(paths.about);
   const fromAbout = () => history.replace(paths.input);
 
   const swapWeight = () => setWeight(weight => !weight)

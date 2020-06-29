@@ -51,7 +51,8 @@ const About = ({calc}) => <>
             This takes into account of the varying sizes and compositions of technologies such as flat panel TVs and smartphones. 
             Some electronics may contain proprietary material and losses may happen during recovery. </p>
 
-         <p> For more information, sources used to develop the calculations can be found <a href="https://docs.google.com/spreadsheets/d/1ObHDmde5JPeCf04jsK3n6PvsbKxdmbop/edit#gid=993306743 ">here</a>. </p>
+         <p> For more information, sources used to develop the calculations can be found 
+            <a href="https://docs.google.com/spreadsheets/d/1ObHDmde5JPeCf04jsK3n6PvsbKxdmbop/edit#gid=993306743 ">here</a>. </p>
 
          <h3>The environmental benefits are measured in three critical areas:</h3>
          <ol>
