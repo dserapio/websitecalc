@@ -62,6 +62,19 @@ const About = ({calc}) => <>
          </ol>
          <p>These figures can be used to demonstrate and measure individual or corporate responsibility</p>
       </section>
+
+      <section>
+         <h2>Credits</h2>
+         <p> 
+            The icons for the theme were provided by <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a>
+            . The <a href="https://fontawesome.com/license/free"  target="_blank" rel="noopener noreferrer"> license</a> allows us to use these 
+            icons in this project.
+         </p>
+
+         <p>
+            Some of the images from the result page were provided <a href="https://acegif.com/"  target="_blank" rel="noopener noreferrer"> here</a>
+         </p>
+      </section>
       
    </section>
 </>;
