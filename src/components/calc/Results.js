@@ -40,7 +40,7 @@ const fetchGold = async () => {
 }
 
 const currPieSize = () => ({
-   width: isMobile ? window.innerWidth*0.85 : window.innerWidth*0.2 + 200,
+   width: isMobile ? window.innerWidth*0.85 : window.innerWidth*0.2 + 325,
    height: window.innerHeight * 0.4
 });
 
@@ -78,21 +78,16 @@ function ResultsFull (props) {
          window.removeEventListener('resize', resizePie);
       }
    }, [setSize]);
-   
 
-   const colors = ['#444444', '#FFC300', '#FF5733', '#C70039', '#900C3F',
-      '#1A08FF', '#83FF0C','#000000', '#00ECFF', '#201015', '#581845'];
+   const [ghg, inTotal, outTotal] = aggregates;
 
    const pieData = Object.entries(values)
       .filter(([name, _]) => !aggregates.includes(name))
       .map(([name, value], index) => ({
-         id: name,
-         label: name, 
-         value: value * unit.convert, 
-         color: colors[index]
+         id: name, 
+         value: value * unit.convert,
+         percentage: Math.round((value/values[outTotal])*100)
       }));
-
-   const [ghg, inTotal] = aggregates;
 
    const trucks = values[inTotal] / emissionData.trucks;
    const diverts = values[inTotal] / emissionData.divert;
@@ -215,9 +210,9 @@ function ResultsFull (props) {
                         symbolShape: 'circle'
                      }
                   ]}
-                  tooltip={({ id, value }) => (
+                  tooltip={({ id, value, percentage }) => (
                      <strong>
-                        {id} : {value.toFixed(4)} {unit.name}
+                        {id} : {value.toFixed(4)} {unit.name} : {percentage}%
                      </strong>
                   )}
                   theme={{
