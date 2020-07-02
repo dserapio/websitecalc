@@ -51,8 +51,9 @@ const About = ({calc}) => <>
             This takes into account of the varying sizes and compositions of technologies such as flat panel TVs and smartphones. 
             Some electronics may contain proprietary material and losses may happen during recovery. </p>
 
-         <p> For more information, sources used to develop the calculations can be found 
-            <a href="https://docs.google.com/spreadsheets/d/1ObHDmde5JPeCf04jsK3n6PvsbKxdmbop/edit#gid=993306743 ">here</a>. </p>
+         <p> For more information, sources used to develop the calculations can be found {' '}
+            <a href="https://docs.google.com/spreadsheets/d/1ObHDmde5JPeCf04jsK3n6PvsbKxdmbop/edit#gid=993306743"
+               target="_blank" rel="noopener noreferrer">here</a>. </p>
 
          <h3>The environmental benefits are measured in three critical areas:</h3>
          <ol>
@@ -66,8 +67,8 @@ const About = ({calc}) => <>
       <section>
          <h2>Credits</h2>
          <p> 
-            The icons for the theme were provided by <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a>
-            . The <a href="https://fontawesome.com/license/free"  target="_blank" rel="noopener noreferrer"> license</a> allows us to use these 
+            The icons for the theme were provided by <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a>.
+            The <a href="https://fontawesome.com/license/free" target="_blank" rel="noopener noreferrer"> license</a> allows us to use these 
             icons in this project.
          </p>
 

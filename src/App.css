@@ -414,7 +414,7 @@ form {
 }
 
 section.main .fields {
-  margin: 32px 0;
+  margin: calc(20px + 0.5vh) 0;
   padding: 15px;
   border-radius: 5px;
   box-shadow: 0 0 11px rgba(0, 0, 0, 0.30);
@@ -527,7 +527,7 @@ label .error {
 }
 
 .info-stat {
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -538,7 +538,7 @@ label .error {
 
 .info-stat img {
   flex: 0 0;
-  max-width: 135px;
+  max-width: 130px;
 }
 
 .outputs .info-stat p {
