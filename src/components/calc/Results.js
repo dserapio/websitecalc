@@ -12,10 +12,14 @@ import emissionData from '../../data/ghg-info.json';
 import truck from '../../img/truck.gif';
 import trash from '../../img/trash.gif';
 import goldBars from '../../img/gold.gif';
+import steelCar  from '../../img/cranecar.gif';
 
 
 const prettyNum = (num, fracDigits=4) =>
-   num.toLocaleString(undefined, {maximumFractionDigits: fracDigits});
+   num.toLocaleString(undefined, {
+      minimumFractionDigits: fracDigits,
+      maximumFractionDigits: fracDigits
+   });
 
 
 const fetchGold = async () => {
@@ -92,6 +96,7 @@ function ResultsFull (props) {
    const trucks = values[inTotal] / emissionData.trucks;
    const diverts = values[inTotal] / emissionData.divert;
    const LaNyTrips = values[ghg]  / emissionData.co2LANY;
+   const perVehicle = values.Steel / emissionData.vehicle;
 
    return <>
       <section className="sidebar">
@@ -166,6 +171,15 @@ function ResultsFull (props) {
                   <p>
                      The total gold currently worth around {' '}
                      <span className="show-num">${prettyNum(values.Gold * gold.price, 2)}</span>
+                  </p>
+               </section>
+
+               <section className="info-stat">
+                  <img alt="steel-stat" src={steelCar}/>
+                  <p>
+                     <span className="show-num">{prettyNum(values.Steel, 2)} {unit.name}</span> {' '}
+                     of steel is approximately the same amount used in {' '}
+                     <span className="show-num">{prettyNum(perVehicle, 2)}</span> motor vehicles
                   </p>
                </section>
             </div>
