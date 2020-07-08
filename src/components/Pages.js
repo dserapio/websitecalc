@@ -1,10 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { Route, matchPath, useLocation } from 'react-router-dom';
 
-import Home from './pages/Home';
-import Information from './pages/Info';
 import Calculator from './pages/Calculator';
-import FindRecycler from './pages/FindRecycler';
 import Error from './pages/Error';
 
 import { TransDiv } from './utils/Transitions';
@@ -52,14 +49,8 @@ export default function Pages() {
 
 
 const paths = {
-   "/": {
-      Comp: Home, trans: "zoom", rel: true, exact: true },
-   "/information": {
-      Comp: Information, trans: "fade", rel: true, exact: false },
    "/calculator": {
       Comp: Calculator, trans: "fade", rel: true, exact: false },
-   "/find-recycler": {
-      Comp: FindRecycler, trans: "fade", rel: false, exact: false },
    "/error": {
       Comp: Error, trans: "fade", rel: true, exact: false }
 };
@@ -77,7 +68,6 @@ export const urls = () => (
 export const pathNames = () => (
    Object.keys(paths)
       .map(name => name.replace('/', ''))
-      .map(name => name==="" ? "home" : name)
       .map(name => name.replace('-', ' '))
       .map(name => name.replace(/ ([a-z])/, r => r.toUpperCase()))
       .map(name => name.replace(/^./, f => f.toUpperCase()))

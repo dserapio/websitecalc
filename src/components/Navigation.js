@@ -25,8 +25,8 @@ const Navigation = React.forwardRef(
    }, []);
 
    const homeLink = useMemo(() => {
-      const homeInfo = linkInfos.filter(([_, name]) => name==="Home")[0]; //should only be one
-      return {to: homeInfo[0], exact: homeInfo[2]};
+      const homeInfo = linkInfos.filter(([_, name]) => name==="Calculator")[0]; //should only be one
+      return {to: homeInfo[0], exact: homeInfo[1]};
    }, [linkInfos]);
 
    const [yPos, setYPos] = useState(0);
