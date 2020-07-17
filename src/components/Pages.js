@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { Route, matchPath, useLocation } from 'react-router-dom';
 
 import Calculator from './pages/Calculator';
+import Error from './pages/Error';
 
 import { TransDiv } from './utils/Transitions';
 import { siteName } from '../App';
@@ -23,7 +24,7 @@ export default function Pages() {
       match || matchPath(location.pathname, {path, exact})
    ), false);
 
-   const path = valid ? urlPaths[valid.path].name : "/calculator";
+   const path = valid ? urlPaths[valid.path].name : "/";
    const matchComp = paths[path].Comp;
 
    useEffect(() => {
@@ -48,8 +49,10 @@ export default function Pages() {
 
 
 const paths = {
-   "/calculator": {
-      Comp: Calculator, trans: "fade", rel: true, exact: true }
+   "/": {
+      Comp: Calculator, trans: "fade", rel: true, exact: true },
+   "/error": {
+      Comp: Error, trans: "fade", rel: true, exact: false }
 };
 
 export const toUrl = (path) => `${siteName}${path}`;

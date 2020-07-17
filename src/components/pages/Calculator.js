@@ -22,7 +22,7 @@ import '../../App.css';
 
 const innerPages = ['about', 'input', 'result', 'base'];
 const getPaths = () => innerPages.reduce((dict, page) => (
-  {...dict, [page]: toUrl(`/calculator/${page==='base' ? '' : page}`)}
+  {...dict, [page]: toUrl(`/${page==='base' ? '' : page}`)}
 ), {});
 
 
