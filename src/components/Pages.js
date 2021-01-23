@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { Route, matchPath, useLocation } from 'react-router-dom';
 
 import Calculator from './pages/Calculator';
-import Error from './pages/Error';
+import About from './pages/About';
 
 import { TransDiv } from './utils/Transitions';
 import { siteName } from '../App';
@@ -24,6 +24,7 @@ export default function Pages() {
       match || matchPath(location.pathname, {path, exact})
    ), false);
 
+   console.log(`is valid ${valid}`)
    const path = valid ? urlPaths[valid.path].name : "/";
    const matchComp = paths[path].Comp;
 
@@ -51,8 +52,8 @@ export default function Pages() {
 const paths = {
    "/": {
       Comp: Calculator, trans: "fade", rel: true, exact: true },
-   "/error": {
-      Comp: Error, trans: "fade", rel: true, exact: false }
+   "/about": {
+      Comp: About, trans: "fade", rel: true, exact: true }
 };
 
 export const toUrl = (path) => `${siteName}${path}`;
