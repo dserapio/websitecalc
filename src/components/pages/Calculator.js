@@ -21,7 +21,7 @@ import '../../App.css';
 
 const innerPages = ['input', 'result', 'calculator'];
 const getPaths = () => innerPages.reduce((dict, page) => (
-  {...dict, [page]: toUrl(`/${page}`)}
+  {...dict, [page]: toUrl(`/${page==='calculator' ? '' : page}`)}
 ), {});
 
 

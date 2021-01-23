@@ -24,7 +24,7 @@ export default function Pages() {
       match || matchPath(location.pathname, {path, exact})
    ), false);
 
-   const path = valid ? urlPaths[valid.path].name : "/calculator";
+   const path = valid ? urlPaths[valid.path].name : "/";
    const matchComp = paths[path].Comp;
 
    console.log(`found path at ${path}`);
@@ -51,7 +51,7 @@ export default function Pages() {
 
 
 const paths = {
-   "/calculator": {
+   "/": {
       Comp: Calculator, trans: "fade", rel: true, exact: true },
    "/about": {
       Comp: About, trans: "fade", rel: true, exact: false }
