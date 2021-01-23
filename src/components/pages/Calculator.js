@@ -13,14 +13,13 @@ import { convertObj } from '../utils/UnitConvert';
 import { toUrl } from '../Pages';
 import Input from '../calc/Input';
 import Results from '../calc/Results';
-import About from '../calc/About';
 
 import recycle from '../../data/recycle-info.json';
 import emissionData from '../../data/ghg-info.json';
 import '../../App.css';
 
 
-const innerPages = ['about', 'input', 'result', 'base'];
+const innerPages = ['input', 'result', 'base'];
 const getPaths = () => innerPages.reduce((dict, page) => (
   {...dict, [page]: toUrl(`/${page==='base' ? '' : page}`)}
 ), {});
@@ -46,8 +45,6 @@ export default function Calculator() {
     history.push(paths.result);
   };
   const toBack    = () => history.replace(paths.input)
-  const toAbout   = () => history.push(paths.about);
-  const fromAbout = () => history.replace(paths.input);
 
   const swapWeight = () => setWeight(weight => !weight)
 
@@ -83,18 +80,12 @@ export default function Calculator() {
       <FadeWrap key={location.key}>
         
         <Switch location={location}>
-          <Route exact path={paths.about}>
-            <ContentWrap>
-              <About calc={fromAbout}/>
-            </ContentWrap>   
-          </Route>
 
           <Route exact path={paths.input}>
             <ContentWrap>
               <Input inputs={inputs} setInputs={setInputs}
                 unit={unit} tolbs={tolbs} tokg={tokg} 
                 weight={weight} swapWeight={swapWeight}
-                toAbout={toAbout}
                 toResults={toResults}
               />
             </ContentWrap>
@@ -104,7 +95,6 @@ export default function Calculator() {
             <ContentWrap>
               <Results values={results} 
                 unit={unit} tolbs={tolbs} tokg={tokg} 
-                toAbout={toAbout}
                 toBack={toBack}
               />
             </ContentWrap>

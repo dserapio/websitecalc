@@ -58,7 +58,7 @@ export default function Results ({values, ...restProps}) {
 function ResultsFull (props) {
    const {
       unit, tolbs, tokg, 
-      toAbout, toBack, values } = props;
+      toBack, values } = props;
 
    // Units default to kg
    const [gold, setGold] = useState({price: 55006.71, default: true}); //usd per kilo, 6/15/2020
@@ -101,8 +101,6 @@ function ResultsFull (props) {
    return <>
       <section className="sidebar">
          <div className="button-group">
-            <button type="button" onClick={toAbout}>
-               About</button>
             <button className={unit.name==='kg' ? "active" : ""}
                type="button" onClick={tokg}>
                kg</button>

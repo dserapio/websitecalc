@@ -32,7 +32,7 @@ const pluralize = (str) => {
 export default function Input (props) {
    const {
       inputs, setInputs,  toResults,
-      weight, swapWeight, toAbout,
+      weight, swapWeight,
       unit,   tolbs,      tokg } = props;
 
    const [valid, setValid] = useState(true);
@@ -118,8 +118,6 @@ export default function Input (props) {
       <section className="sidebar">
 
          <div className="button-group">
-            <button type="button" onClick={toAbout}>
-               About</button>
             <button className={avg ? " active" : ""} type="button" onClick={toggleAvg}>
                Set Avg. Weight</button>
             <button className={boxes ? " active" : ""} type="button" onClick={toggleBox}>

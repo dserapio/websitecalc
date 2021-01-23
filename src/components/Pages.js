@@ -53,7 +53,7 @@ const paths = {
    "/": {
       Comp: Calculator, trans: "fade", rel: true, exact: true },
    "/about": {
-      Comp: About, trans: "fade", rel: true, exact: true }
+      Comp: About, trans: "fade", rel: true, exact: false }
 };
 
 export const toUrl = (path) => `${siteName}${path}`;
