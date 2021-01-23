@@ -19,9 +19,9 @@ import emissionData from '../../data/ghg-info.json';
 import '../../App.css';
 
 
-const innerPages = ['input', 'result', 'base'];
+const innerPages = ['input', 'result', 'calculator'];
 const getPaths = () => innerPages.reduce((dict, page) => (
-  {...dict, [page]: toUrl(`/${page==='base' ? '' : page}`)}
+  {...dict, [page]: toUrl(`/${page}`)}
 ), {});
 
 
@@ -44,8 +44,8 @@ export default function Calculator() {
     setResults(findTotals(inputs, unit.convert, weight));
     history.push(paths.result);
   };
-  const toBack    = () => history.replace(paths.input)
 
+  const toBack    = () => history.replace(paths.input)
   const swapWeight = () => setWeight(weight => !weight)
 
   //remove dependency on inputs
@@ -94,13 +94,12 @@ export default function Calculator() {
           <Route exact path={paths.result}>
             <ContentWrap>
               <Results values={results} 
-                unit={unit} tolbs={tolbs} tokg={tokg} 
-                toBack={toBack}
+                unit={unit} tolbs={tolbs} tokg={tokg} toBack={toBack}
               />
             </ContentWrap>
           </Route>
           
-          <Route path={paths.base}>
+          <Route exact path={paths.calculator}>
             <Redirect to={paths.input}/>
           </Route>
         </Switch>

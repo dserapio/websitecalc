@@ -24,17 +24,18 @@ export default function Pages() {
       match || matchPath(location.pathname, {path, exact})
    ), false);
 
-   console.log(`is valid ${valid}`)
-   const path = valid ? urlPaths[valid.path].name : "/";
+   const path = valid ? urlPaths[valid.path].name : "/calculator";
    const matchComp = paths[path].Comp;
+
+   console.log(`found path at ${path}`);
 
    useEffect(() => {
       document.title = `e-Stewards - ${linkNames[path]}`;
    }, [linkNames, path]);
 
    return <>
-      {Object.entries(paths).map(( [path, {Comp, trans, rel}] ) => (
-         <Route key={path} exact path={path}>
+      {Object.entries(paths).map(( [path, {Comp, trans, rel, exact}] ) => (
+         <Route key={path} exact={exact} path={path}>
             {() => ( //will always render
                <TransDiv 
                   in={Comp===matchComp} classNames={trans} 
@@ -50,7 +51,7 @@ export default function Pages() {
 
 
 const paths = {
-   "/": {
+   "/calculator": {
       Comp: Calculator, trans: "fade", rel: true, exact: true },
    "/about": {
       Comp: About, trans: "fade", rel: true, exact: false }

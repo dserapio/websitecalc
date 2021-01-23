@@ -1,10 +1,9 @@
 import React from 'react';
-import '../../App.css';
 import { ContentWrap } from '../utils/Styles';
+import '../../App.css';
 
-const About = ({calc}) => <>
-   
-   <ContentWrap>
+function About() {
+   return <ContentWrap>
       <section className="main">
          <h1>About the Calculator</h1>
          <p>
@@ -73,10 +72,9 @@ const About = ({calc}) => <>
                Some of the images from the result page were provided <a href="https://acegif.com/"  target="_blank" rel="noopener noreferrer"> here</a>
             </p>
          </section>
-         
       </section> 
 
-   </ContentWrap>                                                                                                                                               
-</>;
+   </ContentWrap>;
+}
 
  export default React.memo(About);                                                                                                                                                                                                                                                                                                                                                                                               

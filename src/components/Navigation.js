@@ -20,13 +20,12 @@ const Navigation = React.forwardRef(
    const linkInfos = useMemo(() => {
       const names = pathNames();
       return Object.entries(urls())
-         .filter( ([_, {name}]) => name!=="/error")
          .map( ([url, {exact}], i) => [url, names[i], exact]);
    }, []);
 
    const homeLink = useMemo(() => {
       const homeInfo = linkInfos.filter(([_, name]) => name==="Calculator")[0]; //should only be one
-      return {to: homeInfo[0], exact: homeInfo[1]};
+      return {to: homeInfo[0], exact: homeInfo[2]};
    }, [linkInfos]);
 
    const [yPos, setYPos] = useState(0);
