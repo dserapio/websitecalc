@@ -11,7 +11,6 @@ import '../../App.css';
 import emissionData from '../../data/ghg-info.json';
 import truck from '../../img/truck.gif';
 import trash from '../../img/trash.gif';
-import goldBars from '../../img/gold.gif';
 import steelCar  from '../../img/cranecar.gif';
 
 
@@ -20,28 +19,6 @@ const prettyNum = (num, fracDigits=4) =>
       minimumFractionDigits: fracDigits,
       maximumFractionDigits: fracDigits
    });
-
-
-const fetchGold = async () => {
-   const goldUrl = 'https://www.kitco.com/gold-price-today-usa/';
-
-   const data = await fetch("https://cors-anywhere.herokuapp.com/" + goldUrl)
-      .then(response => response.text());
-
-   const parse = new DOMParser();
-   const doc = parse.parseFromString(data, 'text/html');
-
-   const table = [...doc.getElementsByTagName('table')]
-      .filter(table => 
-         table.tBodies.item(0).innerText.includes('Gold Spot Price'))[0];
-
-   const price = [...table.tBodies.item(0).rows]
-      .filter(row => row.cells.item(0).innerText.includes('kilo'))[0]
-      .cells.item(1).innerText;
-
-   console.log(`got price ${price}`);
-   return parseFloat(price.replace(',', ''));
-}
 
 const currPieSize = () => ({
    width: isMobile ? window.innerWidth*0.85 : window.innerWidth*0.2 + 325,
@@ -61,18 +38,9 @@ function ResultsFull (props) {
       toBack, values } = props;
 
    // Units default to kg
-   const [gold, setGold] = useState({price: 55006.71, default: true}); //usd per kilo, 6/15/2020
    const [pieSize, setSize] = useState(currPieSize);
 
    const theme = useContext(ThemeContext);
-
-   useEffect(() => {
-      if (gold.default)
-         fetchGold()
-            .then(price => setGold(state => ({...state, price})))
-            .catch(console.log)
-            .finally(() => setGold(state => ({...state, default: false}) ));
-   }, [gold.default]);
 
    useEffect(() => {
       const resizePie = () => setSize(currPieSize);
@@ -161,14 +129,6 @@ function ResultsFull (props) {
                      The greenhouse gas emissions is as much gas used in {' '}
                      <span className="show-num">{prettyNum(LaNyTrips, 0)}</span> car trips between 
                      New York and Los Angeles!
-                  </p>
-               </section>
-
-               <section className="info-stat">
-                  <img alt="gold-bars" src={goldBars}/>
-                  <p>
-                     The total gold currently worth around {' '}
-                     <span className="show-num">${prettyNum(values.Gold * gold.price, 2)}</span>
                   </p>
                </section>
 
