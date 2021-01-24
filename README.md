@@ -1,6 +1,6 @@
 # IPRO Public Safety Managing Electronic Waste
 
-This project is hosted [here](https://dserapio.github.io/websitecalc/calculator)
+This project is hosted [here](https://dserapio.github.io/websitecalc/input)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
