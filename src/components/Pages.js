@@ -27,8 +27,6 @@ export default function Pages() {
    const path = valid ? urlPaths[valid.path].name : "/";
    const matchComp = paths[path].Comp;
 
-   console.log(`found path at ${path}`);
-
    useEffect(() => {
       document.title = `e-Stewards - ${linkNames[path]}`;
    }, [linkNames, path]);

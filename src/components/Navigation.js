@@ -15,7 +15,7 @@ import '../App.css';
 
 
 const Navigation = React.forwardRef(
-   ({hide, setNav, swapTheme}, ref) => {
+   ({hide, setNav, swapTheme, homeUrls}, ref) => {
 
    const linkInfos = useMemo(() => {
       const names = pathNames();
@@ -112,8 +112,15 @@ const Navigation = React.forwardRef(
             <div ref={ref} className={`nav-list ${hide ? "hide" : ""}`}
                style={{backgroundColor: theme.mainAlt}}
             >
-               {linkInfos.map(([path, name, exact], i) => (
-                  <NavLink key={path+i} className="nav-link" exact={exact} to={path}>{name}</NavLink>
+               {linkInfos.map(([path, name], i) => (
+                  <NavLink key={path+i}
+                     className="nav-link" exact={false} to={path} isActive={(match, location) => {
+                        let homeChild = match!=null && homeUrls.includes(match.url);
+                        let atHome = homeUrls.includes(location.pathname);
+
+                        return (atHome && homeChild) || (!atHome && !homeChild);
+                     }}
+                  >{name}</NavLink>
                ))}
 
                <div className="nav-link theme-link" onClick={swapTheme}>

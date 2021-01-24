@@ -20,8 +20,13 @@ import '../../App.css';
 
 
 const innerPages = ['input', 'result', 'calculator'];
-const getPaths = () => innerPages.reduce((dict, page) => (
-  {...dict, [page]: toUrl(`/${page==='calculator' ? '' : page}`)}
+
+export const calcUrls = () => innerPages.map(page => (
+  toUrl(`/${page==='calculator' ? '' : page}`)
+));
+
+const getPaths = () => calcUrls().reduce((dict, url, i) => (
+  {...dict, [innerPages[i]]: url}
 ), {});
 
 

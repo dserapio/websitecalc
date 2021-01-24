@@ -141,7 +141,7 @@ export default function Input (props) {
       <section className="main">
          <h1>Find Out Material Yields</h1>
          <p>Enter in any electronic, and we'll breakdown what it's made of.</p>
-         <p>Click the "About" button for more help on how to use the calculator.</p>
+         <p>Click "About" for more help on how to use the calculator.</p>
 
          <form id="calc-input" onSubmit={submitInput} noValidate>
             {fieldNames.map((field, i) =>
