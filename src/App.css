@@ -356,7 +356,11 @@ section.main p {
 .nav-link:hover,
 .littlebox a:hover,
 section.main a:hover {
-  background-color: #909090;
+  background: linear-gradient(90deg,#266a09, #78c427);
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 button, .button {
